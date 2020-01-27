@@ -9,7 +9,7 @@ project(stop-bumper)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
-  ros.cpp
+  roscpp
 )
 
 ## System dependencies are found with CMake's conventions

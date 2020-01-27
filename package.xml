@@ -50,11 +50,11 @@
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>geometry_msgs</build_depend>
-  <build_depend>ros.cpp</build_depend>
+  <build_depend>roscpp</build_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
-  <build_export_depend>ros.cpp</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
   <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>ros.cpp</exec_depend>
+  <exec_depend>roscpp</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
