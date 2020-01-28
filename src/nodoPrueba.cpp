@@ -27,18 +27,18 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   ros::Subscriber sub = n.subscribe("/message", 1, messageCallback);
-  ros::Publisher num_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
+  ros::Publisher motor_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
   ros::Rate loop_rate(10);
 
-  int count=0;
-
   while (ros::ok())
   {
-    std_msgs::Int64 msg;
-    msg.data = count++;
+    geometry_msgs::Twist motor;
 
-    num_pub.publish(msg);
+    motor.linear = Vector3(0.2, 0, 0)
+    motor.angular = Vector3(0,  0, 0)
+
+    motor_pub.publish(motor);
 
     ros::spinOnce();
     loop_rate.sleep();
