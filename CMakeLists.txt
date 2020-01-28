@@ -3,14 +3,17 @@ project(stop-bumper)
 
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
+  std_msgs
   roscpp
+  roslint
 )
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES stop-bumper
-#  CATKIN_DEPENDS geometry_msgs ros.cpp
+  CATKIN_DEPENDS geometry_msgs roscpp
 #  DEPENDS system_lib
+  CATKIN_DEPENDS roscpp std_msgs
 )
 
 
