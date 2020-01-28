@@ -20,6 +20,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "num_publisher");
   ros::NodeHandle n;
 
+  ros::Subscriber sub = n.subscribe("/message", 1, messageCallback);
   ros::Publisher num_pub = n.advertise<std_msgs::Int64>("/message", 1);
 
   ros::Rate loop_rate(10);
