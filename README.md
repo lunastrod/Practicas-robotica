@@ -6,6 +6,7 @@ rostopic pub -r 5 /mobile_base/commands/velocity geometry_msgs/Twist "linear:
   y: 0.0
   z: 0.0
 
+cambios de D
 
 el comando para escuchar el bumper
 rostopic echo /mobile_base/events/bumper
