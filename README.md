@@ -8,6 +8,8 @@ rostopic pub -r 5 /mobile_base/commands/velocity geometry_msgs/Twist "linear:
 
 cambios de D2
 
+linea added
+
 el comando para escuchar el bumper
 rostopic echo /mobile_base/events/bumper
 
