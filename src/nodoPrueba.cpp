@@ -21,7 +21,7 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   ros::Subscriber sub = n.subscribe("/message", 1, messageCallback);
-  ros::Publisher num_pub = n.advertise<std_msgs::Int64>("/message", 1);
+  ros::Publisher num_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
   ros::Rate loop_rate(10);
 
