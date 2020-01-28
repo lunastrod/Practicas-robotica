@@ -31,12 +31,14 @@ int main(int argc, char **argv)
   ros::Publisher motor_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
   ros::Rate loop_rate(10);
-
+  bool bumper_pulsado=false;
   while (ros::ok())
   {
     geometry_msgs::Twist motor;
-
-    motor.linear.x = 0.1;
+    if(bumper_pulsado)
+      motor.linear.x = 0;
+    else
+      motor.linear.x = 0.1;
     motor.linear.y = 0;
     motor.linear.z = 0;
 
