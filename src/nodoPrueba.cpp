@@ -15,6 +15,7 @@
 #include "ros/ros.h"
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
+#include "geometry_msgs/Vector3.h"
 
 void messageCallback(const std_msgs::Int64::ConstPtr& msg)
 {
@@ -37,6 +38,8 @@ int main(int argc, char **argv)
 
     motor.linear = Vector3(0.2, 0, 0)
     motor.angular = Vector3(0,  0, 0)
+
+    msg.data = count++;
 
     motor_pub.publish(motor);
 
