@@ -10,5 +10,4 @@ el comando para escuchar el bumper
 rostopic echo /mobile_base/events/bumper
 
 
-
 Objetivo: hacer que el robot se pare cuando se haya pulsado el bumper
