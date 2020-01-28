@@ -15,6 +15,11 @@
 #include "ros/ros.h"
 #include "std_msgs/Int64.h"
 
+void messageCallback(const std_msgs::Int64::ConstPtr& msg)
+{
+  ROS_INFO("Data: [%ld]", msg->data);
+}
+
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "num_publisher");
