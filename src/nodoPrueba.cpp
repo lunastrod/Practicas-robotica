@@ -35,8 +35,6 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(10);
   while (ros::ok())
   {
-;
-
     geometry_msgs::Twist motor;
     if(bumper_pulsado)
       motor.linear.x = 0;
