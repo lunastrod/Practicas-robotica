@@ -28,7 +28,7 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   ros::Subscriber sub = n.subscribe("/message", 1, messageCallback);
-  ros::Publisher num_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
+  ros::Publisher motor_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
   ros::Rate loop_rate(10);
 
@@ -36,10 +36,14 @@ int main(int argc, char **argv)
   {
     geometry_msgs::Twist motor;
 
-    motor.linear = Vector3(0.2, 0, 0)
-    motor.angular = Vector3(0,  0, 0)
+    motor.linear.x = 0.1;
+    motor.linear.y = 0;
+    motor.linear.z = 0;
 
-    msg.data = count++;
+    motor.angular.x =0;
+    motor.angular.y =0;
+    motor.angular.z =0;
+
 
     motor_pub.publish(motor);
 
