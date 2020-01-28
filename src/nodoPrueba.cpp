@@ -17,9 +17,11 @@
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
 
-void messageCallback(const std_msgs::Int64::ConstPtr& msg)
-{
-  ROS_INFO("Data: [%ld]", msg->data);
+bool bumper_pulsado=false;
+
+void messageCallback(const geometry_msgs::Twist& msg){
+  if(msg.state==0) bumper_pulsado=false;
+  else bumper_pulsado=true;
 }
 
 int main(int argc, char **argv)
@@ -27,13 +29,14 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "num_publisher");
   ros::NodeHandle n;
 
-  ros::Subscriber sub = n.subscribe("/message", 1, messageCallback);
+  ros::Subscriber bumper = n.subscribe("/mobile_base/events/bumper", 1, messageCallback);
   ros::Publisher motor_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
   ros::Rate loop_rate(10);
-  bool bumper_pulsado=false;
   while (ros::ok())
   {
+;
+
     geometry_msgs::Twist motor;
     if(bumper_pulsado)
       motor.linear.x = 0;
@@ -48,7 +51,6 @@ int main(int argc, char **argv)
 
 
     motor_pub.publish(motor);
-
     ros::spinOnce();
     loop_rate.sleep();
   }
