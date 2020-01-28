@@ -16,10 +16,11 @@
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
+#include "kobuki_msgs/BumperEvent.h"
 
 bool bumper_pulsado=false;
 
-void messageCallback(const geometry_msgs::Twist& msg){
+void messageCallback(const kobuki_msgs::BumperEvent& msg){
   if(msg.state==0) bumper_pulsado=false;
   else bumper_pulsado=true;
 }
