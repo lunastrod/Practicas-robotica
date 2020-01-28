@@ -32,14 +32,16 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(10);
 
-  int count=0;
-
   while (ros::ok())
   {
+    geometry_msgs::Twist motor;
+
+    motor.linear = Vector3(0.2, 0, 0)
+    motor.angular = Vector3(0,  0, 0)
 
     msg.data = count++;
 
-    num_pub.publish(msg);
+    motor_pub.publish(motor);
 
     ros::spinOnce();
     loop_rate.sleep();
