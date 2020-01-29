@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include "ros/ros.h"
-#include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
 #include "kobuki_msgs/BumperEvent.h"
@@ -40,7 +39,7 @@ int main(int argc, char **argv)
     if(bumper_pulsado)
       motor.linear.x = 0;
     else
-      motor.linear.x = 0.1;
+      motor.linear.x = 0.2;
     motor.linear.y = 0;
     motor.linear.z = 0;
 

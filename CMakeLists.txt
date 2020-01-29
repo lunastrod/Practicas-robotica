@@ -23,5 +23,5 @@ include_directories(
 )
 
 
-add_executable(nodoPrueba src/nodoPrueba.cpp)
-target_link_libraries(nodoPrueba ${catkin_LIBRARIES})
+add_executable( stop-bumper src/stop-bumper-node.cpp)
+target_link_libraries( stop-bumper ${catkin_LIBRARIES})
