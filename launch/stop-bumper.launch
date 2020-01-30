@@ -1,0 +1,11 @@
+<launch>
+	<node pkg="stop-bumper" type="stop-bumper" name="stopBumper" output="screen"/>
+</launch>
+
+<!--
+qdasd
+-->
+
+
+<include file="$(find robots)/launch/sim.launch">
+</include>
