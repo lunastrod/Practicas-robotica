@@ -59,8 +59,8 @@ public:
       break;
 
     case TURNING:
-      cmd.linear.x = VELOCITY;
-      cmd.angular.z = 0.5;
+      motor.linear.x = VELOCITY;
+      motor.angular.z = 0.5;
 
       if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
       {
