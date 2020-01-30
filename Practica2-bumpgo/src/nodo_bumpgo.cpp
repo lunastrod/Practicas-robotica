@@ -34,7 +34,7 @@ public:
     switch (state_)
     {
     case GOING_FORWARD:
-      motor.linear.x = VELOCITY;
+      motor.linear.x = SPEED;
       motor.angular.z =0;
       if (pressed_)
       {
@@ -45,8 +45,8 @@ public:
       break;
 
     case GOING_BACK:
-      motor.linear.x = -VELOCITY;
-      motor.angular.z = 0.5;
+      motor.linear.x = - SPEED;
+      motor.angular.z = TURNING_SPEED;
 
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
@@ -57,8 +57,8 @@ public:
       break;
 
     case TURNING:
-      motor.linear.x = VELOCITY;
-      motor.angular.z = 0.5;
+      motor.linear.x = SPEED;
+      motor.angular.z = TURNING_SPEED;
 
       if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
       {
@@ -75,7 +75,8 @@ private:
   static const int GOING_FORWARD   = 0;
   static const int GOING_BACK   = 1;
   static const int TURNING     = 2;
-  const double VELOCITY = 0.1;
+  const double SPEED = 0.1;
+  const double TURNING_SPEED = 0.3;
 
   int state_;
   bool pressed_;
