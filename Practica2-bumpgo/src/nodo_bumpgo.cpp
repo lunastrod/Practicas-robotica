@@ -12,11 +12,12 @@ class BumpGo
 public:
   BumpGo(): state_(GOING_FORWARD), pressed_(false)
   {
-    // sub_bumber_ = n_.subscribe(...);
-    // pub_vel_ = n_.advertise<...>(...)
+    sub_bumber_ = n.subscribe("/mobile_base/events/bumper", 1, bumperCallback);
+    pub_vel_ =  n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
   }
 
-  void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
+
+  static void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
   {
     if(msg.state==0) pressed_=false;
     else pressed_=true;
@@ -79,7 +80,7 @@ private:
   static const int GOING_FORWARD   = 0;
   static const int GOING_BACK   = 1;
   static const int TURNING     = 2;
-  static const float VELOCITY = 0.1;
+  const double VELOCITY = 0.1;
 
   int state_;
   bool pressed_;
@@ -89,10 +90,9 @@ private:
 
   ros::NodeHandle n;
 
-  ros::Subscriber sub_bumber_ = n.subscribe("/mobile_base/events/bumper", 1, messageCallback);
-  ros::Publisher pub_vel_ = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
+  ros::Subscriber sub_bumber_;
+  ros::Publisher pub_vel_;
 };
-
 
 int main(int argc, char **argv)
 {
