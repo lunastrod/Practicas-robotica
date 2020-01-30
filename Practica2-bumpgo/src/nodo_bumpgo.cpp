@@ -34,6 +34,9 @@ public:
     // pressed_ = (...);
 
     //  ...
+
+    if(msg.state==0) pressed_=false;
+    else pressed_=true;
   }
 
   void step()
