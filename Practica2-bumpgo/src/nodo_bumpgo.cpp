@@ -13,7 +13,7 @@ public:
   BumpGo(): state_(GOING_FORWARD), pressed_(false)
   {
     ros::NodeHandle n_;
-    sub_bumber_ = n.subscribe("/mobile_base/events/bumper", 1, bumperCallback, this);
+    sub_bumber_ = n.subscribe("/mobile_base/events/bumper", 1, &BumpGo::bumperCallback, this);
     pub_vel_ =  n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
   }
 
