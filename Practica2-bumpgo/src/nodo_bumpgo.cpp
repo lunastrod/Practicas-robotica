@@ -43,16 +43,16 @@ public:
   void step()
   {
     geometry_msgs::Twist cmd;
+    motor.linear.y = 0;
+    motor.linear.z = 0;
+    motor.angular.x =0;
+    motor.angular.y =0;
 
     switch (state_)
     {
     case GOING_FORWARD:
-      motor.linear.x = 0.1;
-      motor.linear.y = 0;
-      motor.linear.z = 0;
+      motor.linear.x = VELOCITY;
 
-      motor.angular.x =0;
-      motor.angular.y =0;
       motor.angular.z =0;
       if (pressed_)
       {
@@ -63,11 +63,10 @@ public:
       break;
 
     case GOING_BACK:
-      // cmd.linear.x = ...;
-      // cmd.angular.z = ...;
-      motor.linear.x = -0.1;
 
-      motor.angular.z = 0.5;
+      cmd.linear.x = -VELOCITY;
+      cmd.angular.z = 0.5;
+
 
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
@@ -78,8 +77,8 @@ public:
       break;
 
     case TURNING:
-      // cmd.linear.x = ...;
-      // cmd.angular.z = ...;
+      cmd.linear.x = VELOCITY;
+      cmd.angular.z = 0.5;
       if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
       {
         state_ = GOING_FORWARD;
@@ -97,6 +96,7 @@ private:
   static const int GOING_FORWARD   = 0;
   static const int GOING_BACK   = 1;
   static const int TURNING     = 2;
+  static const float VELOCITY = 0.1;
 
   int state_;
 
