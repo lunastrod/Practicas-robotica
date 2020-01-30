@@ -63,8 +63,10 @@ public:
       break;
 
     case GOING_BACK:
+
       cmd.linear.x = -VELOCITY;
-      cmd.angular.z = 0;
+      cmd.angular.z = 0.5;
+
 
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
