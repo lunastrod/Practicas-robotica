@@ -1,4 +1,4 @@
-# stop-bumper
+stop-bumper
 
 el comando para mover el robot
 rostopic pub -r 5 /mobile_base/commands/velocity geometry_msgs/Twist "linear:

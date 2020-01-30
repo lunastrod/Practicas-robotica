@@ -1,0 +1,8 @@
+
+
+
+  ver velocidad
+rostopic echo /mobile_base/commands/velocity
+
+  simular eventos de bumper
+rostopic pub mobile_base/events/bumper kobuki_msgs/BumperEvent
