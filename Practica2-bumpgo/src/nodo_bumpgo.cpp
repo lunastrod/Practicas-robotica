@@ -17,7 +17,7 @@ public:
   }
 
 
-  static void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
+  void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg)
   {
     if(msg.state==0) pressed_=false;
     else pressed_=true;
