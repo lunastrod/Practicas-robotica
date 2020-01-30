@@ -16,6 +16,7 @@
 
 #include "kobuki_msgs/BumperEvent.h"
 #include "geometry_msgs/Twist.h"
+#include "geometry_msgs/Vector3.h"
 
 #define TURNING_TIME 5.0
 #define BACKING_TIME 3.0
@@ -43,8 +44,13 @@ public:
     switch (state_)
     {
     case GOING_FORWARD:
-      // cmd.linear.x = ...;
-      // cmd.angular.z = ...;
+      motor.linear.x = 0.1;
+      motor.linear.y = 0;
+      motor.linear.z = 0;
+
+      motor.angular.x =0;
+      motor.angular.y =0;
+      motor.angular.z =0;
       if (pressed_)
       {
         press_ts_ = ros::Time::now();
