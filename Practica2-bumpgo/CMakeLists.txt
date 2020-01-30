@@ -15,9 +15,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(nodo_bumpgo src/nodo_bumpgo.cpp)
+add_executable(nodo-bumpgo src/nodo_bumpgo.cpp)
 
-target_link_libraries(nodo_bumpgo ${catkin_LIBRARIES})
+target_link_libraries(nodo-bumpgo ${catkin_LIBRARIES})
 
 
 roslint_cpp(
