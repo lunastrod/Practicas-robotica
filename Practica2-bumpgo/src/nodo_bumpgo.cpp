@@ -66,12 +66,9 @@ public:
       // cmd.linear.x = ...;
       // cmd.angular.z = ...;
       motor.linear.x = -0.1;
-      motor.linear.y = 0;
-      motor.linear.z = 0;
 
-      motor.angular.x =0;
-      motor.angular.y =0;
-      motor.angular.z =0;
+      motor.angular.z = 0.5;
+
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
         turn_ts_ = ros::Time::now();
