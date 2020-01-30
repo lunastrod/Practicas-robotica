@@ -26,7 +26,7 @@ void messageCallback(const kobuki_msgs::BumperEvent& msg){
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "stop-bumper");
+  ros::init(argc, argv, "stopBumper");
   ros::NodeHandle n;
 
   ros::Subscriber bumper = n.subscribe("/mobile_base/events/bumper", 1, messageCallback);
