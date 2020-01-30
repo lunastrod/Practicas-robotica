@@ -87,8 +87,10 @@ private:
   ros::Time press_ts_;
   ros::Time turn_ts_;
 
-  ros::Subscriber sub_bumber_;
-  ros::Publisher pub_vel_;
+  ros::NodeHandle n;
+
+  ros::Subscriber sub_bumber_ = n.subscribe("/mobile_base/events/bumper", 1, messageCallback);
+  ros::Publisher pub_vel_ = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 };
 
 
