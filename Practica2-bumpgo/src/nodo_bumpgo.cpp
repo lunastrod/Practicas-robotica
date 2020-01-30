@@ -46,8 +46,8 @@ public:
 
     case GOING_BACK:
       motor.linear.x = - SPEED;
-      //motor.angular.z = TURNING_SPEED;
-      motor.angular.z =0;
+      motor.angular.z = TURNING_SPEED;
+      //motor.angular.z =0;
 
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
