@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>bump-go</name>
+  <name>practica2-bumpgo</name>
   <version>0.0.0</version>
   <description>The bump and go package</description>
 

@@ -1,5 +1,6 @@
-
-
+  ejecutar:
+roslaunch kobuki_node minimal.launch
+rosrun practica2-bumpgo bumpgo
 
   ver velocidad
 rostopic echo /mobile_base/commands/velocity

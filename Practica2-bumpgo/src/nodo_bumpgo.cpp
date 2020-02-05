@@ -4,7 +4,7 @@
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
 
-#define TURNING_TIME 5.0
+#define TURNING_TIME 4.0
 #define BACKING_TIME 3.0
 
 class BumpGo
@@ -47,7 +47,6 @@ public:
     case GOING_BACK:
       motor.linear.x = - SPEED;
       motor.angular.z = 0;
-      //motor.angular.z =0;
 
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
       {
