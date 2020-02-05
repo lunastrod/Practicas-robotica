@@ -35,7 +35,7 @@ public:
     {
     case GOING_FORWARD:
       motor.linear.x = SPEED;
-      motor.angular.z =0;
+      motor.angular.z = 0;
       if (pressed_)
       {
         press_ts_ = ros::Time::now();
@@ -46,7 +46,7 @@ public:
 
     case GOING_BACK:
       motor.linear.x = - SPEED;
-      motor.angular.z = TURNING_SPEED;
+      motor.angular.z = 0;
       //motor.angular.z =0;
 
       if ((ros::Time::now() - press_ts_).toSec() > BACKING_TIME )
@@ -58,7 +58,7 @@ public:
       break;
 
     case TURNING:
-      motor.linear.x = SPEED;
+      motor.linear.x = 0;
       motor.angular.z = TURNING_SPEED;
 
       if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
