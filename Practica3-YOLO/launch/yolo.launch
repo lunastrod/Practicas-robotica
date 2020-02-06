@@ -1,0 +1,3 @@
+<launch>
+  <node name="yolo" pkg="practica3-yolo" type="yolo" />
+</launch>
