@@ -7,7 +7,7 @@ red neuronal decide si se mueve o no
 
 
 camara decide hacia donde se gira
-
+sudo apt install ros-melodic-uvc-camera
 
 
 laser decide velocidad lineal
