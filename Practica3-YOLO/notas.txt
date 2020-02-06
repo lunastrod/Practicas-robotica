@@ -1,3 +1,6 @@
+para ejecutar:
+roslaunch practica3-yolo yolo.launch
+
 ##cuda##
 https://developer.nvidia.com/cuda-toolkit
 para compilar usando las optimizaciones de la GPU:
