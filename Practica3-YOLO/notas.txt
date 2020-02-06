@@ -1,13 +1,18 @@
+cuda
+https://developer.nvidia.com/cuda-toolkit
+para compilar usando las optimizaciones de la GPU:
+catkin_make -DCMAKE_BUILD_TYPE=Release
+
+
+red neuronal
+decide si se mueve o no
 https://github.com/leggedrobotics/darknet_ros.git
 
-cuda https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 
-red neuronal decide si se mueve o no
-
-
-
-camara decide hacia donde se gira
+camara
+decide hacia donde se gira
 sudo apt install ros-melodic-uvc-camera
 
 
-laser decide velocidad lineal
+laser
+decide velocidad lineal
