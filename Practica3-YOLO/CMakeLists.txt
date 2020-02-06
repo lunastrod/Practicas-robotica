@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 catkin_package(
-CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs
+CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs darknet_ros_msgs darknet_ros
 )
 
 include_directories(
