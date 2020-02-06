@@ -7,6 +7,12 @@
 #define TURNING_TIME 4.0
 #define BACKING_TIME 3.0
 
+enum{
+  RIGHT_BUMPER=2,
+  CENTER_BUMPER=1,
+  LEFT_BUMPER=0
+};
+
 class BumpGo
 {
 public:
@@ -19,8 +25,13 @@ public:
 
   void bumperCallback(const kobuki_msgs::BumperEvent& msg)
   {
-    if(msg.state==0) pressed_=false;
-    else pressed_=true;
+    if(msg.state==0){
+      pressed_=false;
+    }
+    else{
+      pressed_=true;
+      bumper_pressed_=msg.bumper;
+    }
   }
 
   void step()
@@ -58,7 +69,13 @@ public:
 
     case TURNING:
       motor.linear.x = 0;
-      motor.angular.z = TURNING_SPEED;
+
+      if(bumper_pressed_ == RIGHT_BUMPER){
+        motor.angular.z = TURNING_SPEED;
+      }
+      else{
+        motor.angular.z = -TURNING_SPEED;
+      }
 
       if ((ros::Time::now()-turn_ts_).toSec() > TURNING_TIME )
       {
@@ -75,10 +92,11 @@ private:
   static const int GOING_FORWARD   = 0;
   static const int GOING_BACK   = 1;
   static const int TURNING     = 2;
-  const double SPEED = 0.1;
-  const double TURNING_SPEED = 0.3;
+  const double SPEED = 0.2;
+  const double TURNING_SPEED = 0.5;
 
   int state_;
+  int bumper_pressed_;
   bool pressed_;
 
   ros::Time press_ts_;
