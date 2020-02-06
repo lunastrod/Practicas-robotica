@@ -1,18 +1,21 @@
-cuda
+##cuda##
 https://developer.nvidia.com/cuda-toolkit
 para compilar usando las optimizaciones de la GPU:
 catkin_make -DCMAKE_BUILD_TYPE=Release
 
 
-red neuronal
+##red neuronal darknet##
 decide si se mueve o no
 https://github.com/leggedrobotics/darknet_ros.git
+ficheros de configuracion:
+    catkin_workspace/src/darknet_ros/darknet_ros/config/
 
 
-camara
+
+##camara##
 decide hacia donde se gira
 sudo apt install ros-melodic-uvc-camera
 
 
-laser
+##laser##
 decide velocidad lineal
