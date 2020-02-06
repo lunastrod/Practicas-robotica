@@ -1,6 +1,13 @@
 https://github.com/leggedrobotics/darknet_ros.git
 
+cuda https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
+
 red neuronal decide si se mueve o no
 
+
+
 camara decide hacia donde se gira
+
+
+
 laser decide velocidad lineal
