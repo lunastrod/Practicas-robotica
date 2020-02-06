@@ -1,1 +1,6 @@
 https://github.com/leggedrobotics/darknet_ros.git
+
+red neuronal decide si se mueve o no
+
+camara decide hacia donde se gira
+laser decide velocidad lineal
