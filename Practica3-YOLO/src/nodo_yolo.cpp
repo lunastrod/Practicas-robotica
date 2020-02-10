@@ -3,6 +3,9 @@
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
 #include "sensor_msgs/LaserScan.h"
+#include "sensor_msgs/CameraInfo.h"
+
+
 //TODO: estos 2 dan problemas
 //#include "darknet_ros_msgs/BoundingBoxes.h"
 //#include "darknet_ros_msgs/BoundingBox.h"
@@ -16,11 +19,25 @@ public:
     //TODO: tampoco estoy seguro de que sea /bounding_boxes
     //aun no funciona, resolver el TODO de los includes
     //sub_objetos_= n_.subscribe("/bounding_boxes", 1, &Robot::boxesCallBack, this);
+    //sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &Robot::boxesCallBack, this);
+    sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &Robot::cameraCallBack, this);
+    //Para comprobar las dimensiones de las imagenes, con llamar una vez al principio vale
 
     pub_vel_    = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
   }
   void laserCallBack(const sensor_msgs::LaserScan& msg){
     //TODO:cuando se reciba un mensaje laser (rellenar esta funcion)
+    distancia = msg.intensities[180];
+  }
+
+  /*void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
+    if(msg.class=="person"){
+    }
+  }*/
+
+  void cameraCallBack(const sensor_msgs::CameraInfo& msg){
+    image_height = msg.height;
+    image_width = msg.width;
   }
   /*//aun no funciona, hay que resolver el TODO de los include
   void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
@@ -57,11 +74,16 @@ public:
     */
     pub_vel_.publish(motor);
   }
+
 private:
   const double SPEED = 0.2;
   const double TURNING_SPEED = 0.5;
+  int image_height;
+  int image_width;
+  int distancia;
   ros::Subscriber sub_objetos_;
   ros::Subscriber sub_laser_;
+  ros::Subscriber sub_camera_;
   ros::Publisher pub_vel_;
 };
 
