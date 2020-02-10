@@ -4,10 +4,10 @@
 #include "geometry_msgs/Vector3.h"
 #include "sensor_msgs/LaserScan.h"
 #include "sensor_msgs/CameraInfo.h"
-
+#include "darknet_ros_msgs/BoundingBoxes.h"
 
 //TODO: estos 2 dan problemas
-//#include "darknet_ros_msgs/BoundingBoxes.h"
+
 //#include "darknet_ros_msgs/BoundingBox.h"
 
 class Robot{
@@ -30,10 +30,10 @@ public:
     distancia = msg.intensities[180];
   }
 
-  /*void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
-    if(msg.class=="person"){
-    }
-  }*/
+  void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
+    /*if(msg.class=="person"){
+    }*/
+  }
 
   void cameraCallBack(const sensor_msgs::CameraInfo& msg){
     image_height = msg.height;
