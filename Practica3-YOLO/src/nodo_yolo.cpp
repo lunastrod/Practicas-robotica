@@ -28,20 +28,22 @@ public:
   void laserCallBack(const sensor_msgs::LaserScan& msg){
     //TODO:cuando se reciba un mensaje laser (rellenar esta funcion)
     distancia = msg.intensities[180];
+    //printf("%lf\n",msg.intensities[180]);
   }
 
 
   void cameraCallBack(const sensor_msgs::CameraInfo& msg){
-    image_height = msg.height;
+    //image_height = msg.height;
     image_width = msg.width;
   }
 
   //aun no funciona, hay que resolver el TODO de los include
   void boxesCallBack(const darknet_ros_msgs::BoundingBox& msg){
     //TODO:cuando se reciba un mensaje de bounding_boxes (rellenar esta funcion)
-    //if(msg.class.compare("chair")){
-
-      printf("%d",msg.xmin);
+    //if(msg.Class.compare("chair")){
+      //centrox = (msg.xmin + msg.xmax) / 2;
+      //printf("%d",msg.Class.compare("chair"));
+    //}//printf("%d",msg.xmin);
 
   }
 
@@ -52,36 +54,40 @@ public:
     motor.linear.z = 0;
     motor.angular.x =0;
     motor.angular.y =0;
-    /*
-    PSEUDOCODIGO
-    if (darknet no recibe ninguna persona){
+
+    //PSEUDOCODIGO
+    /*if (darknet no recibe ninguna persona){
       return //no te muevas
-    }
-    if (laser == demasiado cerca) {
+    }*/
+    if (distancia <= 0.80) {
       motor.linear.x = -SPEED;//hacia detrás
     }
-    else{
+    else if(distancia >= 1.20){
       motor.linear.x = SPEED;//hacia delante
     }
-    if(persona a la derecha de la camara){
+    else{
+      motor.linear.x = 0;
+    }
+    if(media <= image_width/3){
       motor.angular.z = -TURNING_SPEED;//gira a la derecha
     }
-    else if(persona a la izquierda de la camara){
+    else if(media >= (image_width/3)*2){
       motor.angular.z = TURNING_SPEED;//gira a la izquierda
     }
     else{
       motor.angular.z = 0;//no gires
     }
-    */
-    pub_vel_.publish(motor);
+
+    //pub_vel_.publish(motor);
   }
 
 private:
   const double SPEED = 0.2;
   const double TURNING_SPEED = 0.5;
-  int image_height;
+  //int image_height;
   int image_width;
   int distancia;
+  int centrox;
   ros::Subscriber sub_objetos_;
   ros::Subscriber sub_laser_;
   ros::Subscriber sub_camera_;
