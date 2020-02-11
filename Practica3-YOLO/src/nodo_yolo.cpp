@@ -4,7 +4,7 @@
 #include "geometry_msgs/Vector3.h"
 #include "sensor_msgs/LaserScan.h"
 #include "sensor_msgs/CameraInfo.h"
-#include "darknet_ros_msgs/BoundingBoxes.h"
+#include "darknet_ros_msgs/BoundingBox.h"
 
 //TODO: estos 2 dan problemas
 
@@ -19,7 +19,7 @@ public:
     //TODO: tampoco estoy seguro de que sea /bounding_boxes
     //aun no funciona, resolver el TODO de los includes
     //sub_objetos_= n_.subscribe("/bounding_boxes", 1, &Robot::boxesCallBack, this);
-    //sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &Robot::boxesCallBack, this);
+    sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &Robot::boxesCallBack, this);
     sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &Robot::cameraCallBack, this);
     //Para comprobar las dimensiones de las imagenes, con llamar una vez al principio vale
 
@@ -30,20 +30,21 @@ public:
     distancia = msg.intensities[180];
   }
 
-  void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
-    /*if(msg.class=="person"){
-    }*/
-  }
 
   void cameraCallBack(const sensor_msgs::CameraInfo& msg){
     image_height = msg.height;
     image_width = msg.width;
   }
-  /*//aun no funciona, hay que resolver el TODO de los include
-  void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
+
+  //aun no funciona, hay que resolver el TODO de los include
+  void boxesCallBack(const darknet_ros_msgs::BoundingBox& msg){
     //TODO:cuando se reciba un mensaje de bounding_boxes (rellenar esta funcion)
+    //if(msg.class.compare("chair")){
+
+      printf("%d",msg.xmin);
+
   }
-  */
+
   void step(){
     //Funcion que se ejecuta a cada pasada del bucle en main
     geometry_msgs::Twist motor;
