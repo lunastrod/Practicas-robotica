@@ -27,7 +27,7 @@ public:
   }
   void laserCallBack(const sensor_msgs::LaserScan& msg){
     //TODO:cuando se reciba un mensaje laser (rellenar esta funcion)
-    distancia = msg.intensities[180];
+    distancia = msg.ranges[180];
     //printf("%lf\n",msg.intensities[180]);
   }
 
@@ -68,10 +68,10 @@ public:
     else{
       motor.linear.x = 0;
     }
-    if(media <= image_width/3){
+    if(centrox <= image_width/3){
       motor.angular.z = -TURNING_SPEED;//gira a la derecha
     }
-    else if(media >= (image_width/3)*2){
+    else if(centrox >= (image_width/3)*2){
       motor.angular.z = TURNING_SPEED;//gira a la izquierda
     }
     else{
