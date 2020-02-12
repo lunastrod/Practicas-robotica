@@ -1,5 +1,5 @@
 stop-bumper
-
+rosrun kobuki_ftdi create_udev_rules
 el comando para mover el robot
 rostopic pub -r 5 /mobile_base/commands/velocity geometry_msgs/Twist "linear:
   x: 0.3

@@ -4,7 +4,7 @@
 #include "geometry_msgs/Vector3.h"
 #include "sensor_msgs/LaserScan.h"
 #include "sensor_msgs/CameraInfo.h"
-#include "darknet_ros_msgs/BoundingBox.h"
+#include "darknet_ros_msgs/BoundingBoxes.h"
 
 //TODO: estos 2 dan problemas
 
@@ -27,7 +27,8 @@ public:
   }
   void laserCallBack(const sensor_msgs::LaserScan& msg){
     //TODO:cuando se reciba un mensaje laser (rellenar esta funcion)
-    distancia = msg.ranges[180];
+    distancia = msg.ranges[0];
+    printf("ranges: %lf\n",msg.ranges[180]);
     //printf("%lf\n",msg.intensities[180]);
   }
 
@@ -38,12 +39,19 @@ public:
   }
 
   //aun no funciona, hay que resolver el TODO de los include
-  void boxesCallBack(const darknet_ros_msgs::BoundingBox& msg){
+  void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
     //TODO:cuando se reciba un mensaje de bounding_boxes (rellenar esta funcion)
-    //if(msg.Class.compare("chair")){
-      //centrox = (msg.xmin + msg.xmax) / 2;
+    persona_detectada_ = false;
+    if(!msg.bounding_boxes[0].Class.compare("person")){
+      centrox = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2;
       //printf("%d",msg.Class.compare("chair"));
-    //}//printf("%d",msg.xmin);
+      persona_detectada_ = true;
+      /*ROS_INFO("person");
+    } else {
+      ROS_INFO("not person");*/
+    }
+    //printf("xMax: %ld\n",msg.bounding_boxes[0].xmax);
+    //ROS_INFO(msg.bounding_boxes[0].xmax);
 
   }
 
@@ -56,9 +64,12 @@ public:
     motor.angular.y =0;
 
     //PSEUDOCODIGO
-    /*if (darknet no recibe ninguna persona){
-      return //no te muevas
-    }*/
+    if (!persona_detectada_){
+      motor.angular.z = 0;
+      motor.linear.x = 0;
+      pub_vel_.publish(motor);
+      return; //no te muevas
+    }
     if (distancia <= 0.80) {
       motor.linear.x = -SPEED;//hacia detrás
     }
@@ -69,25 +80,25 @@ public:
       motor.linear.x = 0;
     }
     if(centrox <= image_width/3){
-      motor.angular.z = -TURNING_SPEED;//gira a la derecha
+      motor.angular.z = TURNING_SPEED;//gira a la derecha
     }
     else if(centrox >= (image_width/3)*2){
-      motor.angular.z = TURNING_SPEED;//gira a la izquierda
+      motor.angular.z = -TURNING_SPEED;//gira a la izquierda
     }
     else{
       motor.angular.z = 0;//no gires
     }
 
-    //pub_vel_.publish(motor);
+    pub_vel_.publish(motor);
   }
 
 private:
   const double SPEED = 0.2;
   const double TURNING_SPEED = 0.5;
-  //int image_height;
-  int image_width;
-  int distancia;
+  int image_width = 640;
+  int distancia = 1;
   int centrox;
+  bool persona_detectada_ = false;
   ros::Subscriber sub_objetos_;
   ros::Subscriber sub_laser_;
   ros::Subscriber sub_camera_;
