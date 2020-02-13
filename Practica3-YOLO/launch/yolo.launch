@@ -1,3 +1,4 @@
 <launch>
+  <!--<include file="$(find proyecto)ruta/fichero.launch" />-->
   <node name="yolo" pkg="practica3-yolo" type="yolo" />
 </launch>
