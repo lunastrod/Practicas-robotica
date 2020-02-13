@@ -23,3 +23,4 @@ sudo apt install ros-melodic-uvc-camera
 ##laser##
 decide velocidad lineal
 sudo apt install ros-melodic-rplidar-ros
+sudo chmod 777 /dev/*lo que salga

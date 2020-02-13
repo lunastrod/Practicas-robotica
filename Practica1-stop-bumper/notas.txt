@@ -24,4 +24,3 @@ rostopic echo /mobile_base/commands/velocity
 COMANDOS PARA CONECTARSE AL KOBUKI (creo)
 sudo apt-get install ros-melodic-kobuki-ftdi
 rosrun kobuki_ftdi create_udev_rules
-sudo chmod 777 /dev/*lo que salga

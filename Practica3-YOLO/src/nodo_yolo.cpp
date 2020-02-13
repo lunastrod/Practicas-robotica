@@ -6,9 +6,6 @@
 #include "sensor_msgs/CameraInfo.h"
 #include "darknet_ros_msgs/BoundingBoxes.h"
 
-//TODO: estos 2 dan problemas
-
-//#include "darknet_ros_msgs/BoundingBox.h"
 
 class Robot{
 public:
