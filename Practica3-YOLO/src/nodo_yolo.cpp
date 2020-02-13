@@ -24,8 +24,11 @@ public:
   }
   void laserCallBack(const sensor_msgs::LaserScan& msg){
     //TODO:cuando se reciba un mensaje laser (rellenar esta funcion)
-    distancia = msg.ranges[sizeof(msg.ranges)/2];
-    //printf("ranges: %lf\n",msg.ranges[180]);
+    double temp = msg.ranges[sizeof(msg.ranges)/sizeof(double)/2];
+    if(temp<=20.0){
+      distancia = temp;
+    }
+    //printf("ranges: %lf\n",distancia);
     //printf("%lf\n",msg.intensities[180]);
   }
 
@@ -61,37 +64,57 @@ public:
     motor.angular.y =0;
 
     //PSEUDOCODIGO
+    ROS_INFO("%lf\n",distancia);
     if (!persona_detectada_){
       motor.angular.z = 0;
       motor.linear.x = 0;
       pub_vel_.publish(motor);
       return; //no te muevas
     }
-    if (distancia <= 0.80) {
+    if (distancia <= DIST_MIN) {
+      ROS_INFO("demasiado cerca: %lf\n",distancia);
       motor.linear.x = -SPEED;//hacia detrás
     }
-    else if(distancia >= 1.20){
+    else if(distancia >= DIST_MAX){
+      ROS_INFO("demasiado lejos: %lf\n",distancia);
       motor.linear.x = SPEED;//hacia delante
     }
     else{
+      ROS_INFO("estoy bien: %lf\n",distancia);
       motor.linear.x = 0;
     }
     if(centrox <= image_width/3){
       motor.angular.z = TURNING_SPEED;//gira a la derecha
+      motor.linear.x = 0;
     }
     else if(centrox >= (image_width/3)*2){
       motor.angular.z = -TURNING_SPEED;//gira a la izquierda
+      motor.linear.x = 0;
     }
     else{
       motor.angular.z = 0;//no gires
+      if (distancia <= DIST_MIN) {
+        ROS_INFO("demasiado cerca: %lf\n",distancia);
+        motor.linear.x = -SPEED;//hacia detrás
+      }
+      else if(distancia >= DIST_MAX){
+        ROS_INFO("demasiado lejos: %lf\n",distancia);
+        motor.linear.x = SPEED;//hacia delante
+      }
+      else{
+        ROS_INFO("estoy bien: %lf\n",distancia);
+        motor.linear.x = 0;
+      }
     }
 
     pub_vel_.publish(motor);
   }
 
 private:
-  const double SPEED = 0.2;
-  const double TURNING_SPEED = 0.2;
+  const double DIST_MIN = 0.7;
+  const double DIST_MAX = 1.5;
+  const double SPEED = 0.1;
+  const double TURNING_SPEED = 0.3;
   int image_width = 640;
   double distancia = 1;
   int centrox;
@@ -110,6 +133,7 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
     robot.step();
+    printf("Main\n");
     ros::spinOnce();
     loop_rate.sleep();
   }
