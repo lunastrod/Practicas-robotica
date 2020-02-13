@@ -24,8 +24,8 @@ public:
   }
   void laserCallBack(const sensor_msgs::LaserScan& msg){
     //TODO:cuando se reciba un mensaje laser (rellenar esta funcion)
-    distancia = msg.ranges[0];
-    printf("ranges: %lf\n",msg.ranges[180]);
+    distancia = msg.ranges[sizeof(msg.ranges)/2];
+    //printf("ranges: %lf\n",msg.ranges[180]);
     //printf("%lf\n",msg.intensities[180]);
   }
 
@@ -93,7 +93,7 @@ private:
   const double SPEED = 0.2;
   const double TURNING_SPEED = 0.5;
   int image_width = 640;
-  int distancia = 1;
+  double distancia = 1;
   int centrox;
   bool persona_detectada_ = false;
   ros::Subscriber sub_objetos_;
