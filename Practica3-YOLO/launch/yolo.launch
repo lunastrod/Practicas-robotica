@@ -1,4 +1,8 @@
 <launch>
   <!--<include file="$(find proyecto)ruta/fichero.launch" />-->
+  <include file="$(find kobuki_node)/launch/minimal.launch" />
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+  <include file="$(find astra_camera)/launch/astra.launch" />
+  <include file="$(find darknet_ros)launch/darknet_ros.launch" />
   <node name="yolo" pkg="practica3-yolo" type="yolo" />
 </launch>

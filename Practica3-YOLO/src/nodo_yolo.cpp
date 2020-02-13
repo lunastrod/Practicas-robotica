@@ -91,7 +91,7 @@ public:
 
 private:
   const double SPEED = 0.2;
-  const double TURNING_SPEED = 0.5;
+  const double TURNING_SPEED = 0.2;
   int image_width = 640;
   double distancia = 1;
   int centrox;
