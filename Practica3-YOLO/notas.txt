@@ -18,6 +18,7 @@ ficheros de configuracion:
 ##camara##
 decide hacia donde se gira
 sudo apt install ros-melodic-uvc-camera
+http://wiki.ros.org/astra_camera
 
 
 ##laser##
