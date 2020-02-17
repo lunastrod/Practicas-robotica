@@ -10,7 +10,7 @@ Launches:
 
 -----Crear Mapa
 roslaunch navigation slam_mapping.launch       -> hacer mapa
-rosrun map_server map_saver                    -> guardar mapa
+rosrun map_server map_saver                    -> guardar mapa en la ubicacion del terminal
 
 fichero map.yaml                  -> configuracion del map_saver
 
