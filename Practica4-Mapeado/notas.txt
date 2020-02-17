@@ -1,0 +1,24 @@
+Launches:
+
+-----Crear Mapa
+roslaunch navigation slam_mapping.Launches        -> hacer mapa
+rosrun map_saver map_saver                        -> guardar mapa
+
+fichero map.yaml      -> configuracion del map_saver
+
+
+------Navegacion
+En rviz añadir /map
+
+roslaunch navigation localization.launch
+
+add pose_array //Para el filtro de particulas
+
+roslaunch navigation navigation.launch
+
+
+topic: local / global
+
+dwa localplaner -> conf -> velocidades, etc
+
+constmap_common_params.yaml -> ancho de paredes
