@@ -5,6 +5,8 @@ sudo apt-get install ros-melodic-map-server
 sudo apt-get install ros-melodic-amcl
 
 sudo apt-get install ros-melodic-octomap-server
+sudo apt-get install ros-melodic-dwa-local-planner
+
 
 Launches:
 
