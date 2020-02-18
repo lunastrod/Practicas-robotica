@@ -32,3 +32,9 @@ topic: local / global
 dwa localplaner -> conf -> velocidades, etc
 
 constmap_common_params.yaml -> ancho de paredes
+
+------Instrucciones meter mapa:
+
+En el launcher navegacion.launch poner la ruta del .yaml del mapa
+En el .yaml del mapa asegurarse de que está bien puesto el nombre del .pgm
+Copiar el .yaml y el .pgm en navigation/maps/
