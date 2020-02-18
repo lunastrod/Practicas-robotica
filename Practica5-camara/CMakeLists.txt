@@ -5,10 +5,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   roslint
+  tf
 )
 
 catkin_package(
-CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs
+CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs tf
 )
 
 include_directories(
