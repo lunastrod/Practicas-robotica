@@ -9,8 +9,8 @@ class camera{
 public:
   camera(){
     ros::NodeHandle n_;
-    sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &Robot::boxesCallBack, this);
-    sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &Robot::cameraCallBack, this);
+    sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &camara::boxesCallBack, this);
+    sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &camara::cameraCallBack, this);
 
   }
   void cameraCallBack(const sensor_msgs::CameraInfo& msg){
