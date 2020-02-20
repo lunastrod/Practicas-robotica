@@ -1,0 +1,14 @@
+<launch>
+  <!--<include file="$(find proyecto)ruta/fichero.launch" />-->
+  <!--
+  <include file="$(find kobuki_node)/launch/minimal.launch" />
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+  <include file="$(find astra_camera)/launch/astra.launch" />
+  <include file="$(find darknet_ros)/launch/darknet_ros.launch" />
+  -->
+  <node name="nodo_camera"      pkg="cameras_cpp"      type="nodo_camera" />
+  <node name="nodo_rgbd_filter" pkg="cameras_cpp"      type="nodo_rgbd_filter" />
+  <node name="nodo_rgbd_tf"     pkg="cameras_cpp"      type="nodo_rgbd_tf" />
+  <node name="gototf"           pkg="practica5-camara" type="gototf" output="screen"/>
+
+</launch>
