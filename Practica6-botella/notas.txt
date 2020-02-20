@@ -1,0 +1,6 @@
+//filtra la imagen con hsv
+rosrun cameras_cpp nodo_camera
+//publica una imagen rgbd en /cloud_filtered/0 aplicando el filtro de nodo_camera
+rosrun cameras_cpp nodo_rgbd_filter
+//publica una trasformada en /object/0 al centro de la imagen de nodo_rgbd_filter
+rosrun cameras_cpp nodo_rgbd_tf
