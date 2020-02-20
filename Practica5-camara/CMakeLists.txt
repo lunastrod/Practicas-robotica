@@ -6,10 +6,12 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   roslint
   tf
+  darknet_ros_msgs
+  darknet_ros
 )
 
 catkin_package(
-CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs tf
+CATKIN_DEPENDS roscpp std_msgs kobuki_msgs sensor_msgs tf darknet_ros_msgs darknet_ros
 )
 
 include_directories(
