@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
   roslint
   tf
   darknet_ros
+  sensor_msgs
 )
 
 catkin_package(

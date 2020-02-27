@@ -5,20 +5,20 @@
 //#include "actionlib/client/simple_action_server.h"
 #include "sensor_msgs/CameraInfo.h"
 #include "darknet_ros_msgs/BoundingBoxes.h"
+#include "sensor_msgs/PointCloud2.h"
+
+///camera/depth_registered/points
+//Type: sensor_msgs/PointCloud2
+
 
 class camara{
 public:
   camara(){
     ros::NodeHandle n_;
     sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &camara::boxesCallBack, this);
-    //sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &camara::cameraCallBack, this);
+    sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &Robot::cameraCallBack, this);
+    sub_point_cloud_ = n_.subscribe("/camera/depth_registered/points",1,&pointcloudCallBack,this);
   }
-  /*
-  void cameraCallBack(const sensor_msgs::CameraInfo& msg){
-    image_width = msg.width;
-    image_height = msg.height;
-  }
-  */
   void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
     objeto_detectado_ = false;
     if(!msg.bounding_boxes[0].Class.compare(tipo_objeto)){
@@ -28,15 +28,21 @@ public:
       ROS_INFO("objeto detectado en (%d,%d)\n",centrox,centroy);
     }
   }
+  void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
+    sensor_msgs::PointCloud2 * p = msg.data[msg.width*centroy+centrox];
+		ROS_INFO("point: (%lf, %lf, %lf)", p->x, p->y, p->z);
+	}
 private:
   const std::string tipo_objeto = "person";
-  //int image_width = 640;
-  //int image_height = 480;
+  /*
+  int image_width;
+  int image_height;
+  */
   int centrox;
   int centroy;
   bool objeto_detectado_ = false;
   ros::Subscriber sub_objetos_;
-  ros::Subscriber sub_camera_;
+  ros::Subscriber sub_point_cloud_;
 };
 
 int main(int argc, char **argv)
