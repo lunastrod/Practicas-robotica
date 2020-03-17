@@ -35,6 +35,7 @@ public:
   }
   void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
     objeto_detectado_ = false;
+    //TODO: solo comprueba el primer objeto de bounding_boxes
     if(!msg.bounding_boxes[0].Class.compare(tipo_objeto)){
       centrox = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2;
       centroy = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2;
@@ -43,10 +44,34 @@ public:
     }
   }
   void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
-    geometry_msgs::Point p;
-    pixelTo3DPoint(msg,274,351,p);
-    ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
+    if(objeto_detectado_){
+      geometry_msgs::Point p;
+      pixelTo3DPoint(msg,centrox,centroy,p);
+      //ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
+      geometry_msgs::TransformStamped obj = generate_object(p);
+      transform_broadcaster_.sendTransform(obj);
+
+    }
   }
+  geometry_msgs::TransformStamped generate_object(geometry_msgs::Point p)
+    {
+      /*
+      devuelve una transformada al punto p (suponiendo que viene de la camara)
+      */
+      tf2::Stamped<tf2::Transform> object;
+      object.frame_id_ = "camera_depth_frame";//el origen de coordenadas del punto
+      object.stamp_ = ros::Time::now();
+
+      object.setOrigin(tf2::Vector3(p.x, p.y, p.z));
+      tf2::Quaternion q;
+      q.setRPY(0.0, 0.0, 0.0);
+      object.setRotation(q);
+
+      geometry_msgs::TransformStamped object_msg = tf2::toMsg(object);
+      object_msg.child_frame_id = "object";//el nombre de la transformada
+
+      return object_msg;
+    }
 private:
   void pixelTo3DPoint(const sensor_msgs::PointCloud2 &pCloud, const int u, const int v, geometry_msgs::Point &p)
     {
@@ -85,25 +110,7 @@ private:
 
     }
 
-  geometry_msgs::TransformStamped generate_object(geometry_msgs::Point p)
-    /*
-    devuelve una transformada al punto p (suponiendo que viene de la camara)
-    */
-    {
-      tf2::Stamped<tf2::Transform> object;
-      object.frame_id_ = "base_footprint";
-      object.stamp_ = ros::Time::now();
 
-      object.setOrigin(tf2::Vector3(p.x, p.y, p.z));
-      tf2::Quaternion q;
-      q.setRPY(0.0, 0.0, 0.0);
-      object.setRotation(q);
-
-      geometry_msgs::TransformStamped object_msg = tf2::toMsg(object);
-      object_msg.child_frame_id = "object";
-
-      return object_msg;
-    }
   const std::string tipo_objeto = "sports ball";
   /*
   int image_width;
@@ -115,6 +122,7 @@ private:
   ros::Subscriber sub_objetos_;
   //ros::Subscriber sub_camera_;
   ros::Subscriber sub_point_cloud_;
+  tf2_ros::TransformBroadcaster transform_broadcaster_;
 };
 
 int main(int argc, char **argv)
