@@ -40,14 +40,14 @@ public:
       centrox = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2;
       centroy = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2;
       objeto_detectado_ = true;
-      ROS_INFO("objeto detectado en (%d,%d)\n",centrox,centroy);
+      //ROS_INFO("objeto detectado en (%d,%d)\n",centrox,centroy);
     }
   }
   void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
     if(objeto_detectado_){
       geometry_msgs::Point p;
       pixelTo3DPoint(msg,centrox,centroy,p);
-      //ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
+      ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
       geometry_msgs::TransformStamped obj = generate_object(p);
       transform_broadcaster_.sendTransform(obj);
 
@@ -60,9 +60,10 @@ public:
       */
       tf2::Stamped<tf2::Transform> object;
       object.frame_id_ = "camera_depth_frame";//el origen de coordenadas del punto
+      //object.frame_id_ = "base_footprint";
       object.stamp_ = ros::Time::now();
 
-      object.setOrigin(tf2::Vector3(p.x, p.y, p.z));
+      object.setOrigin(tf2::Vector3(p.z, -p.x, p.y));//ni idea de por qué están así
       tf2::Quaternion q;
       q.setRPY(0.0, 0.0, 0.0);
       object.setRotation(q);
