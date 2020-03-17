@@ -13,6 +13,14 @@
 #include <geometry_msgs/Point.h>
 #include "sensor_msgs/PointCloud2.h"
 
+#include "tf2/transform_datatypes.h"
+#include "tf2/LinearMath/Transform.h"
+#include "geometry_msgs/TransformStamped.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.h"
+#include "tf2/convert.h"
+#include "tf2_ros/transform_broadcaster.h"
+#include "tf2/LinearMath/Quaternion.h"
+
 ///camera/depth_registered/points
 //Type: sensor_msgs/PointCloud2
 
@@ -23,7 +31,7 @@ public:
     ros::NodeHandle n_;
     sub_objetos_ = n_.subscribe("/darknet_ros/bounding_boxes", 1, &camara::boxesCallBack, this);
     //sub_camera_ = n_.subscribe("/camera/rgb/camera_info", 1, &camara::cameraCallBack, this);
-    sub_point_cloud_ = n_.subscribe("/camera/depth_registered/points",1,&camara::pointcloudCallBack,this);
+    sub_point_cloud_ = n_.subscribe("/camera/depth/points",1,&camara::pointcloudCallBack,this);
   }
   void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
     objeto_detectado_ = false;
@@ -36,9 +44,9 @@ public:
   }
   void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
     geometry_msgs::Point p;
-    pixelTo3DPoint(msg,0,0,p);
-		ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
-	}
+    pixelTo3DPoint(msg,274,351,p);
+    ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
+  }
 private:
   void pixelTo3DPoint(const sensor_msgs::PointCloud2 &pCloud, const int u, const int v, geometry_msgs::Point &p)
     {
@@ -76,7 +84,27 @@ private:
       p.z = Z;
 
     }
-  const std::string tipo_objeto = "person";
+
+  geometry_msgs::TransformStamped generate_object(geometry_msgs::Point p)
+    /*
+    devuelve una transformada al punto p (suponiendo que viene de la camara)
+    */
+    {
+      tf2::Stamped<tf2::Transform> object;
+      object.frame_id_ = "base_footprint";
+      object.stamp_ = ros::Time::now();
+
+      object.setOrigin(tf2::Vector3(p.x, p.y, p.z));
+      tf2::Quaternion q;
+      q.setRPY(0.0, 0.0, 0.0);
+      object.setRotation(q);
+
+      geometry_msgs::TransformStamped object_msg = tf2::toMsg(object);
+      object_msg.child_frame_id = "object";
+
+      return object_msg;
+    }
+  const std::string tipo_objeto = "sports ball";
   /*
   int image_width;
   int image_height;
