@@ -20,9 +20,11 @@ include_directories(
 
 add_executable(navp6 src/navp6.cpp)
 add_executable(busquedap6 src/busquedap6.cpp)
+add_executable(mainp6 src/mainp6.cpp)
 
 target_link_libraries(navp6 ${catkin_LIBRARIES})
 target_link_libraries(busquedap6 ${catkin_LIBRARIES})
+target_link_libraries(mainp6 ${catkin_LIBRARIES})
 
 roslint_cpp(
  src/gototf.cpp
