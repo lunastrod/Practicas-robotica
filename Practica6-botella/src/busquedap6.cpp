@@ -34,17 +34,19 @@ public:
     sub_point_cloud_ = n_.subscribe("/camera/depth/points",1,&camara::pointcloudCallBack,this);
   }
   void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
-    objeto_detectado_ = false;
-    //TODO: solo comprueba el primer objeto de bounding_boxes
-    if(!msg.bounding_boxes[0].Class.compare(tipo_objeto)){
-      centrox = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2;
-      centroy = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2;
-      objeto_detectado_ = true;
-      //ROS_INFO("objeto detectado en (%d,%d)\n",centrox,centroy);
+    if(service_state){
+      objeto_detectado_ = false;
+      //TODO: solo comprueba el primer objeto de bounding_boxes
+      if(!msg.bounding_boxes[0].Class.compare(tipo_objeto)){
+        centrox = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2;
+        centroy = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2;
+        objeto_detectado_ = true;
+        //ROS_INFO("objeto detectado en (%d,%d)\n",centrox,centroy);
+      }
     }
   }
   void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
-    if(objeto_detectado_){
+    if(objeto_detectado_ && service_state){
       geometry_msgs::Point p;
       pixelTo3DPoint(msg,centrox,centroy,p);
       ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
@@ -52,6 +54,7 @@ public:
       transform_broadcaster_.sendTransform(obj);
 
     }
+    service_state = false;
   }
   geometry_msgs::TransformStamped generate_object(geometry_msgs::Point p)
     {
@@ -73,6 +76,12 @@ public:
 
       return object_msg;
     }
+
+    bool service_function(){
+      service_state = true;
+      return true;
+    }
+
 private:
   void pixelTo3DPoint(const sensor_msgs::PointCloud2 &pCloud, const int u, const int v, geometry_msgs::Point &p)
     {
@@ -112,6 +121,7 @@ private:
     }
 
 
+
   const std::string tipo_objeto = "sports ball";
   /*
   int image_width;
@@ -119,6 +129,7 @@ private:
   */
   int centrox;
   int centroy;
+  bool service_state = false;
   bool objeto_detectado_ = false;
   ros::Subscriber sub_objetos_;
   //ros::Subscriber sub_camera_;
@@ -128,8 +139,11 @@ private:
 
 int main(int argc, char **argv)
 {
+  ros::NodeHandle n;
   ros::init(argc, argv, "busquedap6");
+
   camara cam;
+  ros::ServiceServer service = n.advertiseService(cam.service_function);
   ros::Rate loop_rate(20);
   while (ros::ok())
   {
