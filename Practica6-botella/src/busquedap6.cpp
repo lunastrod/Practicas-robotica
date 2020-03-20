@@ -47,6 +47,7 @@ public:
     }
   }
   void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
+    printf("%d\n",service_state);
     if(objeto_detectado_ && service_state){
       geometry_msgs::Point p;
       pixelTo3DPoint(msg,centrox,centroy,p);
@@ -67,7 +68,7 @@ public:
       //object.frame_id_ = "base_footprint";
       object.stamp_ = ros::Time::now();
 
-      object.setOrigin(tf2::Vector3(p.z, -p.x, p.y));//ni idea de por qué están así
+      object.setOrigin(tf2::Vector3(p.z, -p.x, -p.y));//ni idea de por qué están así
       tf2::Quaternion q;
       q.setRPY(0.0, 0.0, 0.0);
       object.setRotation(q);
@@ -141,8 +142,8 @@ private:
 
 int main(int argc, char **argv)
 {
-  ros::NodeHandle n;
   ros::init(argc, argv, "busquedap6");
+  ros::NodeHandle n;
 
   camara cam;
   ros::ServiceServer service = n.advertiseService("detecta_obj", &camara::service_function, &cam);
