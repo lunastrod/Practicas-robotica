@@ -143,7 +143,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "busquedap6");
 
   camara cam;
-  ros::ServiceServer service = n.advertiseService(cam.service_function);
+  ros::ServiceServer service = n.advertiseService("detecta_obj", &camara::service_function, &cam);
   ros::Rate loop_rate(20);
   while (ros::ok())
   {
