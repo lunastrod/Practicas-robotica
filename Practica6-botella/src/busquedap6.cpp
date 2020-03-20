@@ -20,6 +20,7 @@
 #include "tf2/convert.h"
 #include "tf2_ros/transform_broadcaster.h"
 #include "tf2/LinearMath/Quaternion.h"
+#include "softarq_msgs/Distance.h"
 
 ///camera/depth_registered/points
 //Type: sensor_msgs/PointCloud2
@@ -77,7 +78,8 @@ public:
       return object_msg;
     }
 
-    bool service_function(){
+    bool service_function(softarq_msgs::Distance::Request  &req,
+         softarq_msgs::Distance::Response &res){
       service_state = true;
       return true;
     }
