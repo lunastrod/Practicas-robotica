@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Sequence name="bumpgo">
+            <ReactiveSequence name="move">
+                <Inverter>
+                    <Condition ID="bumper_pressed"/>
+                </Inverter>
+                <Action ID="goforward"/>
+            </ReactiveSequence>
+            <Sequence name="avoid">
+                <Action ID="goback"/>
+                <Action ID="turn"/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Condition ID="bumper_pressed"/>
+        <Action ID="goback"/>
+        <Action ID="goforward"/>
+        <Action ID="turn"/>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
+
