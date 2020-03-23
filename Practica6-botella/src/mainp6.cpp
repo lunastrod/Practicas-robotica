@@ -19,7 +19,8 @@
 
 enum{
   GOING_TF,
-  SEARCH
+  SEARCH,
+  SALIENDO
 };
 
 class Mainp6
@@ -32,7 +33,7 @@ public:
     pub_vel_ =  n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
     sub_nav_ = n.subscribe("/navigator/isrunning", 1, &Mainp6::isrunningCallback, this);
-    client = n.serviceClient<softarq_msgs::Distance>("detecta_obj");
+    client = n.serviceClient<std_msgs::Bool>("detecta_obj");
 
   }
 
@@ -53,6 +54,9 @@ public:
       ROS_INFO("[botella] goint to the next goal");
       if(running_ == false){
         count++;
+        if(count=4){
+          salida = true;
+        }
         state_ = SEARCH;
         turn_ts_ = ros::Time::now();
       }
@@ -65,15 +69,30 @@ public:
       motor.angular.y =0;
       motor.angular.z = TURNING_SPEED;
       client.call(srv);
+      if(srv.data){
+        encontrado = true;
+      }
       ROS_INFO("[botella] searching...");
+
       if ((ros::Time::now() - turn_ts_).toSec() > TURNING_TIME )
       {
         turn_ts_ = ros::Time::now();
-        state_ = GOING_TF;
-        running_ = true;
+        if(encontrado){
+          encontrado = false;
+          objetos++;
+        }
+        if(!salida){
+          state_ = GOING_TF;
+          running_ = true;
+        } else {
+          state_ = SALIENDO;
+        }
       }
       pub_vel_.publish(motor);
       break;
+    case SALIENDO:
+      ROS_INFO("Se han encontrado objetos en %d lugares",objetos);
+      return;
     }
   }
 
@@ -87,13 +106,16 @@ private:
   ros::Publisher pub_std_msgs_;
   ros::Publisher pub_vel_;
   ros::ServiceClient client;
-  softarq_msgs::Distance srv;
+  std_msgs::Bool srv;
 
   ros::Time turn_ts_;
 
   int state_;
   int count = 1;
+  int objetos = 0;
+  bool encontrado;
   bool running_;
+  bool salida = false;
   std_msgs::Int8 wp;
 };
 
