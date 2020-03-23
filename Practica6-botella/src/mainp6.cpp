@@ -44,24 +44,22 @@ public:
   void step()
   {
     geometry_msgs::Twist motor;
-    motor.linear.x = 0;
-    motor.linear.y = 0;
-    motor.linear.z = 0;
-    motor.angular.x =0;
-    motor.angular.y =0;
-
     switch (state_)
     {
     case GOING_TF:
-      motor.angular.z = 0;
       wp.data = count;
       ROS_INFO("[botella] goint to the next goal");
-      if(running_ = false){
+      if(running_ == false){
         count++;
         state_ = SEARCH;
       }
       break;
     case SEARCH:
+      motor.linear.x = 0;
+      motor.linear.y = 0;
+      motor.linear.z = 0;
+      motor.angular.x =0;
+      motor.angular.y =0;
       motor.angular.z = TURNING_SPEED;
       client.call(srv);
       ROS_INFO("[botella] searching...");
@@ -70,10 +68,11 @@ public:
         turn_ts_ = ros::Time::now();
         state_ = GOING_TF;
       }
+      pub_vel_.publish(motor);
       break;
     }
 
-    pub_vel_.publish(motor);
+
     pub_std_msgs_.publish(wp);
   }
 
