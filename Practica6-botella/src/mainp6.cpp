@@ -101,7 +101,7 @@ private:
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "navp6");
+  ros::init(argc, argv, "mainp6");
 
   Mainp6 p6;
   ros::Rate loop_rate(5);
