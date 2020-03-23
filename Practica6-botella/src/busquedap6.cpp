@@ -76,6 +76,8 @@ public:
 
       geometry_msgs::PointStamped point_in_map_frame;
       tf_listener.transformPoint("/map", point_in_camera_frame, point_in_map_frame);
+      point_in_map_frame.header.frame_id="map";
+      point_in_map_frame.header.stamp = ros::Time::now();
 
       ROS_INFO("camera:(%f,%f,%f)\n map:(%f,%f,%f)\n\n",point_in_camera_frame.point.x,point_in_camera_frame.point.y,point_in_camera_frame.point.z,point_in_map_frame.point.x,point_in_map_frame.point.y,point_in_map_frame.point.z);
 
