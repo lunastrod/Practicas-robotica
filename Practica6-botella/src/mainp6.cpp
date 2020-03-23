@@ -38,12 +38,7 @@ public:
 
   void isrunningCallback(const std_msgs::Bool& msg)
   {
-    if(msg.data==false){
-      running_=false;
-    }
-    else{
-      running_=true;
-    }
+    running_=msg.data;
   }
 
   void step()
@@ -60,6 +55,7 @@ public:
     case GOING_TF:
       motor.angular.z = 0;
       wp.data = count;
+      ROS_INFO("[botella] goint to the next goal");
       if(running_ = false){
         count++;
         state_ = SEARCH;
@@ -68,6 +64,7 @@ public:
     case SEARCH:
       motor.angular.z = TURNING_SPEED;
       client.call(srv);
+      ROS_INFO("[botella] searching...");
       if ((ros::Time::now() - turn_ts_).toSec() > TURNING_TIME )
       {
         turn_ts_ = ros::Time::now();
