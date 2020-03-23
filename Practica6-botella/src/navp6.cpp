@@ -58,7 +58,7 @@ class Navigator
       POSITION[0].z=0;
 
       POSITION[1].x=3.39439487457;
-      POSITION[1].y=0;
+      POSITION[1].y=-0.1;
       POSITION[1].z=0;
 
       POSITION[2].x=3.2910990715;
