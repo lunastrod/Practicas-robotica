@@ -1,8 +1,7 @@
 #include "stdio.h"
 
 #include "ros/ros.h"
-//#include <tf/transform_listener.h>
-//#include "actionlib/client/simple_action_server.h"
+#include <tf/transform_listener.h>
 #include "sensor_msgs/CameraInfo.h"
 
 #include <sensor_msgs/PointCloud.h>
@@ -12,6 +11,7 @@
 #include "darknet_ros_msgs/BoundingBoxes.h"
 #include <geometry_msgs/Point.h>
 #include "sensor_msgs/PointCloud2.h"
+#include "geometry_msgs/PointStamped.h"
 
 #include "tf2/transform_datatypes.h"
 #include "tf2/LinearMath/Transform.h"
@@ -47,15 +47,14 @@ public:
     }
   }
   void pointcloudCallBack(const sensor_msgs::PointCloud2& msg){
-    printf("%d\n",service_state);
     if(objeto_detectado_ && service_state){
       geometry_msgs::Point p;
       pixelTo3DPoint(msg,centrox,centroy,p);
       ROS_INFO("point:(%f,%f,%f)\n", p.x, p.y, p.z);
       geometry_msgs::TransformStamped obj = generate_object(p);
       transform_broadcaster_.sendTransform(obj);
-
     }
+    objeto_detectado_=false;
     service_state = false;
   }
   geometry_msgs::TransformStamped generate_object(geometry_msgs::Point p)
@@ -63,20 +62,42 @@ public:
       /*
       devuelve una transformada al punto p (suponiendo que viene de la camara)
       */
-      tf2::Stamped<tf2::Transform> object;
-      object.frame_id_ = "camera_depth_frame";//el origen de coordenadas del punto
-      //object.frame_id_ = "base_footprint";
-      object.stamp_ = ros::Time::now();
 
-      object.setOrigin(tf2::Vector3(p.z, -p.x, -p.y));//ni idea de por qué están así
-      tf2::Quaternion q;
-      q.setRPY(0.0, 0.0, 0.0);
-      object.setRotation(q);
+      geometry_msgs::PointStamped point_in_camera_frame; // fill it with your point in base_laser_link frame
 
-      geometry_msgs::TransformStamped object_msg = tf2::toMsg(object);
-      object_msg.child_frame_id = "object";//el nombre de la transformada
+      geometry_msgs::Point p_ordenado;
+      p_ordenado.x=p.z;
+      p_ordenado.y=-p.x;
+      p_ordenado.z=-p.y;
 
-      return object_msg;
+      point_in_camera_frame.point=p_ordenado;
+      point_in_camera_frame.header.frame_id="camera_depth_frame";
+      point_in_camera_frame.header.stamp = ros::Time::now();
+
+      geometry_msgs::PointStamped point_in_map_frame;
+      tf_listener.transformPoint("/map", point_in_camera_frame, point_in_map_frame);
+
+      ROS_INFO("camera:(%f,%f,%f)\n map:(%f,%f,%f)\n\n",point_in_camera_frame.point.x,point_in_camera_frame.point.y,point_in_camera_frame.point.z,point_in_map_frame.point.x,point_in_map_frame.point.y,point_in_map_frame.point.z);
+
+      geometry_msgs::Transform transformada;
+      geometry_msgs::Vector3 v;
+      v.x= point_in_map_frame.point.x;
+      v.y= point_in_map_frame.point.y;
+      v.z= point_in_map_frame.point.z;
+      transformada.translation=v;
+      geometry_msgs::Quaternion q;
+      q.x=0;
+      q.y=0;
+      q.z=0;
+      q.w=1;
+      transformada.rotation=q;
+
+      geometry_msgs::TransformStamped object;
+      object.child_frame_id = "object";//el nombre de la transformada
+      object.transform=transformada;
+      object.header=point_in_map_frame.header;
+
+      return object;
     }
 
     bool service_function(softarq_msgs::Distance::Request  &req,
@@ -135,7 +156,7 @@ private:
   bool service_state = false;
   bool objeto_detectado_ = false;
   ros::Subscriber sub_objetos_;
-  //ros::Subscriber sub_camera_;
+  tf::TransformListener tf_listener;
   ros::Subscriber sub_point_cloud_;
   tf2_ros::TransformBroadcaster transform_broadcaster_;
 };
