@@ -68,7 +68,7 @@ private:
   ros::ServiceClient client;
   softarq_msgs::Distance srv;
 
-  int state_ = 0;
+  int state_;
   int count = 0;
   std_msgs::Int8 wp;
 };
