@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include <std_msgs/Int8.h>
+#include <std_msgs/Bool.h>
 
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
@@ -30,8 +31,19 @@ public:
     pub_std_msgs_ = n.advertise<std_msgs::Int8>("navigator/goals", 1);
     pub_vel_ =  n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
+    sub_nav_ = n.subscribe("/navigator/isrunning", 1, &Mainp6::isrunningCallback, this);
     client = n.serviceClient<softarq_msgs::Distance>("detecta_obj");
 
+  }
+
+  void isrunningCallback(const std_msgs::Bool& msg)
+  {
+    if(msg.data==false){
+      running_=false;
+    }
+    else{
+      running_=true;
+    }
   }
 
   void step()
@@ -48,11 +60,19 @@ public:
     case GOING_TF:
       motor.angular.z = 0;
       wp.data = count;
-      count++;
+      if(running_ = false){
+        count++;
+        state_ = SEARCH;
+      }
       break;
     case SEARCH:
-      motor.angular.z = 0.2;
+      motor.angular.z = TURNING_SPEED;
       client.call(srv);
+      if ((ros::Time::now() - turn_ts_).toSec() > TURNING_TIME )
+      {
+        turn_ts_ = ros::Time::now();
+        state_ = GOING_TF;
+      }
       break;
     }
 
@@ -61,15 +81,21 @@ public:
   }
 
 private:
+  double TURNING_SPEED = 0.2;
+  double TURNING_TIME = 1/TURNING_SPEED;
   ros::NodeHandle n;
 
+  ros::Subscriber sub_nav_;
   ros::Publisher pub_std_msgs_;
   ros::Publisher pub_vel_;
   ros::ServiceClient client;
   softarq_msgs::Distance srv;
 
+  ros::Time turn_ts_;
+
   int state_;
   int count = 0;
+  bool running_;
   std_msgs::Int8 wp;
 };
 
