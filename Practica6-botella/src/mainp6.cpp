@@ -75,8 +75,9 @@ public:
   }
 
 private:
-  double TURNING_SPEED = 0.2;
-  double TURNING_TIME = 1/TURNING_SPEED;
+  double TURNING_SPEED = 0.5;
+  //double TURNING_TIME = 8/TURNING_SPEED;
+  double TURNING_TIME = 15;
   ros::NodeHandle n;
 
   ros::Subscriber sub_nav_;
