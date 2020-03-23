@@ -67,13 +67,11 @@ public:
       {
         turn_ts_ = ros::Time::now();
         state_ = GOING_TF;
+        pub_std_msgs_.publish(wp);
       }
       pub_vel_.publish(motor);
       break;
     }
-
-
-    pub_std_msgs_.publish(wp);
   }
 
 private:
