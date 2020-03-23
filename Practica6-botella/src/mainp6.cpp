@@ -94,7 +94,7 @@ private:
   ros::Time turn_ts_;
 
   int state_;
-  int count = 0;
+  int count = 1;
   bool running_;
   std_msgs::Int8 wp;
 };
