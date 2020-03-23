@@ -75,7 +75,18 @@ public:
       point_in_camera_frame.header.stamp = ros::Time::now();
 
       geometry_msgs::PointStamped point_in_map_frame;
-      tf_listener.transformPoint("/map", point_in_camera_frame, point_in_map_frame);
+
+      try{
+        ros::Time now = ros::Time::now();
+        tf_listener.waitForTransform("/map", "/camera_depth_frame" ,now, ros::Duration(3.0));
+        tf_listener.transformPoint("/map", point_in_camera_frame, point_in_map_frame);
+      }
+      catch(...){
+        point_in_map_frame.point.x= 0;
+        point_in_map_frame.point.y= 0;
+        point_in_map_frame.point.z= 0;
+      }
+
       point_in_map_frame.header.frame_id="map";
       point_in_map_frame.header.stamp = ros::Time::now();
 
@@ -97,7 +108,8 @@ public:
       geometry_msgs::TransformStamped object;
       object.child_frame_id = "object";//el nombre de la transformada
       object.transform=transformada;
-      object.header=point_in_map_frame.header;
+      object.header.frame_id="map";
+      object.header.stamp = ros::Time::now();
 
       return object;
     }
