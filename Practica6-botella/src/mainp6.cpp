@@ -27,7 +27,7 @@ public:
   Mainp6(): state_(GOING_TF)
   {
     ros::NodeHandle n;
-    pub_std_msgs_ = n.advertise<std_msgs::Int8>("navigator_goals", 1);
+    pub_std_msgs_ = n.advertise<std_msgs::Int8>("navigator/goals", 1);
     pub_vel_ =  n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
 
     client = n.serviceClient<softarq_msgs::Distance>("detecta_obj");
