@@ -54,7 +54,7 @@ public:
       if(running_ == false){
         count++;
         state_ = SEARCH;
-        press_ts_ = ros::Time::now();
+        turn_ts_ = ros::Time::now();
       }
       break;
     case SEARCH:
