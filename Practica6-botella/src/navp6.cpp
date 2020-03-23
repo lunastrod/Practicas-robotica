@@ -10,6 +10,42 @@
 
 #include <sensor_msgs/PointCloud2.h>
 
+/*---
+header:
+  seq: 5
+  stamp:
+    secs: 398
+    nsecs:  60000000
+  frame_id: "base_footprint"
+point:
+  x: -3.468282938
+  y: 4.47962141037
+  z: 0.00229167938232
+---
+header:
+  seq: 6
+  stamp:
+    secs: 400
+    nsecs: 920000000
+  frame_id: "base_footprint"
+point:
+  x: -1.44922804832
+  y: 3.49580216408
+  z: 0.00138425827026
+---
+header:
+  seq: 7
+  stamp:
+    secs: 407
+    nsecs: 960000000
+  frame_id: "base_footprint"
+point:
+  x: 1.91096591949
+  y: 5.34825706482
+  z: 0.0033073425293
+---
+*/
+
 class Navigator
 {
   public:
@@ -21,16 +57,16 @@ class Navigator
       POSITION[0].y=0;
       POSITION[0].z=0;
 
-      POSITION[1].x=10;
+      POSITION[1].x=3.39439487457;
       POSITION[1].y=0;
       POSITION[1].z=0;
 
-      POSITION[2].x=0;
-      POSITION[2].y=10;
+      POSITION[2].x=3.2910990715;
+      POSITION[2].y=1.9;
       POSITION[2].z=0;
 
-      POSITION[3].x=10;
-      POSITION[3].y=10;
+      POSITION[3].x=1.27405560017;
+      POSITION[3].y=5.48847675323;
       POSITION[3].z=0;
     }
 
@@ -99,7 +135,7 @@ class Navigator
 
     bool goal_sent_=false;
     bool goal_recieved_=false;
-    int current_goal=0;
+    int current_goal=-1;
 
     static const int NUMBER_GOALS=4;
     geometry_msgs::Point POSITION[NUMBER_GOALS];
