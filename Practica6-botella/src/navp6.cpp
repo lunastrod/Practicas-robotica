@@ -2,6 +2,7 @@
 
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
+#include <std_msgs/Int8.h>
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -12,7 +13,7 @@ class Navigator
   public:
     Navigator(ros::NodeHandle& nh) : nh_(nh), action_client_("/move_base", false), goal_sent_(false)
     {
-      navigator_goals_sub = n_.subscribe("navigator_goals", 1, &Navigator::goalscallback, this);
+      navigator_goals_sub = nh_.subscribe("navigator_goals", 1, &Navigator::goalscallback, this);
       POSITION[0].x=0;
       POSITION[0].y=0;
       POSITION[0].z=0;
@@ -30,9 +31,9 @@ class Navigator
       POSITION[3].z=0;
     }
 
-    void goalscallback(const int& msg){
-      if(msg<NUMBER_GOALS){
-        current_goal=msg;
+    void goalscallback(const std_msgs::Int8& msg){
+      if(msg.data<NUMBER_GOALS){
+        current_goal=msg.data;
       }
     }
 
@@ -82,7 +83,7 @@ class Navigator
     ros::Subscriber navigator_goals_sub;
     actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> action_client_;
 
-    int NUMBER_GOALS=4;
+    static const int NUMBER_GOALS=4;
     bool goal_sent_;
     int current_goal;
 
