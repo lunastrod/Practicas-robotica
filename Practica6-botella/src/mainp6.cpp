@@ -38,8 +38,8 @@ public:
 
   void isrunningCallback(const std_msgs::Bool& msg)
   {
-    if(msg.data)
-      running_=true;
+    if(!msg.data)
+      running_=false;
   }
 
   void step()
@@ -69,7 +69,7 @@ public:
       {
         turn_ts_ = ros::Time::now();
         state_ = GOING_TF;
-        running_ = false;
+        running_ = true;
       }
       pub_vel_.publish(motor);
       break;
