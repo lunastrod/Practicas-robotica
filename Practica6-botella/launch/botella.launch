@@ -9,8 +9,8 @@
   <include file="$(find darknet_ros)/launch/darknet_ros.launch" />
   <include file="$(find navigation)/launch/navigation.launch" />
 
-  <node name="mainp6"           pkg="practica6-botella"      type="mainp6" />
-  <node name="busquedap6"       pkg="practica6-botella"      type="busquedap6" />
+  <node name="mainp6"           pkg="practica6-botella"      type="mainp6"        output="screen"/>
+  <node name="busquedap6"       pkg="practica6-botella"      type="busquedap6"    output="screen"/>
   <node name="navp6"            pkg="practica6-botella"      type="navp6"         output="screen"/>
 
 </launch>
