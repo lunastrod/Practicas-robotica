@@ -21,7 +21,6 @@ enum{
   GOING_TF,
   SEARCH
 };
-
 class Mainp6
 {
 public:
