@@ -48,6 +48,7 @@ public:
     {
     case GOING_TF:
       wp.data = count;
+      pub_std_msgs_.publish(wp);
       ROS_INFO("[botella] goint to the next goal");
       if(running_ == false){
         count++;
@@ -67,7 +68,6 @@ public:
       {
         turn_ts_ = ros::Time::now();
         state_ = GOING_TF;
-        pub_std_msgs_.publish(wp);
       }
       pub_vel_.publish(motor);
       break;
