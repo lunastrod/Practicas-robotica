@@ -1,0 +1,27 @@
+
+las instrucciones están muy claras en el readme de este repo:
+https://github.com/IntelligentRoboticsLabs/gb_dialog
+  sudo apt-get install python3-vcstool wget
+  roscd
+  cd ../src
+  mkdir dialog
+  cd dialog
+  wget https://raw.githubusercontent.com/IntelligentRoboticsLabs/gb_dialog/master/gb_dialog.repos
+  vcs import < gb_dialog.repos
+  sudo apt-get install portaudio19-dev ros-melodic-rosbridge-server
+  roscd dialogflow_ros
+  pip install -r requirements.txt
+
+ejecutar eso desde catkin_ws para instalar el json de mi proyecto
+  mv src/Practicas-robotica/Practica8-dialogflow/root-cargo-272211-f39c5e1da614.json ~/df_api.json
+
+cambiar en /catkin_ws/src/dialog/dialogflow_ros/dialogflow_ros/config/params.yaml
+  project_id: "root-cargo-272211"
+
+yo he tenido que comentar estas líneas en el cmake para que compilase:
+  en este fichero: catkin_ws/src/dialog/dialogflow_ros/dialogflow_ros/CMakeLists.txt
+  comentar (o quitar) estas líneas:
+    #add_executable(test_intent_event scripts/test/test_intent_event.cpp)
+    #add_dependencies(test_intent_event external_package_generate_messages_cpp  ${${PROJECT_NAME}_EXPORTED_TARGETS})
+    #target_link_libraries(test_intent_event ${catkin_LIBRARIES} )
+  esto hace que no se compile un programa de prueba que da problemas.
