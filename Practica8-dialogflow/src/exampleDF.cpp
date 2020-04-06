@@ -1,4 +1,3 @@
-
 #include <gb_dialog/DialogInterface.h>
 #include <string>
 
