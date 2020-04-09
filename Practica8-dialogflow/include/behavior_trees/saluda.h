@@ -6,6 +6,8 @@
 
 #include <string>
 
+#include "geometry_msgs/Point.h"
+
 namespace behavior_trees
 {
 
@@ -19,7 +21,8 @@ class saluda : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    int counter_;
+    geometry_msgs::Point inicio;//la posicion inicial TODO: es necesaria?
+
 };
 
 }  // namespace behavior_trees

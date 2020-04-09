@@ -10,7 +10,7 @@
 namespace behavior_trees
 {
 
-eligebolsa::eligebolsa(const std::string& name): BT::ActionNodeBase(name, {}), counter_(0)
+eligebolsa::eligebolsa(const std::string& name): BT::ActionNodeBase(name, {})
 {
 
 }
@@ -22,18 +22,13 @@ void eligebolsa::halt()
 
 BT::NodeStatus eligebolsa::tick()
 {
-  ROS_INFO("eligebolsa tick %d", counter_);
-  counter_++;
-  if (counter_ < 5)
-  {
-    //move
+  ROS_INFO("eligebolsa tick");
+  if (!terminado){
+    bolsa="botella";//TODO:hacer que dialogflow escriba esto
+    terminado=true;
     return BT::NodeStatus::RUNNING;
   }
-  else
-  {
-    //stop moving
-    return BT::NodeStatus::SUCCESS;
-  }
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

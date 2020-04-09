@@ -7,12 +7,16 @@
 
 #include "ros/ros.h"
 
+
+
 namespace behavior_trees
 {
 
-saluda::saluda(const std::string& name): BT::ActionNodeBase(name, {}), counter_(0)
+saluda::saluda(const std::string& name): BT::ActionNodeBase(name, {})
 {
-
+  inicio.x=0;//TODO: guardar la posicion inicial (maybe esta?)
+  inicio.y=0;
+  inicio.z=0;
 }
 
 void saluda::halt()
@@ -22,18 +26,12 @@ void saluda::halt()
 
 BT::NodeStatus saluda::tick()
 {
-  ROS_INFO("saluda tick %d", counter_);
-  counter_++;
-  if (counter_ < 5)
-  {
-    //move
+  ROS_INFO("saluda tick");
+  if(false){//TODO: dialog flow intent saludo
     return BT::NodeStatus::RUNNING;
   }
-  else
-  {
-    //stop moving
-    return BT::NodeStatus::SUCCESS;
-  }
+  return BT::NodeStatus::SUCCESS;
+
 }
 
 }  // namespace behavior_trees

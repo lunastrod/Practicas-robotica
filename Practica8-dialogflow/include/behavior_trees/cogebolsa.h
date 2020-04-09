@@ -19,7 +19,7 @@ class cogebolsa : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    int counter_;
+    bool terminado;
 };
 
 }  // namespace behavior_trees

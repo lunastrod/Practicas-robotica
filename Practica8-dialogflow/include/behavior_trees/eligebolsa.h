@@ -19,7 +19,8 @@ class eligebolsa : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    int counter_;
+    bool terminado=false;
+    std::string bolsa;//debería ser un objeto que darknet reconozca
 };
 
 }  // namespace behavior_trees
