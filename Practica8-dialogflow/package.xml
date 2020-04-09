@@ -25,6 +25,9 @@
 
   <build_depend>gb_dialog</build_depend>
 
+  <build_depend>behaviortree_cpp_v3</build_depend>
+
+
   <build_depend>roslint</build_depend>
 
 
@@ -43,6 +46,9 @@
   <exec_depend>tf2_ros</exec_depend>
 
   <exec_depend>gb_dialog</exec_depend>
+
+  <exec_depend>behaviortree_cpp_v3</exec_depend>
+
 
 
   <export>

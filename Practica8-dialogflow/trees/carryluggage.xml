@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Sequence name="main sequence">
+            <Action ID="saluda"/>
+            <Action ID="eligebolsa"/>
+            <Action ID="cogebolsa"/>
+            <Action ID="siguepersona"/>
+            <Action ID="vuelve"/>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="cogebolsa"/>
+        <Action ID="eligebolsa"/>
+        <Action ID="saluda"/>
+        <Action ID="siguepersona"/>
+        <Action ID="vuelve"/>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
+
