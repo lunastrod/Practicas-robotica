@@ -35,7 +35,7 @@ BT::NodeStatus eligebolsa::tick()
     return BT::NodeStatus::RUNNING;
   }
   std::string bolsa;
-  bolsa="pelota";//TODO:lo que tiene que escribir dialogflow y leerá darknet
+  bolsa="sports ball";//TODO:lo que tiene que escribir dialogflow y leerá darknet
 
   msg_bolsa.data = bolsa;
   pub_bolsa.publish(msg_bolsa);

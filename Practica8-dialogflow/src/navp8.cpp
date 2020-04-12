@@ -3,6 +3,7 @@
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Vector3.h"
 #include <std_msgs/Int8.h>
+#include <geometry_msgs/Point.h>
 #include "std_msgs/Bool.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
@@ -20,12 +21,10 @@ class Navigator
 
     }
 
-    void goalscallback(const std_msgs::Int8& msg){
-      if(msg.data<NUMBER_GOALS && current_goal!=msg.data){
-        current_goal=msg.data;
-        ROS_INFO("[navigate_to_wp] msg recieved, current goal: %d",msg.data);
-        goal_recieved_ = true;
-      }
+    void goalscallback(const geometry_msgs::Point& msg){
+      currentgoal=msg;
+      ROS_INFO("[navigate_to_wp] msg recieved, current goal: (%d,%d,%d)",currentgoal.x,currentgoal.y,currentgoal.z);
+      goal_recieved_ = true;
     }
 
     void step()
@@ -55,7 +54,7 @@ class Navigator
     {
       if(goal_recieved_){
         geometry_msgs::PoseStamped goal_pose_;
-        goal_pose_.pose.position=POSITION[current_goal];
+        goal_pose_.pose.position=currentgoal;
         goal_pose_.pose.orientation.x=0;
         goal_pose_.pose.orientation.y=0;
         goal_pose_.pose.orientation.z=0;
@@ -85,10 +84,8 @@ class Navigator
 
     bool goal_sent_=false;
     bool goal_recieved_=false;
-    int current_goal=-1;
 
-    static const int NUMBER_GOALS=4;
-    geometry_msgs::Point POSITION[NUMBER_GOALS];
+    geometry_msgs::Point currentgoal;
 
 
 };

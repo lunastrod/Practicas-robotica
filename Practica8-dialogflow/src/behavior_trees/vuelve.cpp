@@ -12,7 +12,17 @@ namespace behavior_trees
 
 vuelve::vuelve(const std::string& name): BT::ActionNodeBase(name, {})
 {
+  sub_running = n.subscribe("/navigator/isrunning",1,&vuelve::running_callback, this);
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
+  goal.x=3.4;
+  goal.y=0;
+  goal.z=0;
+}
+
+void vuelve::running_callback(const std_msgs::Bool& running){
+  if(!running.data){
+    navegando=false;
+  }
 }
 
 void vuelve::halt()
@@ -24,7 +34,7 @@ BT::NodeStatus vuelve::tick()
 {
   if(navegando){
     ROS_INFO("volviendo a la posicion inicial");
-    navegando=false;//TODO:temp
+    pub_goal.publish(goal);
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("terminado");
