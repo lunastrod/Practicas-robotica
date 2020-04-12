@@ -21,7 +21,8 @@ class saluda : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    geometry_msgs::Point inicio;//la posicion inicial TODO: es necesaria?
+    bool esperando=true;
+    bool hablando=false;
 
 };
 

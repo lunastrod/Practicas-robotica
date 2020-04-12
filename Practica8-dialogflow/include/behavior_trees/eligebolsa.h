@@ -6,6 +6,9 @@
 
 #include <string>
 
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+
 namespace behavior_trees
 {
 
@@ -19,8 +22,12 @@ class eligebolsa : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    bool terminado=false;
-    std::string bolsa;//debería ser un objeto que darknet reconozca
+    ros::NodeHandle n;
+    ros::Publisher pub_bolsa;
+    std_msgs::String msg_bolsa;
+    
+    bool esperando=true;
+    bool hablando=false;
 };
 
 }  // namespace behavior_trees

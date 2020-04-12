@@ -14,7 +14,7 @@ pseudocodigo:
     saluda -> intent de dialog
         (TODO:va a la posicion inicial y) habla
         devuelve running hasta que termine el saludo
-        guarda la posicion actual conocida en la variable publica inicio
+        guarda la posicion actual conocida
     eligebolsa -> intent de dialog
         habla
         devuelve running hasta que sepas a qué bolsa acercarte

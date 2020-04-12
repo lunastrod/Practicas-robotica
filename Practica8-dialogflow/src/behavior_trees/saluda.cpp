@@ -14,9 +14,6 @@ namespace behavior_trees
 
 saluda::saluda(const std::string& name): BT::ActionNodeBase(name, {})
 {
-  inicio.x=0;//TODO: guardar la posicion inicial (maybe esta?)
-  inicio.y=0;
-  inicio.z=0;
 }
 
 void saluda::halt()
@@ -26,10 +23,16 @@ void saluda::halt()
 
 BT::NodeStatus saluda::tick()
 {
-  ROS_INFO("saluda tick");
-  if(false){//TODO: dialog flow intent saludo
+  if(esperando){
+    ROS_INFO("esperando saludo");
+    esperando=false;//TODO:temporal
     return BT::NodeStatus::RUNNING;
   }
+  if(hablando){//TODO: dialog flow intent saludo
+    ROS_INFO("saludando");
+    return BT::NodeStatus::RUNNING;
+  }
+  ROS_INFO("saludo terminado\n");
   return BT::NodeStatus::SUCCESS;
 
 }

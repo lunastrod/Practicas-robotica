@@ -7,15 +7,19 @@ find_package(catkin REQUIRED COMPONENTS
   roslint
   tf
   behaviortree_cpp_v3
+  dialogflow_ros_msgs
 )
 
-catkin_package(CATKIN_DEPENDS
-    roscpp
-    std_msgs kobuki_msgs sensor_msgs
-    tf tf2_geometry_msgs tf2 tf2_ros
-    darknet_ros_msgs darknet_ros
-    gb_dialog
-    behaviortree_cpp_v3
+catkin_package(
+    LIBRARIES
+      gb_dialog
+    CATKIN_DEPENDS
+      roscpp
+      std_msgs kobuki_msgs sensor_msgs
+      tf tf2_geometry_msgs tf2 tf2_ros
+      darknet_ros_msgs darknet_ros
+      gb_dialog
+      behaviortree_cpp_v3
 )
 
 include_directories(
@@ -33,7 +37,10 @@ add_executable(carryluggage
 
 )
 
+#add_executable(ejemploDF src/ejemploDF.cpp)
+
 target_link_libraries(carryluggage ${catkin_LIBRARIES})
+#target_link_libraries(ejemploDF ${catkin_LIBRARIES})
 
 roslint_cpp(
  src/gototf.cpp
