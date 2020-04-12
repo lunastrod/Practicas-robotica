@@ -20,7 +20,7 @@
 #include "tf2/convert.h"
 #include "tf2_ros/transform_broadcaster.h"
 #include "tf2/LinearMath/Quaternion.h"
-#include "practica8dialogflow/busqueda.h"
+#include "servicios/busqueda.h"
 
 ///camera/depth_registered/points
 //Type: sensor_msgs/PointCloud2
@@ -114,8 +114,8 @@ public:
       return object;
     }
 
-    bool service_function(practica8dialogflow::busqueda::Request &req,
-         practica8dialogflow::busqueda::Response &res){
+    bool service_function(servicios::busqueda::Request &req,
+                          servicios::busqueda::Response &res){
       service_state = true;
       return true;
     }

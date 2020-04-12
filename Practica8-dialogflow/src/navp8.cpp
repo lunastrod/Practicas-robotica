@@ -10,42 +10,6 @@
 
 #include <sensor_msgs/PointCloud2.h>
 
-/*---
-header:
-  seq: 5
-  stamp:
-    secs: 398
-    nsecs:  60000000
-  frame_id: "base_footprint"
-point:
-  x: -3.468282938
-  y: 4.47962141037
-  z: 0.00229167938232
----
-header:
-  seq: 6
-  stamp:
-    secs: 400
-    nsecs: 920000000
-  frame_id: "base_footprint"
-point:
-  x: -1.44922804832
-  y: 3.49580216408
-  z: 0.00138425827026
----
-header:
-  seq: 7
-  stamp:
-    secs: 407
-    nsecs: 960000000
-  frame_id: "base_footprint"
-point:
-  x: 1.91096591949
-  y: 5.34825706482
-  z: 0.0033073425293
----
-*/
-
 class Navigator
 {
   public:

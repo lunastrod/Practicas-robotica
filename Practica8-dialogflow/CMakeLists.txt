@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(practica8dialogflow)
+project(practica8-dialogflow)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -13,18 +13,6 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
   gb_dialog
-  message_generation
-)
-
-add_service_files(
-  FILES
-  busqueda.srv
-)
-
-generate_messages(
-   DEPENDENCIES
-   std_msgs
-   geometry_msgs
 )
 
 catkin_package(

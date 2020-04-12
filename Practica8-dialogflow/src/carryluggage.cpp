@@ -59,7 +59,7 @@ int main(int argc, char **argv)
   factory.registerNodeType<behavior_trees::siguepersona>("siguepersona");
   factory.registerNodeType<behavior_trees::vuelve>("vuelve");
 
-  std::string pkgpath = ros::package::getPath("practica8dialogflow");
+  std::string pkgpath = ros::package::getPath("practica8-dialogflow");
   std::string xml_file = pkgpath + "/trees/carryluggage.xml";
 
   BT::Tree tree = factory.createTreeFromFile(xml_file);
