@@ -6,6 +6,10 @@
 
 #include <string>
 
+#include "ros/ros.h"
+#include "geometry_msgs/Point.h"
+
+
 namespace behavior_trees
 {
 
@@ -19,7 +23,13 @@ class siguepersona : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    int counter_;
+    ros::NodeHandle n;
+    ros::Publisher pub_goal;
+    geometry_msgs::Point goal;
+
+    bool buscando=true;
+    bool navegando=false;
+    bool hablando=false;
 };
 
 }  // namespace behavior_trees

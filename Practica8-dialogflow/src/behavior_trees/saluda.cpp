@@ -14,6 +14,7 @@ namespace behavior_trees
 
 saluda::saluda(const std::string& name): BT::ActionNodeBase(name, {})
 {
+  
 }
 
 void saluda::halt()

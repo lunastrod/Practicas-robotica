@@ -6,6 +6,9 @@
 
 #include <string>
 
+#include "ros/ros.h"
+#include "geometry_msgs/Point.h"
+
 namespace behavior_trees
 {
 
@@ -19,7 +22,11 @@ class vuelve : public BT::ActionNodeBase
     BT::NodeStatus tick();
 
   private:
-    int counter_;
+    ros::NodeHandle n;
+    ros::Publisher pub_goal;
+    geometry_msgs::Point goal;
+
+    bool navegando=true;
 };
 
 }  // namespace behavior_trees

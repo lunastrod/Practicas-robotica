@@ -10,9 +10,9 @@
 namespace behavior_trees
 {
 
-vuelve::vuelve(const std::string& name): BT::ActionNodeBase(name, {}), counter_(0)
+vuelve::vuelve(const std::string& name): BT::ActionNodeBase(name, {})
 {
-
+  pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
 }
 
 void vuelve::halt()
@@ -22,18 +22,13 @@ void vuelve::halt()
 
 BT::NodeStatus vuelve::tick()
 {
-  ROS_INFO("vuelve tick %d", counter_);
-  counter_++;
-  if (counter_ < 5)
-  {
-    //move
+  if(navegando){
+    ROS_INFO("volviendo a la posicion inicial");
+    navegando=false;//TODO:temp
     return BT::NodeStatus::RUNNING;
   }
-  else
-  {
-    //stop moving
-    return BT::NodeStatus::SUCCESS;
-  }
+  ROS_INFO("terminado");
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

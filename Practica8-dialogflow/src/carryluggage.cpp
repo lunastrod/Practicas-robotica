@@ -12,13 +12,13 @@ que le haya acompañado.
 
 pseudocodigo:
     saluda -> intent de dialog
-        (TODO:va a la posicion inicial y) habla
+        habla
         devuelve running hasta que termine el saludo
         guarda la posicion actual conocida
     eligebolsa -> intent de dialog
         habla
         devuelve running hasta que sepas a qué bolsa acercarte
-        guarda la bolsa a la que se tiene que acercar (topic?)
+        guarda la bolsa a la que se tiene que acercar en /bolsa_elegida
     cogebolsa -> navigation y darknet
         busca el objeto que ha dicho el operador y va hacia él
         devuelve running hasta llegar al objeto
@@ -28,6 +28,11 @@ pseudocodigo:
     vuelve -> navigation
         va a la posicion inicial
         devuelve running hasta llegar a la posicion inicial
+
+    navp8:
+        recive un geometry_msgs::Point por navigator/goals
+    busquedap8:
+        recibe un string para buscar con darknet y saca un geometry_msgs::Point por un servicio
 */
 #include "behavior_trees/saluda.h"
 #include "behavior_trees/eligebolsa.h"

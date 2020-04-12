@@ -37,9 +37,7 @@ BT::NodeStatus eligebolsa::tick()
   std::string bolsa;
   bolsa="pelota";//TODO:lo que tiene que escribir dialogflow y leerá darknet
 
-  std::stringstream ss;
-  ss << bolsa;
-  msg_bolsa.data = ss.str();
+  msg_bolsa.data = bolsa;
   pub_bolsa.publish(msg_bolsa);
   ros::spinOnce();
   ROS_INFO("bolsa elegida: %s\n",msg_bolsa.data.c_str());
