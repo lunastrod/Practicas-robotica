@@ -92,6 +92,10 @@ public:
 
       ROS_INFO("camera:(%f,%f,%f)\n map:(%f,%f,%f)\n\n",point_in_camera_frame.point.x,point_in_camera_frame.point.y,point_in_camera_frame.point.z,point_in_map_frame.point.x,point_in_map_frame.point.y,point_in_map_frame.point.z);
 
+      posicion.x=point_in_camera_frame.point.x;
+      posicion.y=point_in_camera_frame.point.y;
+      posicion.z=point_in_camera_frame.point.z;
+
       geometry_msgs::Transform transformada;
       geometry_msgs::Vector3 v;
       v.x= point_in_map_frame.point.x;
@@ -116,6 +120,8 @@ public:
 
     bool service_function(servicios::busqueda::Request &req,
                           servicios::busqueda::Response &res){
+      tipo_objeto=req.object.data;
+      posicion=res.position;
       service_state = true;
       return true;
     }
@@ -158,15 +164,10 @@ private:
 
     }
 
-
-
-  const std::string tipo_objeto = "sports ball";
-  /*
-  int image_width;
-  int image_height;
-  */
+  std::string tipo_objeto;
   int centrox;
   int centroy;
+  geometry_msgs::Point posicion;
   bool service_state = false;
   bool objeto_detectado_ = false;
   ros::Subscriber sub_objetos_;
