@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(practica8-dialogflow)
+project(practica8dialogflow)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -19,6 +19,12 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   busqueda.srv
+)
+
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+   geometry_msgs
 )
 
 catkin_package(
@@ -49,9 +55,13 @@ add_executable(carryluggage
 )
 
 add_executable(ejemploDF src/ejemploDF.cpp)
+add_executable(nav src/navp8.cpp)
+add_executable(busqueda src/busquedap8.cpp)
 
 target_link_libraries(carryluggage ${catkin_LIBRARIES})
 target_link_libraries(ejemploDF ${catkin_LIBRARIES})
+target_link_libraries(nav ${catkin_LIBRARIES})
+target_link_libraries(busqueda ${catkin_LIBRARIES})
 
 roslint_cpp(
  src/gototf.cpp
