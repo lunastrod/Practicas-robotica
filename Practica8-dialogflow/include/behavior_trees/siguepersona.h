@@ -9,6 +9,7 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Point.h"
 #include "std_msgs/Bool.h"
+#include "servicios/busqueda.h"
 
 
 namespace behavior_trees
@@ -28,6 +29,8 @@ class siguepersona : public BT::ActionNodeBase
     ros::Publisher pub_goal;
     ros::Subscriber sub_running;
     geometry_msgs::Point goal;
+    ros::ServiceClient srv_busqueda;
+    servicios::busqueda msg_busqueda;
 
     bool goalsent=false;
     bool buscando=true;

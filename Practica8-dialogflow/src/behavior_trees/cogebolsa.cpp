@@ -15,6 +15,7 @@ cogebolsa::cogebolsa(const std::string& name): BT::ActionNodeBase(name, {})
   sub_bolsa = n.subscribe("/bolsa_elegida",1,&cogebolsa::bolsa_callback, this);
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
   sub_running = n.subscribe("/navigator/isrunning",1,&cogebolsa::running_callback, this);
+  srv_busqueda = n.serviceClient<servicios::busqueda>("detecta_obj");
   goal.x=-2.1;
   goal.y=0.2;
   goal.z=0;
@@ -47,9 +48,11 @@ BT::NodeStatus cogebolsa::tick()
   }
   if(buscando){
     ROS_INFO("buscando %s",bolsa.c_str());
-    //TODO:
-    buscando=false;
-    navegando=true;
+    msg_busqueda.request.object.data=bolsa;
+    srv_busqueda.call(msg_busqueda);
+    buscando=!msg_busqueda.response.found.data;//sigue buscando hasta que lo encuentres
+    goal=msg_busqueda.response.position;
+    navegando=!buscando;
     return BT::NodeStatus::RUNNING;
   }
   if(navegando){//TODO: navigation y darknet
