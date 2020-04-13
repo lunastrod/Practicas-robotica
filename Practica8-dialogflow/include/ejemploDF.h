@@ -13,12 +13,6 @@ namespace gb_dialog
   {
     public:
       ExampleDF();
-      /*{
-        this->registerCallback(std::bind(&ExampleDF::noIntentCB, this, ph::_1));
-        this->registerCallback(
-          std::bind(&ExampleDF::welcomeIntentCB, this, ph::_1),
-          "Default Welcome Intent");
-      }*/
       void noIntentCB(dialogflow_ros_msgs::DialogflowResult result);
       void welcomeIntentCB(dialogflow_ros_msgs::DialogflowResult result);
       void setintent(std::string str);
@@ -27,6 +21,7 @@ namespace gb_dialog
       std::string getresponse();
 
     private:
+      ros::NodeHandle nh_;
       std::string intent_buscado = "Null";
       std::string intent_encontrado = "Null";
       //std::string intent_encontrado = "Carry my luggage";

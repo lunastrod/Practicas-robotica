@@ -36,7 +36,7 @@ namespace gb_dialog
         std::bind(&ExampleDF::welcomeIntentCB, this, ph::_1),
         "Default Welcome Intent");
     }*/
-    ExampleDF::ExampleDF(){
+    ExampleDF::ExampleDF(): nh_(){
 
       this->registerCallback(std::bind(&ExampleDF::noIntentCB, this, ph::_1));
       this->registerCallback(
@@ -47,10 +47,10 @@ namespace gb_dialog
     void ExampleDF::noIntentCB(dialogflow_ros_msgs::DialogflowResult result)
     {
       //ROS_INFO("[%s  %s   %d]", result.intent.c_str(), intent.c_str(),result.intent.compare(intent));
-      ROS_INFO("[ExampleDF] noIntentCB: intent [%s]", result.intent.c_str());
+      //ROS_INFO("[ExampleDF] noIntentCB: intent [%s]", result.intent.c_str());
       intent_encontrado = result.intent.c_str();
       respuesta = result.fulfillment_text.c_str();
-      ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
+      //ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
         //ROS_INFO("%s",result.parameters[0].param_name.c_str());
       if(!result.intent.compare(intent_buscado)){
         objeto = result.parameters[0].value[0];
@@ -58,12 +58,12 @@ namespace gb_dialog
       else{
         objeto = "Null";
       }
-      ROS_INFO("[ExampleDF] noIntentCB: param [%s]", objeto.c_str());
+      //ROS_INFO("[ExampleDF] noIntentCB: param [%s]", objeto.c_str());
     }
 
     void ExampleDF::welcomeIntentCB(dialogflow_ros_msgs::DialogflowResult result)
     {
-      ROS_INFO("[ExampleDF] welcomeIntentCB: intent [%s]", result.intent.c_str());
+      //ROS_INFO("[ExampleDF] welcomeIntentCB: intent [%s]", result.intent.c_str());
       speak(result.fulfillment_text);
     }
 
@@ -72,20 +72,23 @@ namespace gb_dialog
     }
 
     std::string ExampleDF::getintentfound(){
+      ros::spinOnce();
       std::string result = intent_encontrado;
       //intent_encontrado = "Null";
       return result;
     }
 
     std::string ExampleDF::getobject(){
+      ros::spinOnce();
       std::string result = objeto;
       //objeto = "Null";
       return result;
     }
 
     std::string ExampleDF::getresponse(){
+      ros::spinOnce();
       std::string result = respuesta;
-      ROS_INFO("[ExampleDF] getresponse [%s]", respuesta.c_str());
+      //ROS_INFO("[ExampleDF] getresponse [%s]", respuesta.c_str());
       //respuesta = "Null";
       return result;
     }

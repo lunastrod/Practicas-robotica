@@ -29,6 +29,7 @@ BT::NodeStatus saluda::tick()
     gb_dialog::ExampleDF forwarder;
     //forwarder.setintent("Default Welcome Intent");
     forwarder.listen();
+    ros::spinOnce();
     std::string respuesta = forwarder.getresponse();
 
     std::string str = forwarder.getintentfound();
