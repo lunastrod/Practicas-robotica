@@ -22,9 +22,11 @@ class Navigator
     }
 
     void goalscallback(const geometry_msgs::Point& msg){
-      currentgoal=msg;
-      ROS_INFO("[navigate_to_wp] msg recieved, current goal: (%d,%d,%d)",currentgoal.x,currentgoal.y,currentgoal.z);
-      goal_recieved_ = true;
+      if(!running.data){
+        currentgoal=msg;
+        ROS_INFO("[navigate_to_wp] msg recieved, current goal: (%f,%f,%f)",currentgoal.x,currentgoal.y,currentgoal.z);
+        goal_recieved_ = true;
+      }
     }
 
     void step()
@@ -39,11 +41,12 @@ class Navigator
           actionlib::SimpleClientGoalState state = action_client_.getState();
           if (state == actionlib::SimpleClientGoalState::SUCCEEDED){
             ROS_INFO("[navigate_to_wp] Goal Reached!");
-            std_msgs::Bool running;
             running.data=false;
             navigator_running_pub.publish(running);
           }
           else
+            running.data=false;
+            navigator_running_pub.publish(running);
             ROS_INFO("[navigate_to_wp] Something bad happened!");
           goal_sent_ = false;
         }
@@ -69,7 +72,6 @@ class Navigator
         action_client_.sendGoal(goal);
         goal_recieved_=false;
         goal_sent_ = true;
-        std_msgs::Bool running;
         running.data=true;
         navigator_running_pub.publish(running);
       }
@@ -81,6 +83,7 @@ class Navigator
     ros::Subscriber navigator_goals_sub;
     ros::Publisher navigator_running_pub;
     actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> action_client_;
+    std_msgs::Bool running;
 
     bool goal_sent_=false;
     bool goal_recieved_=false;

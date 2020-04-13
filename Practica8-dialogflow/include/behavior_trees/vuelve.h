@@ -26,9 +26,10 @@ class vuelve : public BT::ActionNodeBase
     ros::NodeHandle n;
     ros::Publisher pub_goal;
     ros::Subscriber sub_running;
-    geometry_msgs::Point goal;
+    geometry_msgs::Point inicio;
 
-    bool navegando=true;
+    bool goalsent=false;
+    bool navegando=false;
 };
 
 }  // namespace behavior_trees

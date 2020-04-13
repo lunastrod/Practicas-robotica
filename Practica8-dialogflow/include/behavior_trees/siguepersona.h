@@ -8,6 +8,7 @@
 
 #include "ros/ros.h"
 #include "geometry_msgs/Point.h"
+#include "std_msgs/Bool.h"
 
 
 namespace behavior_trees
@@ -17,7 +18,7 @@ class siguepersona : public BT::ActionNodeBase
 {
   public:
     explicit siguepersona(const std::string& name);
-
+    void running_callback(const std_msgs::Bool& running);
     void halt();
 
     BT::NodeStatus tick();
@@ -25,8 +26,10 @@ class siguepersona : public BT::ActionNodeBase
   private:
     ros::NodeHandle n;
     ros::Publisher pub_goal;
+    ros::Subscriber sub_running;
     geometry_msgs::Point goal;
 
+    bool goalsent=false;
     bool buscando=true;
     bool navegando=false;
     bool hablando=false;

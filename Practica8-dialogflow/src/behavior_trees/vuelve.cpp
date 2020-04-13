@@ -14,13 +14,14 @@ vuelve::vuelve(const std::string& name): BT::ActionNodeBase(name, {})
 {
   sub_running = n.subscribe("/navigator/isrunning",1,&vuelve::running_callback, this);
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
-  goal.x=3.4;
-  goal.y=0;
-  goal.z=0;
+  inicio.x=0;
+  inicio.y=0;
+  inicio.z=0;
 }
 
 void vuelve::running_callback(const std_msgs::Bool& running){
-  if(!running.data){
+  if(navegando && !running.data){
+    ROS_INFO("he llegado al inicio\n");
     navegando=false;
   }
 }
@@ -32,9 +33,13 @@ void vuelve::halt()
 
 BT::NodeStatus vuelve::tick()
 {
+  navegando=true;
   if(navegando){
-    ROS_INFO("volviendo a la posicion inicial");
-    pub_goal.publish(goal);
+    if(!goalsent){
+      ROS_INFO("volviendo a la posicion inicial");
+      pub_goal.publish(inicio);
+      goalsent=true;
+    }
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("terminado");

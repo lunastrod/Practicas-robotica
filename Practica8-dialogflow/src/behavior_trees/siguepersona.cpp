@@ -13,6 +13,10 @@ namespace behavior_trees
 siguepersona::siguepersona(const std::string& name): BT::ActionNodeBase(name, {})
 {
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
+  sub_running = n.subscribe("/navigator/isrunning",1,&siguepersona::running_callback, this);
+  goal.x=-4.1;
+  goal.y=3.2;
+  goal.z=0;
 }
 
 void siguepersona::halt()
@@ -20,11 +24,17 @@ void siguepersona::halt()
   ROS_INFO("siguepersona halt");
 }
 
+void siguepersona::running_callback(const std_msgs::Bool& running){
+  if(navegando && !running.data){
+    ROS_INFO("he llegado a la persona\n");
+    navegando=false;
+    hablando=true;
+  }
+}
+
 BT::NodeStatus siguepersona::tick()
 {
   if(hablando){
-    buscando=false;
-    navegando=false;
     ROS_INFO("iniciando despedida");
     hablando=false;//TODO:temp
     return BT::NodeStatus::RUNNING;
@@ -36,10 +46,11 @@ BT::NodeStatus siguepersona::tick()
     return BT::NodeStatus::RUNNING;
   }
   if(navegando){
-    ROS_INFO("navegando a persona en la posicion:");//TODO:posicion
-    navegando=false;//TODO:temp
-    buscando=true;
-    hablando=true;
+    if(!goalsent){
+      ROS_INFO("navegando a persona en la posicion:");//TODO:posicion
+      pub_goal.publish(goal);
+      goalsent=true;
+    }
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("despedida completada\n");

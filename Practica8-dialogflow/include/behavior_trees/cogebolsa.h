@@ -9,6 +9,7 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Point.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Bool.h"
 
 namespace behavior_trees
 {
@@ -19,6 +20,7 @@ class cogebolsa : public BT::ActionNodeBase
     explicit cogebolsa(const std::string& name);
 
     void bolsa_callback(const std_msgs::String& msg);
+    void running_callback(const std_msgs::Bool& running);
 
     void halt();
 
@@ -30,7 +32,9 @@ class cogebolsa : public BT::ActionNodeBase
     std::string bolsa;
     ros::Publisher pub_goal;
     geometry_msgs::Point goal;
+    ros::Subscriber sub_running;
 
+    bool goalsent=false;
     bool esperando=true;
     bool buscando=false;
     bool navegando=false;

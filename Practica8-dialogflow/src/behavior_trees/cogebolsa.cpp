@@ -14,13 +14,24 @@ cogebolsa::cogebolsa(const std::string& name): BT::ActionNodeBase(name, {})
 {
   sub_bolsa = n.subscribe("/bolsa_elegida",1,&cogebolsa::bolsa_callback, this);
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
+  sub_running = n.subscribe("/navigator/isrunning",1,&cogebolsa::running_callback, this);
+  goal.x=-2.1;
+  goal.y=0.2;
+  goal.z=0;
 }
 
 void cogebolsa::bolsa_callback(const std_msgs::String& msg){
   bolsa=msg.data.c_str();
   ROS_INFO("eleccion: %s",bolsa.c_str());
   esperando=false;
-  navegando=true;
+  buscando=true;
+}
+
+void cogebolsa::running_callback(const std_msgs::Bool& running){
+  if(navegando && !running.data){
+    ROS_INFO("he llegado a la bolsa\n");
+    navegando=false;
+  }
 }
 
 void cogebolsa::halt()
@@ -36,11 +47,17 @@ BT::NodeStatus cogebolsa::tick()
   }
   if(buscando){
     ROS_INFO("buscando %s",bolsa.c_str());
+    //TODO:
+    buscando=false;
+    navegando=true;
     return BT::NodeStatus::RUNNING;
   }
   if(navegando){//TODO: navigation y darknet
-    ROS_INFO("navegando");
-    navegando=false;//TODO: temporal
+    if(!goalsent){
+      ROS_INFO("navegando");
+      pub_goal.publish(goal);
+      goalsent=true;
+    }
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("bolsa recogida\n");
