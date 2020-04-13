@@ -15,9 +15,14 @@ siguepersona::siguepersona(const std::string& name): BT::ActionNodeBase(name, {}
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
   sub_running = n.subscribe("/navigator/isrunning",1,&siguepersona::running_callback, this);
   srv_busqueda = n.serviceClient<servicios::busqueda>("detecta_obj");
+<<<<<<< HEAD
 
   goal.x=-2.1;
   goal.y=0.2;
+=======
+  goal.x=-4.1;
+  goal.y=3.2;
+>>>>>>> 939d684be94ae99ff71aac620f28f42a3b500128
   goal.z=0;
 }
 

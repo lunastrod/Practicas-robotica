@@ -7,6 +7,8 @@
 
 #include "ros/ros.h"
 
+#include "ejemploDF.h"
+
 #include "std_msgs/String.h"
 #include <sstream>
 
@@ -25,19 +27,36 @@ void eligebolsa::halt()
 
 BT::NodeStatus eligebolsa::tick()
 {
+  gb_dialog::ExampleDF forwarder;
+  std::string respuesta;
+  std::string objeto;
+  std::string str;
   if(esperando){
     ROS_INFO("esperando a la eleccion de la bolsa");
-    esperando=false;//TODO:temporal
+
+    forwarder.listen();
+    ros::spinOnce();
+    str = forwarder.getintentfound();
+    respuesta = forwarder.getresponse();
+    objeto = forwarder.getobject();
+    ROS_INFO("[Robot]: detectado %s", str.c_str());
+    ROS_INFO("[Robot]: objeto %s", objeto.c_str());
+    if(!str.compare("Carry my luggage")){
+      ros::spinOnce();
+      ROS_INFO("[Robot]: a por %s!", objeto.c_str());
+      esperando=false;//TODO:temporal
+    }
     return BT::NodeStatus::RUNNING;
   }
   if(hablando){//TODO: dialog flow intent
+
     ROS_INFO("hablando");
     return BT::NodeStatus::RUNNING;
   }
   std::string bolsa;
   bolsa="sports ball";//TODO:lo que tiene que escribir dialogflow y leerá darknet
 
-  msg_bolsa.data = bolsa;
+  msg_bolsa.data = objeto;
   pub_bolsa.publish(msg_bolsa);
   ros::spinOnce();
   ROS_INFO("bolsa elegida: %s\n",msg_bolsa.data.c_str());
