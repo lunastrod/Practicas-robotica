@@ -12,7 +12,7 @@ namespace gb_dialog
   class ExampleDF: public DialogInterface
   {
     public:
-      ExampleDF::ExampleDF();
+      ExampleDF();
       /*{
         this->registerCallback(std::bind(&ExampleDF::noIntentCB, this, ph::_1));
         this->registerCallback(
