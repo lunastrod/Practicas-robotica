@@ -31,13 +31,9 @@ BT::NodeStatus saluda::tick()
     forwarder.listen();
     ros::spinOnce();
     std::string respuesta = forwarder.getresponse();
-
     std::string str = forwarder.getintentfound();
     if(!str.compare("Default Welcome Intent")){
       ROS_INFO("[Robot]: %s", respuesta.c_str());
-    }
-    //std::string str = "HOLA";
-    if(!str.compare("Default Welcome Intent")){
       esperando=false;//TODO:temporal
     }
     return BT::NodeStatus::RUNNING;

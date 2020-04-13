@@ -43,8 +43,8 @@ class pruebadf: public DialogInterface
       //ROS_INFO("[ExampleDF] noIntentCB: response en callback [%s]", respuesta.c_str());
       intent_encontrado = result.intent.c_str();
       respuesta = result.fulfillment_text.c_str();
-      ROS_INFO("[ExampleDF] noIntentCB: response en callback [%s]", respuesta.c_str());
-        //ROS_INFO("%s",result.parameters[0].param_name.c_str());
+      //ROS_INFO("[ExampleDF] noIntentCB: response en callback [%s]", respuesta.c_str());
+      ROS_INFO("%s intent en callback",result.intent.c_str());
       if(!result.intent.compare(intent_buscado)){
         objeto = result.parameters[0].value[0];
       }
@@ -92,7 +92,7 @@ class pruebadf: public DialogInterface
 
   private:
     ros::NodeHandle nh_;
-    std::string intent_buscado = "Null";
+    std::string intent_buscado = "Carry my luggage";
     std::string intent_encontrado = "Null";
     //std::string intent_encontrado = "Carry my luggage";
     std::string objeto = "Null";
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
   //std::string respuesta = forwarder.getresponse();
 
   ros::spinOnce();
-  std::string respuesta = forwarder.getresponse();
+  std::string respuesta = forwarder.getobject();
   ROS_INFO("[Robot]: %s", respuesta.c_str());
   return 0;
 }
