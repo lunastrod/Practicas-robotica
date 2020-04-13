@@ -43,12 +43,12 @@ add_executable(carryluggage
 
 )
 
-#add_executable(ejemploDF src/ejemploDF.cpp)
+add_executable(pruebaDF src/pruebadf.cpp)
 add_executable(nav src/navp8.cpp)
 add_executable(busqueda src/busquedap8.cpp)
 
 target_link_libraries(carryluggage ${catkin_LIBRARIES})
-#target_link_libraries(ejemploDF ${catkin_LIBRARIES})
+target_link_libraries(pruebaDF ${catkin_LIBRARIES})
 target_link_libraries(nav ${catkin_LIBRARIES})
 target_link_libraries(busqueda ${catkin_LIBRARIES})
 
