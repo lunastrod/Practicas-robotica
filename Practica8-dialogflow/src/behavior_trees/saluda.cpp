@@ -29,16 +29,14 @@ BT::NodeStatus saluda::tick()
     gb_dialog::ExampleDF forwarder;
     //forwarder.setintent("Default Welcome Intent");
     forwarder.listen();
-    //std::string str = forwarder.getintentfound();
-    std::string str = "HOLA";
-    if(str.compare("Default Welcome Intent")){
+    std::string respuesta = forwarder.getresponse();
+
+    std::string str = forwarder.getintentfound();
+    ROS_INFO("[Robot]: %s", str.c_str());
+    //std::string str = "HOLA";
+    if(!str.compare("Default Welcome Intent")){
       esperando=false;//TODO:temporal
     }
-    return BT::NodeStatus::RUNNING;
-  }
-  if(hablando){//TODO: dialog flow intent saludo
-    ROS_INFO("saludando");
-
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("saludo terminado\n");

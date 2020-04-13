@@ -49,7 +49,8 @@ namespace gb_dialog
       //ROS_INFO("[%s  %s   %d]", result.intent.c_str(), intent.c_str(),result.intent.compare(intent));
       ROS_INFO("[ExampleDF] noIntentCB: intent [%s]", result.intent.c_str());
       intent_encontrado = result.intent.c_str();
-
+      respuesta = result.fulfillment_text.c_str();
+      ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
         //ROS_INFO("%s",result.parameters[0].param_name.c_str());
       if(!result.intent.compare(intent_buscado)){
         objeto = result.parameters[0].value[0];
@@ -71,11 +72,22 @@ namespace gb_dialog
     }
 
     std::string ExampleDF::getintentfound(){
-      return intent_encontrado;
+      std::string result = intent_encontrado;
+      //intent_encontrado = "Null";
+      return result;
     }
 
     std::string ExampleDF::getobject(){
-      return objeto;
+      std::string result = objeto;
+      //objeto = "Null";
+      return result;
+    }
+
+    std::string ExampleDF::getresponse(){
+      std::string result = respuesta;
+      ROS_INFO("[ExampleDF] getresponse [%s]", respuesta.c_str());
+      //respuesta = "Null";
+      return result;
     }
 
   /*private:

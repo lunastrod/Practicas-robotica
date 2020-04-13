@@ -24,12 +24,14 @@ namespace gb_dialog
       void setintent(std::string str);
       std::string getintentfound();
       std::string getobject();
+      std::string getresponse();
 
     private:
       std::string intent_buscado = "Null";
       std::string intent_encontrado = "Null";
       //std::string intent_encontrado = "Carry my luggage";
       std::string objeto = "Null";
+      std::string respuesta = "Null";
     };
 }  // namespace gb_dialog
 #endif
