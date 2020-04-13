@@ -44,6 +44,7 @@ BT::NodeStatus eligebolsa::tick()
     if(!str.compare("Carry my luggage")){
       ros::spinOnce();
       ROS_INFO("[Robot]: a por %s!", objeto.c_str());
+      msg_bolsa.data = objeto;
       esperando=false;//TODO:temporal
     }
     return BT::NodeStatus::RUNNING;
@@ -54,7 +55,9 @@ BT::NodeStatus eligebolsa::tick()
     return BT::NodeStatus::RUNNING;
   }
 
-  msg_bolsa.data = objeto.c_str();
+
+//  ROS_INFO("[Robot]: objeto %s", objeto.c_str());
+
   pub_bolsa.publish(msg_bolsa);
   ros::spinOnce();
   ROS_INFO("bolsa elegida: %s\n",msg_bolsa.data.c_str());
