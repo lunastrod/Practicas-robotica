@@ -53,10 +53,8 @@ BT::NodeStatus eligebolsa::tick()
     ROS_INFO("hablando");
     return BT::NodeStatus::RUNNING;
   }
-  std::string bolsa;
-  bolsa="sports ball";//TODO:lo que tiene que escribir dialogflow y leerá darknet
 
-  msg_bolsa.data = objeto;
+  msg_bolsa.data = objeto.c_str();
   pub_bolsa.publish(msg_bolsa);
   ros::spinOnce();
   ROS_INFO("bolsa elegida: %s\n",msg_bolsa.data.c_str());
