@@ -36,6 +36,8 @@ BT::NodeStatus siguepersona::tick()
   if(hablando){
     ROS_INFO("iniciando despedida");
     hablando=false;//TODO:temp
+    navegando=false;
+    buscando=false;
     return BT::NodeStatus::RUNNING;
   }
   if(buscando){
