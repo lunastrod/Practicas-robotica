@@ -36,7 +36,7 @@ namespace gb_dialog
         std::bind(&ExampleDF::welcomeIntentCB, this, ph::_1),
         "Default Welcome Intent");
     }*/
-    ExampleDF::ExampleDF(): nh_(){
+    ExampleDF::ExampleDF(){
 
       this->registerCallback(std::bind(&ExampleDF::noIntentCB, this, ph::_1));
       this->registerCallback(

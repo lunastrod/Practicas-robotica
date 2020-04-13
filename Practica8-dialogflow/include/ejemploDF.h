@@ -26,7 +26,6 @@ namespace gb_dialog
       std::string getobject();
 
     private:
-      ros::NodeHandle nh_;
       std::string intent_buscado = "Null";
       std::string intent_encontrado = "Null";
       //std::string intent_encontrado = "Carry my luggage";
