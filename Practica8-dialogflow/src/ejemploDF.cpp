@@ -86,7 +86,7 @@ namespace gb_dialog
     std::string objeto = "Null";
 };*/
 }  // namespace gb_dialog
-
+/*
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "example_df_node");
@@ -95,3 +95,4 @@ int main(int argc, char** argv)
   ros::spin();
   return 0;
 }
+*/
