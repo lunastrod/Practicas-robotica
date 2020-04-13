@@ -14,7 +14,7 @@ namespace behavior_trees
 
 saluda::saluda(const std::string& name): BT::ActionNodeBase(name, {})
 {
-  
+
 }
 
 void saluda::halt()
@@ -31,6 +31,7 @@ BT::NodeStatus saluda::tick()
   }
   if(hablando){//TODO: dialog flow intent saludo
     ROS_INFO("saludando");
+
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("saludo terminado\n");
