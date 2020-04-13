@@ -36,8 +36,6 @@ BT::NodeStatus siguepersona::tick()
   if(hablando){
     ROS_INFO("iniciando despedida");
     hablando=false;//TODO:temp
-    navegando=false;
-    buscando=false;
     return BT::NodeStatus::RUNNING;
   }
   if(buscando){
@@ -58,6 +56,15 @@ BT::NodeStatus siguepersona::tick()
       ROS_INFO("navegando a persona");//TODO:posicion
       pub_goal.publish(goal);
       goalsent=true;
+    }
+    gb_dialog::ExampleDF forwarder;
+    forwarder.listen();
+    ros::spinOnce();
+    std::string respuesta = forwarder.getresponse();
+    std::string str = forwarder.getintentfound();
+    if(!str.compare("Job is done")){
+      ROS_INFO("[Robot]: %s", respuesta.c_str());
+      hablando=true;//TODO:temporal
     }
     return BT::NodeStatus::RUNNING;
   }
