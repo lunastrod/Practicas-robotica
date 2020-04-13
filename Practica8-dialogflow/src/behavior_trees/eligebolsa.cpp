@@ -27,10 +27,12 @@ BT::NodeStatus eligebolsa::tick()
 {
   if(esperando){
     ROS_INFO("esperando a la eleccion de la bolsa");
+    //gb_dialog::ExampleDF forwarder;
     esperando=false;//TODO:temporal
     return BT::NodeStatus::RUNNING;
   }
   if(hablando){//TODO: dialog flow intent
+
     ROS_INFO("hablando");
     return BT::NodeStatus::RUNNING;
   }

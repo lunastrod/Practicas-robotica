@@ -1,4 +1,5 @@
 #include <gb_dialog/DialogInterface.h>
+#include "ejemploDF.h"
 #include <string>
 
 /*
@@ -25,7 +26,7 @@ namespace ph = std::placeholders;
 
 namespace gb_dialog
 {
-class ExampleDF: public DialogInterface
+/*class ExampleDF: public DialogInterface
 {
   public:
     ExampleDF(): nh_()
@@ -34,23 +35,56 @@ class ExampleDF: public DialogInterface
       this->registerCallback(
         std::bind(&ExampleDF::welcomeIntentCB, this, ph::_1),
         "Default Welcome Intent");
+    }*/
+    ExampleDF::ExampleDF(): nh_(){
+
+      this->registerCallback(std::bind(&ExampleDF::noIntentCB, this, ph::_1));
+      this->registerCallback(
+        std::bind(&ExampleDF::welcomeIntentCB, this, ph::_1),
+        "Default Welcome Intent");
     }
 
-    void noIntentCB(dialogflow_ros_msgs::DialogflowResult result)
+    void ExampleDF::noIntentCB(dialogflow_ros_msgs::DialogflowResult result)
     {
+      //ROS_INFO("[%s  %s   %d]", result.intent.c_str(), intent.c_str(),result.intent.compare(intent));
       ROS_INFO("[ExampleDF] noIntentCB: intent [%s]", result.intent.c_str());
-      //ROS_INFO("[ExampleDF] noIntentCB: param [%s]", result.parameters.value[0].c_str());
+      intent_encontrado = result.intent.c_str();
+
+        //ROS_INFO("%s",result.parameters[0].param_name.c_str());
+      if(!result.intent.compare(intent_buscado)){
+        objeto = result.parameters[0].value[0];
+      }
+      else{
+        objeto = "Null";
+      }
+      ROS_INFO("[ExampleDF] noIntentCB: param [%s]", objeto.c_str());
     }
 
-    void welcomeIntentCB(dialogflow_ros_msgs::DialogflowResult result)
+    void ExampleDF::welcomeIntentCB(dialogflow_ros_msgs::DialogflowResult result)
     {
       ROS_INFO("[ExampleDF] welcomeIntentCB: intent [%s]", result.intent.c_str());
       speak(result.fulfillment_text);
     }
 
-  private:
+    void ExampleDF::setintent(std::string str){
+      intent_buscado = str;
+    }
+
+    std::string ExampleDF::getintentfound(){
+      return intent_encontrado;
+    }
+
+    std::string ExampleDF::getobject(){
+      return objeto;
+    }
+
+  /*private:
     ros::NodeHandle nh_;
-};
+    std::string intent_buscado = "Null";
+    std::string intent_encontrado = "Null";
+    //std::string intent_encontrado = "Carry my luggage";
+    std::string objeto = "Null";
+};*/
 }  // namespace gb_dialog
 
 int main(int argc, char** argv)
