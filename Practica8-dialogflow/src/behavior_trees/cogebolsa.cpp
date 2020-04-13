@@ -15,6 +15,7 @@ cogebolsa::cogebolsa(const std::string& name): BT::ActionNodeBase(name, {})
   sub_bolsa = n.subscribe("/bolsa_elegida",1,&cogebolsa::bolsa_callback, this);
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
   sub_running = n.subscribe("/navigator/isrunning",1,&cogebolsa::running_callback, this);
+  srv_busqueda = n.serviceClient<servicios::busqueda>("detecta_obj");
   goal.x=-2.1;
   goal.y=0.2;
   goal.z=0;

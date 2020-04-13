@@ -10,6 +10,7 @@
 #include "geometry_msgs/Point.h"
 #include "std_msgs/String.h"
 #include "std_msgs/Bool.h"
+#include "servicios/busqueda.h"
 
 namespace behavior_trees
 {
@@ -33,6 +34,8 @@ class cogebolsa : public BT::ActionNodeBase
     ros::Publisher pub_goal;
     geometry_msgs::Point goal;
     ros::Subscriber sub_running;
+    ros::ServiceClient srv_busqueda;
+    servicios::busqueda msg_busqueda;
 
     bool goalsent=false;
     bool esperando=true;
