@@ -7,6 +7,8 @@
 
 #include "ros/ros.h"
 
+#include "ejemploDF.h"
+
 namespace behavior_trees
 {
 
@@ -35,6 +37,8 @@ BT::NodeStatus siguepersona::tick()
 {
   if(hablando){
     ROS_INFO("iniciando despedida");
+    navegando=false;
+    buscando=false;
     hablando=false;//TODO:temp
     return BT::NodeStatus::RUNNING;
   }
