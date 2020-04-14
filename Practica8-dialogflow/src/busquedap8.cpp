@@ -32,11 +32,11 @@ public:
     sub_point_cloud_ = n_.subscribe("/camera/depth/points",1,&camara::pointcloudCallBack,this);
   }
   void boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
-    ROS_INFO("boxes callback");
+    //ROS_INFO("boxes callback");
     objeto_detectado_ = false;
     //TODO: solo comprueba el primer objeto de bounding_boxes
     if(!msg.bounding_boxes[0].Class.compare(tipo_objeto)){
-      ROS_INFO("boxes coincide");
+      //ROS_INFO("boxes coincide");
       centrox = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2;
       centroy = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2;
       objeto_detectado_ = true;
@@ -116,7 +116,7 @@ public:
       res.position.y=p.y;
       res.position.z=p.z;
       res.found.data=true;
-      
+
       objeto_detectado_=false;
     }
     return true;
