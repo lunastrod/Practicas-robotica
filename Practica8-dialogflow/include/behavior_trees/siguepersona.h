@@ -6,6 +6,7 @@
 
 #include <string>
 
+#include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
 #include "geometry_msgs/Point.h"
 #include "std_msgs/Bool.h"
@@ -27,10 +28,12 @@ class siguepersona : public BT::ActionNodeBase
   private:
     ros::NodeHandle n;
     ros::Publisher pub_goal;
+    ros::Publisher pub_vel_;
     ros::Subscriber sub_running;
     geometry_msgs::Point goal;
     ros::ServiceClient srv_busqueda;
     servicios::busqueda msg_busqueda;
+    geometry_msgs::Twist motor;
 
     bool goalsent=false;
     bool buscando=true;

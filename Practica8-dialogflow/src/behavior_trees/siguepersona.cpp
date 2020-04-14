@@ -15,8 +15,15 @@ namespace behavior_trees
 siguepersona::siguepersona(const std::string& name): BT::ActionNodeBase(name, {})
 {
   pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
+  pub_vel_ =  n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
   sub_running = n.subscribe("/navigator/isrunning",1,&siguepersona::running_callback, this);
   srv_busqueda = n.serviceClient<servicios::busqueda>("detecta_obj");
+  motor.linear.x = 0;
+  motor.linear.y = 0;
+  motor.linear.z = 0;
+  motor.angular.x =0;
+  motor.angular.y =0;
+  motor.angular.z =0;
 }
 
 void siguepersona::halt()
@@ -43,6 +50,9 @@ BT::NodeStatus siguepersona::tick()
     return BT::NodeStatus::RUNNING;
   }
   if(buscando){
+    motor.angular.z = 0.3;
+    pub_vel_.publish(motor);
+    ros::spinOnce();
     goalsent=false;
     ROS_INFO("buscando personas");
     msg_busqueda.request.object.data="person";
