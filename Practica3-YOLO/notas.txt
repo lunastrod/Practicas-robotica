@@ -3,6 +3,7 @@ roslaunch practica3-yolo yolo.launch
 
 ##cuda##
 https://developer.nvidia.com/cuda-toolkit
+https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 para compilar usando las optimizaciones de la GPU:
 catkin_make -DCMAKE_BUILD_TYPE=Release
 sudo dpkg -i --force-overwrite  /var/cache/apt/archives/nvidia-cuda-dev_9.1.85-3ubuntu1_amd64.deb

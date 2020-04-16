@@ -67,6 +67,8 @@ BT::NodeStatus siguepersona::tick()
   }
   if(navegando){
     if(!goalsent){
+      motor.angular.z = 0.0;
+      pub_vel_.publish(motor);
       ROS_INFO("navegando a persona");//TODO:posicion
       pub_goal.publish(goal);
       goalsent=true;
