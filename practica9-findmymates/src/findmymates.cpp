@@ -14,20 +14,22 @@
 /*
   saludo: dialog
     espera a que el operador arranque
-  busca: dialog
-    recibe la posicion que dice el operador
-    ejemplo: habitacion, salon, cocina
-  navegacion: navigation y darknet
-    va a la posicion que ha dicho el operador
-  dialogo: dialog
-    habla con la persona que está en la posicion
-    recoge informacion de la persona
-    ejemplo: nombre, descripcion...
-  vuelve: navigation y darknet
-    vuelve al operador
-  informacion: dialog
-    devuelve la informacion recogida al operador
-
+  secuencia busqueda
+  {
+      busca: dialog
+        recibe la posicion que dice el operador
+        ejemplo: habitacion, salon, cocina
+      navegacion: navigation y darknet
+        va a la posicion que ha dicho el operador
+      dialogo: dialog
+        habla con la persona que está en la posicion
+        recoge informacion de la persona
+        ejemplo: nombre, descripcion...
+      vuelve: navigation y darknet
+        vuelve al operador
+      informacion: dialog
+        devuelve la informacion recogida al operador
+  }
 
 */
 
