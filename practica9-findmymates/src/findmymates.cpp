@@ -13,21 +13,34 @@
 
 /*
   saludo: dialog
-    espera a que el operador arranque
+    -viaja a la posicion inicial
+    -espera a que el operador arranque
+    guarda la posicion inicial en variable de clase
+    outputs: posicion inicial
   secuencia busqueda
   {
       busca: dialog
-        recibe la posicion que dice el operador
+        -recibe la posicion que dice el operador
         ejemplo: habitacion, salon, cocina
+        outputs: posicion objetivo
+
       navegacion: navigation y darknet
-        va a la posicion que ha dicho el operador
+        -va a la posicion que ha dicho el operador
+        inputs: posicion objetivo
+
       dialogo: dialog
-        habla con la persona que está en la posicion
-        recoge informacion de la persona
+        -habla con la persona que está en la posicion
+        -recoge informacion de la persona
         ejemplo: nombre, descripcion...
+        outputs: informacion personal
+
       vuelve: navigation y darknet
-        vuelve al operador
+        -vuelve al operador
+        input:posicion inicial
+
       informacion: dialog
+        -habla con el operador
+        input: informacion personal
         devuelve la informacion recogida al operador
   }
 
