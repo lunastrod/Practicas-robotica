@@ -1,0 +1,7 @@
+escalar dialogflow
+  creamos otro agente, nuevos intents???
+navegación:
+  esta bien?
+busqueda:
+  como se saca info de un pointcloud2?
+  está bien?

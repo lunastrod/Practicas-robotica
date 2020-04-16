@@ -23,6 +23,8 @@ void dialogo::halt()
 BT::NodeStatus dialogo::tick()
 {
   ROS_INFO("dialogo tick");
+  //return BT::NodeStatus::RUNNING;
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

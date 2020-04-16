@@ -23,6 +23,8 @@ void saludo::halt()
 BT::NodeStatus saludo::tick()
 {
   ROS_INFO("saludo tick");
+  //return BT::NodeStatus::RUNNING;
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

@@ -23,6 +23,8 @@ void navegacion::halt()
 BT::NodeStatus navegacion::tick()
 {
   ROS_INFO("navegacion tick");
+  //return BT::NodeStatus::RUNNING;
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

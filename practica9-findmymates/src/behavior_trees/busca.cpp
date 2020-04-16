@@ -23,6 +23,8 @@ void busca::halt()
 BT::NodeStatus busca::tick()
 {
   ROS_INFO("busca tick");
+  return BT::NodeStatus::RUNNING;
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

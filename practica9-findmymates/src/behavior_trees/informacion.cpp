@@ -23,6 +23,8 @@ void informacion::halt()
 BT::NodeStatus informacion::tick()
 {
   ROS_INFO("informacion tick");
+  //return BT::NodeStatus::RUNNING;
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees

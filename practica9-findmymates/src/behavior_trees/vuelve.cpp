@@ -23,6 +23,8 @@ void vuelve::halt()
 BT::NodeStatus vuelve::tick()
 {
   ROS_INFO("vuelve tick");
+  //return BT::NodeStatus::RUNNING;
+  return BT::NodeStatus::SUCCESS;
 }
 
 }  // namespace behavior_trees
