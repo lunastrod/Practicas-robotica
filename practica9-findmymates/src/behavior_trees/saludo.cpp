@@ -40,7 +40,6 @@ BT::NodeStatus saluda::tick()
   }
   ROS_INFO("saludo terminado\n");
   return BT::NodeStatus::SUCCESS;
-
 }
 
 }  // namespace behavior_trees
