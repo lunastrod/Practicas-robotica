@@ -12,7 +12,7 @@
 #include "ros/package.h"
 
 /*
-  saludo: dialog
+  saludo: dialog navegacion
     -viaja a la posicion inicial
     -espera a que el operador arranque
     guarda la posicion inicial en variable de clase
