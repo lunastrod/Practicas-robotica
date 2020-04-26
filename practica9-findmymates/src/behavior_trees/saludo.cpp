@@ -1,6 +1,6 @@
 #include <string>
 
-#include "behavior_trees/saluda.h"
+#include "behavior_trees/saludo.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
@@ -12,17 +12,17 @@
 namespace behavior_trees
 {
 
-saluda::saluda(const std::string& name): BT::ActionNodeBase(name, {})
+saludo::saludo(const std::string& name): BT::ActionNodeBase(name, {})
 {
 
 }
 
-void saluda::halt()
+void saludo::halt()
 {
   ROS_INFO("saluda halt");
 }
 
-BT::NodeStatus saluda::tick()
+BT::NodeStatus saludo::tick()
 {
   if(esperando){
     ROS_INFO("esperando saludo");

@@ -13,10 +13,10 @@
 namespace behavior_trees
 {
 
-class saluda : public BT::ActionNodeBase
+class saludo : public BT::ActionNodeBase
 {
   public:
-    explicit saluda(const std::string& name);
+    explicit saludo(const std::string& name);
 
     void halt();
 

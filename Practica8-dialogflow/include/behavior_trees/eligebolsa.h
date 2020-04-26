@@ -25,7 +25,7 @@ class eligebolsa : public BT::ActionNodeBase
     ros::NodeHandle n;
     ros::Publisher pub_bolsa;
     std_msgs::String msg_bolsa;
-    
+
     bool esperando=true;
     bool hablando=false;
 };
