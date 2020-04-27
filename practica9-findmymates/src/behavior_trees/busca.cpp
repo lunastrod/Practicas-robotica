@@ -33,7 +33,7 @@ BT::NodeStatus busca::tick()
   std::string str;
 
   if(esperando){
-    ROS_INFO("esperando a la eleccion de la bolsa");
+    ROS_INFO("esperando una ubicacion");
 
     forwarder.listen();
     ros::spinOnce();
@@ -42,7 +42,7 @@ BT::NodeStatus busca::tick()
     lugar = forwarder.getobject();
     ROS_INFO("[Robot]: detectado %s", str.c_str());
     ROS_INFO("[Robot]: Lugar %s", lugar.c_str());
-    if(!str.compare("Carry my luggage")){
+    if(!str.compare("Find my mates")){
       ros::spinOnce();
       ROS_INFO("[Robot]: a por %s!", lugar.c_str());
       msg_lugar.data = lugar;

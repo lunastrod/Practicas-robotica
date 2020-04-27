@@ -51,6 +51,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "behavior_tree");
   ros::NodeHandle n;
 
+
   BT::BehaviorTreeFactory factory;
 
   factory.registerNodeType<behavior_trees::busca>("busca");
