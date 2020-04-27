@@ -1,5 +1,5 @@
-#ifndef BEHAVIOR_TREES_SALUDA_H
-#define BEHAVIOR_TREES_SALUDA_H
+#ifndef BEHAVIOR_TREES_SALUDO_H
+#define BEHAVIOR_TREES_SALUDO_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
@@ -13,10 +13,10 @@
 namespace behavior_trees
 {
 
-class saluda : public BT::ActionNodeBase
+class saludo : public BT::ActionNodeBase
 {
   public:
-    explicit saluda(const std::string& name);
+    explicit saludo(const std::string& name);
 
     void halt();
 
@@ -30,4 +30,4 @@ class saluda : public BT::ActionNodeBase
 
 }  // namespace behavior_trees
 
-#endif  // BEHAVIOR_TREES_SALUDA_H
+#endif  // BEHAVIOR_TREES_SALUDO_H

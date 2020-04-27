@@ -40,6 +40,7 @@ add_executable(findmymates
   src/behavior_trees/navegacion.cpp
   src/behavior_trees/saludo.cpp
   src/behavior_trees/vuelve.cpp
+  src/ejemploDF.cpp
 )
 
 target_link_libraries(findmymates ${catkin_LIBRARIES})
