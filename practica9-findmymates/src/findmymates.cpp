@@ -32,7 +32,7 @@
         -habla con la persona que está en la posicion
         -recoge informacion de la persona
         ejemplo: nombre, descripcion...
-        outputs: informacion personal
+        outputs: informacion personal?
 
       vuelve: navigation y darknet
         -vuelve al operador
@@ -40,7 +40,7 @@
 
       informacion: dialog
         -habla con el operador
-        input: informacion personal
+        input: informacion personal?
         devuelve la informacion recogida al operador
   }
 
@@ -60,6 +60,11 @@ int main(int argc, char **argv)
   factory.registerNodeType<behavior_trees::saludo>("saludo");
   factory.registerNodeType<behavior_trees::vuelve>("vuelve");
 
+/*
+  BT::PortsList say_something_ports = { BT::InputPort<std::string>("posicion") };
+  factory.registerSimpleAction("SaySomething2", SaySomethingSimple,
+                               say_something_ports );
+*/
   std::string pkgpath = ros::package::getPath("practica9-findmymates");
   std::string xml_file = pkgpath + "/trees/findmymates.xml";
 
@@ -71,7 +76,7 @@ int main(int argc, char **argv)
   while (ros::ok() && !finish)
   {
     finish = tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
-    ROS_INFO("aaa");
+    //ROS_INFO("aaa");
     ros::spinOnce();
     loop_rate.sleep();
   }

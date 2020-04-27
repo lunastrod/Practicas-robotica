@@ -24,6 +24,8 @@ void saludo::halt()
 
 BT::NodeStatus saludo::tick()
 {
+  return BT::NodeStatus::SUCCESS;//TODO:temp
+
   if(esperando){
     ROS_INFO("esperando saludo");
     gb_dialog::ExampleDF forwarder;

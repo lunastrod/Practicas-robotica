@@ -9,12 +9,14 @@
 namespace behavior_trees
 {
 
-class navegacion : public BT::ActionNodeBase
+class navegacion : public BT::SyncActionNode
 {
   public:
-    explicit navegacion(const std::string& name);
+    navegacion(const std::string& name, const BT::NodeConfiguration& config);
 
-    void halt();
+    static BT::PortsList providedPorts();
+
+    //void halt();
 
     BT::NodeStatus tick();
 
