@@ -46,7 +46,6 @@ BT::NodeStatus busca::tick()
     if(!str.compare("Find my mates")){
       ros::spinOnce();
       ROS_INFO("[Robot]: a por %s!", lugar.c_str());
-      msg_lugar.data = lugar;
       esperando=false;//TODO:temporal
     }
     return BT::NodeStatus::RUNNING;
@@ -59,8 +58,8 @@ BT::NodeStatus busca::tick()
 
 
 //  ROS_INFO("[Robot]: objeto %s", objeto.c_str());
-  setOutput("pos", msg_lugar );
-  ROS_INFO("lugar elegido: %s\n",msg_lugar.data.c_str());
+  setOutput("pos", lugar );
+  ROS_INFO("lugar elegido: %s\n",lugar.c_str());
 
   return BT::NodeStatus::SUCCESS;
 }

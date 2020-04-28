@@ -23,7 +23,6 @@ class busca : public BT::ActionNodeBase
     BT::NodeStatus tick() override;
   private:
     ros::NodeHandle n;
-    std_msgs::String msg_lugar;
 
     bool esperando=true;
     bool hablando=false;

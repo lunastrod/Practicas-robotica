@@ -47,11 +47,9 @@ BT::NodeStatus dialogo::tick()
     if(!str.compare("dialogo")){
       if(!param_name.compare("given-name")){
         nombre = forwarder.getobject();
-        msg_nombre.data = nombre;
       }
       else if(!param_name.compare("color")){
         color = forwarder.getobject();
-        msg_color.data = color;
       }
       ros::spinOnce();
       esperando=false;//TODO:temporal
@@ -66,8 +64,8 @@ BT::NodeStatus dialogo::tick()
 
 
 //  ROS_INFO("[Robot]: objeto %s", objeto.c_str());
-  setOutput("color", msg_color );
-  setOutput("personname", msg_nombre );
+  setOutput("color", color );
+  setOutput("personname", nombre );
   ros::spinOnce();
   //ROS_INFO("lugar elegido: %s\n",msg_lugar.data.c_str());
   return BT::NodeStatus::SUCCESS;

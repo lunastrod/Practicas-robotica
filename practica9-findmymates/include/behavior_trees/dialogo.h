@@ -22,8 +22,8 @@ class dialogo : public BT::ActionNodeBase
     BT::NodeStatus tick() override;
   private:
     //ros::NodeHandle n;
-    std_msgs::String msg_color;
-    std_msgs::String msg_nombre;
+    std::string msg_color;
+    std::string msg_nombre;
 
     bool esperando=true;
     bool hablando=false;
