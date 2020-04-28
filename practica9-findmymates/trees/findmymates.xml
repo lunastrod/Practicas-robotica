@@ -1,27 +1,18 @@
 <?xml version="1.0"?>
 <root main_tree_to_execute="BehaviorTree">
-    <!-- ////////// -->
+    <!-- ////////// name="{name}" color="{color}"
+getname="{name}" getcolor="{color}
+  -->
     <BehaviorTree ID="BehaviorTree">
         <Sequence name="main">
             <Action ID="saludo"/>
             <Sequence name="busqueda">
-                <Action ID="busca"/>
-                <Action ID="navegacion"/>
-                <Action ID="dialogo"/>
-                <Action ID="vuelve"/>
-                <Action ID="informacion"/>
+                <Action ID="busca" pos="{position}"/>
+                <Action ID="navegacion" getpos="{position}"/>
+                <Action ID="dialogo" personname="{personname}" color="{color}"/>
+                <Action ID="vuelve" />
+                <Action ID="informacion" getpersonname="{personname}" getcolor="{color}"/>
             </Sequence>
         </Sequence>
     </BehaviorTree>
-    <!-- ////////// -->
-    <TreeNodesModel>
-        <Action ID="busca"/>
-        <Action ID="dialogo"/>
-        <Action ID="informacion"/>
-        <Action ID="navegacion"/>
-        <Action ID="saludo"/>
-        <Action ID="vuelve"/>
-    </TreeNodesModel>
-    <!-- ////////// -->
 </root>
-

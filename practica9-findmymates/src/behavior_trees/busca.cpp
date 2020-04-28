@@ -15,7 +15,8 @@
 namespace behavior_trees
 {
 
-busca::busca(const std::string& name): BT::ActionNodeBase(name, {})
+busca::busca(const std::string& name, const BT::NodeConfiguration& config)
+  : ActionNodeBase(name, config)
 {
 
 }
@@ -59,9 +60,16 @@ BT::NodeStatus busca::tick()
 
 //  ROS_INFO("[Robot]: objeto %s", objeto.c_str());
   setOutput("pos", msg_lugar );
-  ros::spinOnce();
   ROS_INFO("lugar elegido: %s\n",msg_lugar.data.c_str());
+
   return BT::NodeStatus::SUCCESS;
+}
+
+BT::PortsList busca::providedPorts()
+{
+    // This action has a single input port called "message"
+    // Any port must have a name. The type is optional.
+    return { BT::OutputPort<std::string>("pos") };
 }
 
 }  // namespace behavior_trees

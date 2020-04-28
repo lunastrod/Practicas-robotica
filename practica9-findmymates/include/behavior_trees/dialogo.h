@@ -14,10 +14,12 @@ namespace behavior_trees
 class dialogo : public BT::ActionNodeBase
 {
   public:
-    explicit dialogo(const std::string& name);
+    dialogo(const std::string& name, const BT::NodeConfiguration& config);
 
-    void halt();
-    BT::NodeStatus tick();
+    static BT::PortsList providedPorts();
+
+    void halt() override;
+    BT::NodeStatus tick() override;
   private:
     //ros::NodeHandle n;
     std_msgs::String msg_color;

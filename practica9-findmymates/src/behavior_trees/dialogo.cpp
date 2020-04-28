@@ -14,7 +14,8 @@
 namespace behavior_trees
 {
 
-dialogo::dialogo(const std::string& name): BT::ActionNodeBase(name, {})
+dialogo::dialogo(const std::string& name, const BT::NodeConfiguration& config)
+  : ActionNodeBase(name, config)
 {
 
 }
@@ -72,4 +73,12 @@ BT::NodeStatus dialogo::tick()
   return BT::NodeStatus::SUCCESS;
 }
 
+BT::PortsList dialogo::providedPorts()
+{
+    return {
+      BT::OutputPort<std::string>("color"),
+      BT::OutputPort<std::string>("personname")
+    };
 }
+
+}  // namespace behavior_trees

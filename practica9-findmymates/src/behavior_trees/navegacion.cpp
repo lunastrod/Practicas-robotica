@@ -10,7 +10,8 @@
 namespace behavior_trees
 {
 
-navegacion::navegacion(const std::string& name): BT::ActionNodeBase(name, {})
+navegacion::navegacion(const std::string& name, const BT::NodeConfiguration& config)
+  : ActionNodeBase(name, config)
 {
 
 }
@@ -22,9 +23,24 @@ void navegacion::halt()
 
 BT::NodeStatus navegacion::tick()
 {
+  BT::Optional<std::string> pos = getInput<std::string>("getpos");
+  if (!pos)
+  {
+    throw BT::RuntimeError("missing required input [message]: ",
+                         pos.error() );
+  }
+
+  std::cout << "Robot says: " << pos.value() << std::endl;
+  return BT::NodeStatus::SUCCESS;
+
   ROS_INFO("navegacion tick");
   //return BT::NodeStatus::RUNNING;
   return BT::NodeStatus::SUCCESS;
+}
+
+BT::PortsList navegacion::providedPorts()
+{
+    return { BT::InputPort<std::string>("getpos") };
 }
 
 }  // namespace behavior_trees

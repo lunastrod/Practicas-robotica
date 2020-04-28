@@ -21,6 +21,7 @@ namespace gb_dialog
       std::string getresponse();
       std::string getparamname();
 
+
     private:
       ros::NodeHandle nh_;
       std::string intent_buscado = "Carry my luggage";

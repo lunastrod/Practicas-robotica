@@ -51,6 +51,7 @@ namespace gb_dialog
       intent_encontrado = result.intent.c_str();
       respuesta = result.fulfillment_text.c_str();
       param_name = result.parameters[0].param_name.c_str();
+
       //ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
         //ROS_INFO("%s",result.parameters[0].param_name.c_str());
       if(!result.intent.compare(intent_buscado)){
