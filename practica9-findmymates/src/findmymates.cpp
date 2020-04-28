@@ -57,9 +57,7 @@ int main(int argc, char **argv)
 
   ros::init(argc, argv, "behavior_tree");
   ros::NodeHandle n;
-  sound_play::SoundClient sc;
-  sc.say("hola");
-/*
+
 
   BT::BehaviorTreeFactory factory;
 
@@ -74,14 +72,13 @@ int main(int argc, char **argv)
   std::string xml_file = pkgpath + "/trees/findmymates.xml";
 
   BT::Tree tree = factory.createTreeFromFile(xml_file);
-*/
+
   ros::Rate loop_rate(1);
 
   bool finish = false;
   while (ros::ok() && !finish)
   {
     //finish = tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
-    sc.say("Hello world!");
     sleepok(2, n);
     ROS_INFO("aaa");
     ros::spinOnce();

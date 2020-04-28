@@ -21,7 +21,6 @@ class busca : public BT::ActionNodeBase
     BT::NodeStatus tick();
   private:
     ros::NodeHandle n;
-    ros::Publisher pub_lugar;
     std_msgs::String msg_lugar;
 
     bool esperando=true;

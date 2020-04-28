@@ -58,8 +58,7 @@ BT::NodeStatus busca::tick()
 
 
 //  ROS_INFO("[Robot]: objeto %s", objeto.c_str());
-
-  pub_lugar.publish(msg_lugar);
+  setOutput("pos", msg_lugar );
   ros::spinOnce();
   ROS_INFO("lugar elegido: %s\n",msg_lugar.data.c_str());
   return BT::NodeStatus::SUCCESS;
