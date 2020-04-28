@@ -34,6 +34,12 @@ BT::NodeStatus busca::tick()
   std::string str;
 
   if(esperando){
+    msg_lugar.data = "cocina";
+    setOutput("pos", msg_lugar );
+    ROS_INFO("lugar elegido: %s\n",msg_lugar.data.c_str());
+    return BT::NodeStatus::SUCCESS;//TODO:temp
+
+
     ROS_INFO("esperando una ubicacion");
 
     forwarder.listen();
