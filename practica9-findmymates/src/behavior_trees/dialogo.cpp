@@ -34,6 +34,14 @@ BT::NodeStatus dialogo::tick()
   std::string param_name;
   std::string str;
 
+
+
+  nombre="myname";
+  color="red";
+  setOutput("color", color );
+  setOutput("personname", nombre );
+  return BT::NodeStatus::SUCCESS;//TODO:temp
+
   if(esperando){
     ROS_INFO("esperando un nombre y color de camiseta");
 

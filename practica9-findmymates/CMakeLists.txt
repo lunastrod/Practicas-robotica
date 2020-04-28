@@ -43,7 +43,10 @@ add_executable(findmymates
   src/ejemploDF.cpp
 )
 
+add_executable(navp9 src/navp8.cpp)
+
 target_link_libraries(findmymates ${catkin_LIBRARIES})
+target_link_libraries(navp9 ${catkin_LIBRARIES})
 
 roslint_cpp(
  src/gototf.cpp
