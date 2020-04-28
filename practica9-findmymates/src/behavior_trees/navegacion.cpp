@@ -23,16 +23,14 @@ void navegacion::halt()
 
 BT::NodeStatus navegacion::tick()
 {
-  BT::Optional<std::string> msg = getInput<std::string>("getpos");
-  // Check if optional is valid. If not, throw its error
-  if (!msg)
+  BT::Optional<std::string> pos = getInput<std::string>("getpos");
+  if (!pos)
   {
     throw BT::RuntimeError("missing required input [message]: ",
-                         msg.error() );
+                         pos.error() );
   }
 
-  // use the method value() to extract the valid message.
-  std::cout << "Robot says: " << msg.value() << std::endl;
+  std::cout << "Robot says: " << pos.value() << std::endl;
   return BT::NodeStatus::SUCCESS;
 
   ROS_INFO("navegacion tick");
@@ -42,8 +40,6 @@ BT::NodeStatus navegacion::tick()
 
 BT::PortsList navegacion::providedPorts()
 {
-    // This action has a single input port called "message"
-    // Any port must have a name. The type is optional.
     return { BT::InputPort<std::string>("getpos") };
 }
 

@@ -12,10 +12,12 @@ namespace behavior_trees
 class informacion : public BT::ActionNodeBase
 {
   public:
-    explicit informacion(const std::string& name);
+    informacion(const std::string& name, const BT::NodeConfiguration& config);
 
-    void halt();
-    BT::NodeStatus tick();
+    static BT::PortsList providedPorts();
+
+    void halt() override;
+    BT::NodeStatus tick() override;
   private:
 };
 

@@ -10,7 +10,8 @@
 namespace behavior_trees
 {
 
-dialogo::dialogo(const std::string& name): BT::ActionNodeBase(name, {})
+dialogo::dialogo(const std::string& name, const BT::NodeConfiguration& config)
+  : ActionNodeBase(name, config)
 {
 
 }
@@ -23,8 +24,18 @@ void dialogo::halt()
 BT::NodeStatus dialogo::tick()
 {
   ROS_INFO("dialogo tick");
+  setOutput("color", "rojo" );
+  setOutput("personname", "minombre" );
   //return BT::NodeStatus::RUNNING;
   return BT::NodeStatus::SUCCESS;
+}
+
+BT::PortsList dialogo::providedPorts()
+{
+    return {
+      BT::OutputPort<std::string>("color"),
+      BT::OutputPort<std::string>("personname")
+    };
 }
 
 }  // namespace behavior_trees

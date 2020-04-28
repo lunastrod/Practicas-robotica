@@ -60,8 +60,6 @@ int main(int argc, char **argv)
   factory.registerNodeType<behavior_trees::saludo>("saludo");
   factory.registerNodeType<behavior_trees::vuelve>("vuelve");
 
-  
-
   std::string pkgpath = ros::package::getPath("practica9-findmymates");
   std::string xml_file = pkgpath + "/trees/findmymates.xml";
 
