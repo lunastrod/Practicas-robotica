@@ -6,6 +6,9 @@
 
 #include <string>
 
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+
 namespace behavior_trees
 {
 
@@ -19,6 +22,11 @@ class busca : public BT::ActionNodeBase
     void halt() override;
     BT::NodeStatus tick() override;
   private:
+    ros::NodeHandle n;
+    std_msgs::String msg_lugar;
+
+    bool esperando=true;
+    bool hablando=false;
 };
 
 }  // namespace behavior_trees

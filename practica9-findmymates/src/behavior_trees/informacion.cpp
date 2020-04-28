@@ -6,6 +6,7 @@
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ros/ros.h"
+#include "sound_play/sound_play.h"
 
 namespace behavior_trees
 {
@@ -42,6 +43,9 @@ BT::NodeStatus informacion::tick()
 
   ROS_INFO("informacion tick");
   //return BT::NodeStatus::RUNNING;
+  sound_play::SoundClient sc;
+  sc.say("");
+
   return BT::NodeStatus::SUCCESS;
 }
 

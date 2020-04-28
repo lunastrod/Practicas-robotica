@@ -5,6 +5,8 @@
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include <string>
+#include "ros/ros.h"
+#include "std_msgs/String.h"
 
 namespace behavior_trees
 {
@@ -19,6 +21,12 @@ class dialogo : public BT::ActionNodeBase
     void halt() override;
     BT::NodeStatus tick() override;
   private:
+    //ros::NodeHandle n;
+    std_msgs::String msg_color;
+    std_msgs::String msg_nombre;
+
+    bool esperando=true;
+    bool hablando=false;
 };
 
 }  // namespace behavior_trees

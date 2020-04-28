@@ -19,11 +19,14 @@ namespace gb_dialog
       std::string getintentfound();
       std::string getobject();
       std::string getresponse();
+      std::string getparamname();
+
 
     private:
       ros::NodeHandle nh_;
       std::string intent_buscado = "Carry my luggage";
       std::string intent_encontrado = "Null";
+      std::string param_name = "Null";
       //std::string intent_encontrado = "Carry my luggage";
       std::string objeto = "Null";
       std::string respuesta = "Null";
