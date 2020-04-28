@@ -42,11 +42,7 @@
         devuelve la informacion recogida al operador
   }
 */
-void sleepok(int t, ros::NodeHandle &nh)
-{
-  if (nh.ok())
-      sleep(t);
-}
+
 int main(int argc, char **argv)
 {
 

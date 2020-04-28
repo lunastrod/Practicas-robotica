@@ -7,9 +7,17 @@
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ejemploDF.h"
-
+#include <sound_play/sound_play.h>
+#include <unistd.h>
 
 #include <sstream>
+
+void sleepok(int t, ros::NodeHandle &nh)
+{
+  if (nh.ok())
+      sleep(t);
+}
+
 
 namespace behavior_trees
 {
@@ -19,6 +27,7 @@ dialogo::dialogo(const std::string& name, const BT::NodeConfiguration& config)
 {
 
 }
+
 
 void dialogo::halt()
 {
@@ -33,8 +42,12 @@ BT::NodeStatus dialogo::tick()
   //std::string color;
   std::string param_name;
   std::string str;
+  sound_play::SoundClient sc;
+  ros::NodeHandle nh;
   if(esperando){
     if(!nombre_conseguido){
+      sc.say("Hello. Whats your name?");
+      sleepok(2, nh);
       forwarder.setintent("dialogo-nombre");
       ROS_INFO("esperando un nombre");
 
@@ -56,6 +69,8 @@ BT::NodeStatus dialogo::tick()
       }
     }
     if(!color_conseguido){
+      sc.say("I need to know the color of your shirt.");
+      sleepok(2, nh);
       ROS_INFO("esperando un color de camiseta");
       forwarder.setintent("dialogo-color");
       forwarder.listen();
