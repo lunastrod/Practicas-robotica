@@ -53,13 +53,14 @@ namespace gb_dialog
 
 
       //ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
-        //ROS_INFO("%s",result.parameters[0].param_name.c_str());
+      ROS_INFO("%s %s",result.intent.c_str(), intent_buscado.c_str());
       if(!result.intent.compare(intent_buscado)){
         objeto = result.parameters[0].value[0];
         param_name = result.parameters[0].param_name.c_str();
       }
       else{
         objeto = "Null";
+        param_name = "Null";
       }
       //ROS_INFO("[ExampleDF] noIntentCB: param [%s]", objeto.c_str());
     }
@@ -72,6 +73,7 @@ namespace gb_dialog
 
     void ExampleDF::setintent(std::string str){
       intent_buscado = str;
+      ROS_INFO("intnt buscado %s ",intent_buscado.c_str());
     }
 
     std::string ExampleDF::getintentfound(){
