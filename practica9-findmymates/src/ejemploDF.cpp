@@ -53,8 +53,8 @@ namespace gb_dialog
 
 
       //ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
-      ROS_INFO("%s %s",result.intent.c_str(), intent_buscado.c_str());
-      if(!result.intent.compare(intent_buscado)){
+      ROS_INFO("%s %s %d",result.intent.c_str(), intent_buscado.c_str(), sizeof(result.parameters));
+      if(!result.intent.compare(intent_buscado) && (sizeof(result.parameters)/sizeof(result.parameters[0])>0)){
         objeto = result.parameters[0].value[0];
         param_name = result.parameters[0].param_name.c_str();
       }
@@ -62,6 +62,7 @@ namespace gb_dialog
         objeto = "Null";
         param_name = "Null";
       }
+      fprintf(stderr, "%s %s",result.intent.c_str(), intent_buscado.c_str());
       //ROS_INFO("[ExampleDF] noIntentCB: param [%s]", objeto.c_str());
     }
 
