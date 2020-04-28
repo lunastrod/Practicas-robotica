@@ -9,15 +9,15 @@
 namespace behavior_trees
 {
 
-class busca : public BT::SyncActionNode
+class busca : public BT::ActionNodeBase
 {
   public:
     busca(const std::string& name, const BT::NodeConfiguration& config);
 
     static BT::PortsList providedPorts();
 
-    //void halt();
-    BT::NodeStatus tick();
+    void halt() override;
+    BT::NodeStatus tick() override;
   private:
 };
 

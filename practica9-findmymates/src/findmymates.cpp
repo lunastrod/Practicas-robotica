@@ -60,11 +60,8 @@ int main(int argc, char **argv)
   factory.registerNodeType<behavior_trees::saludo>("saludo");
   factory.registerNodeType<behavior_trees::vuelve>("vuelve");
 
-/*
-  BT::PortsList say_something_ports = { BT::InputPort<std::string>("posicion") };
-  factory.registerSimpleAction("SaySomething2", SaySomethingSimple,
-                               say_something_ports );
-*/
+  
+
   std::string pkgpath = ros::package::getPath("practica9-findmymates");
   std::string xml_file = pkgpath + "/trees/findmymates.xml";
 

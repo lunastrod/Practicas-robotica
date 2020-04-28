@@ -11,21 +11,29 @@ namespace behavior_trees
 {
 
 navegacion::navegacion(const std::string& name, const BT::NodeConfiguration& config)
-  : SyncActionNode(name, config)
+  : ActionNodeBase(name, config)
 {
 
 }
-/*
+
 void navegacion::halt()
 {
   ROS_INFO("navegacion halt");
 }
-*/
+
 BT::NodeStatus navegacion::tick()
 {
-  setOutput("posicion", "cocina" );
-  return BT::NodeStatus::SUCCESS;
+  BT::Optional<std::string> msg = getInput<std::string>("getpos");
+  // Check if optional is valid. If not, throw its error
+  if (!msg)
+  {
+    throw BT::RuntimeError("missing required input [message]: ",
+                         msg.error() );
+  }
 
+  // use the method value() to extract the valid message.
+  std::cout << "Robot says: " << msg.value() << std::endl;
+  return BT::NodeStatus::SUCCESS;
 
   ROS_INFO("navegacion tick");
   //return BT::NodeStatus::RUNNING;
@@ -36,7 +44,7 @@ BT::PortsList navegacion::providedPorts()
 {
     // This action has a single input port called "message"
     // Any port must have a name. The type is optional.
-    return { BT::InputPort<std::string>("posicion") };
+    return { BT::InputPort<std::string>("getpos") };
 }
 
 }  // namespace behavior_trees
