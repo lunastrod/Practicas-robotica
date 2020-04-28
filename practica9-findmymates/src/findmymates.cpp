@@ -13,37 +13,32 @@
 
 /*
   saludo: dialog navegacion
-    -viaja a la posicion inicial
+    -viaja a la posicion del operador (guardada en constants.h)
     -espera a que el operador arranque
-    guarda la posicion inicial en variable de clase
-    outputs: posicion inicial
   secuencia busqueda
   {
       busca: dialog
         -recibe la posicion que dice el operador
         ejemplo: habitacion, salon, cocina
-        outputs: posicion objetivo
+        outputs: pos
 
       navegacion: navigation y darknet
         -va a la posicion que ha dicho el operador
-        inputs: posicion objetivo
+        inputs: getpos
 
       dialogo: dialog
         -habla con la persona que está en la posicion
         -recoge informacion de la persona
-        ejemplo: nombre, descripcion...
-        outputs: informacion personal?
+        outputs: personname color
 
       vuelve: navigation y darknet
-        -vuelve al operador
-        input:posicion inicial
+        -vuelve al operador (guardada en constants.h)
 
       informacion: dialog
         -habla con el operador
-        input: informacion personal?
+        input: getpersonname getcolor
         devuelve la informacion recogida al operador
   }
-
 */
 
 int main(int argc, char **argv)
