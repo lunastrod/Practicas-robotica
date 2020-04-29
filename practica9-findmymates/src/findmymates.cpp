@@ -73,7 +73,7 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(20);
 
   ros::Subscriber sub_fin = n.subscribe("/find_my_mates/finished",1,&callback);
-  while (ros::ok())// && !main_fin)
+  while (ros::ok() && !main_fin)
   {
     tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
     //sleepok(2, n);

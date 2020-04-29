@@ -35,9 +35,7 @@ void navegacion::running_callback(const std_msgs::Bool& running){
 }
 
 void navegacion::boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
-  //ROS_INFO("traza de boxes");
   if(!msg.bounding_boxes[0].Class.compare("person")){
-    //ROS_INFO("traza de persona encontrada");
     girando=false;
   }
 }

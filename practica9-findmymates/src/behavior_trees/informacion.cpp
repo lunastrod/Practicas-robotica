@@ -69,14 +69,15 @@ BT::NodeStatus informacion::tick()
   std::string str = forwarder.getintentfound();
   std::string text = forwarder.gettext();
 
+
   if(!str.compare("todo")){
     if(!text.compare("finish")){
       fin.data = true;
       stage_pub.publish(fin);
       ROS_INFO("[Robot]: %s", respuesta.c_str());
-      return BT::NodeStatus::FAILURE;
+      return BT::NodeStatus::SUCCESS;
     } else {
-      ROS_INFO("[Robot]: else %s", respuesta.c_str());
+      ROS_INFO("[Robot]: %s", respuesta.c_str());
       return BT::NodeStatus::FAILURE;
     }
   }/*else{
