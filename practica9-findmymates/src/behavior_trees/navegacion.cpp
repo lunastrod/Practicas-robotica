@@ -54,8 +54,8 @@ BT::NodeStatus navegacion::tick()
     goal.z=0;
   }
   if(lugar=="bedroom"){
-    goal.x=kitchen[0];
-    goal.y=kitchen[1];
+    goal.x=bedroom[0];
+    goal.y=bedroom[1];
     goal.z=0;
   }
   if(lugar=="living room"){
