@@ -24,7 +24,7 @@ class Navigator
     void goalscallback(const geometry_msgs::Point& msg){
       if(!running.data){
         currentgoal=msg;
-        ROS_INFO("[navigate_to_wp] msg recieved, current goal: (%f,%f,%f)",currentgoal.x,currentgoal.y,currentgoal.z);
+        //ROS_INFO("[navigate_to_wp] msg recieved, current goal: (%f,%f,%f)",currentgoal.x,currentgoal.y,currentgoal.z);
         goal_recieved_ = true;
       }
     }
@@ -40,7 +40,7 @@ class Navigator
         {
           actionlib::SimpleClientGoalState state = action_client_.getState();
           if (state == actionlib::SimpleClientGoalState::SUCCEEDED){
-            ROS_INFO("[navigate_to_wp] Goal Reached!");
+            //ROS_INFO("[navigate_to_wp] Goal Reached!");
             running.data=false;
             navigator_running_pub.publish(running);
           }
@@ -63,7 +63,7 @@ class Navigator
         goal_pose_.pose.orientation.z=0;
         goal_pose_.pose.orientation.w=1;
 
-        ROS_INFO("[navigate_to_wp] Commanding to (%f %f)", goal_pose_.pose.position.x, goal_pose_.pose.position.y);
+        //ROS_INFO("[navigate_to_wp] Commanding to (%f %f)", goal_pose_.pose.position.x, goal_pose_.pose.position.y);
 
         move_base_msgs::MoveBaseGoal goal;
         goal.target_pose = goal_pose_;

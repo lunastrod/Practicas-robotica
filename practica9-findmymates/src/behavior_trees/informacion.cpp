@@ -42,10 +42,10 @@ BT::NodeStatus informacion::tick()
                          name.error() );
   }
 
-  std::cout << "Robot says: " << color.value() << std::endl;
-  std::cout << "Robot says: " << name.value() << std::endl;
+  /*std::cout << "Robot says: " << color.value() << std::endl;
+  std::cout << "Robot says: " << name.value() << std::endl;*/
 
-  ROS_INFO("informacion tick");
+  //ROS_INFO("informacion tick");
   //return BT::NodeStatus::RUNNING;
   sound_play::SoundClient sc;
   std::string info = "There is ";
@@ -57,7 +57,7 @@ BT::NodeStatus informacion::tick()
 
 
   sc.say("What should i do now?");
-  ROS_INFO("[Robot]: %s", info.c_str());
+  ROS_INFO("[Robot]: What should i do now?");
 
 
   gb_dialog::ExampleDF forwarder;

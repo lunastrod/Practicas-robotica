@@ -21,7 +21,7 @@ vuelve::vuelve(const std::string& name): BT::ActionNodeBase(name, {})
 
 void vuelve::running_callback(const std_msgs::Bool& running){
   if(active && !running.data){
-    ROS_INFO("he llegado al objetivo\n");
+    //ROS_INFO("he llegado al objetivo\n");
     navegando=false;
   }
 }
@@ -44,7 +44,7 @@ BT::NodeStatus vuelve::tick()
 
   pub_goal.publish(goal);
   ros::spinOnce();
-  ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
+  //ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
   return BT::NodeStatus::RUNNING;
 
 }

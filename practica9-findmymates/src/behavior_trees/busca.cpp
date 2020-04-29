@@ -40,7 +40,7 @@ BT::NodeStatus busca::tick()
 */
 
   if(esperando){
-    ROS_INFO("esperando una ubicacion");
+    //ROS_INFO("esperando una ubicacion");
     forwarder.setintent(intnt_buscado);
     forwarder.listen();
     ros::spinOnce();
@@ -48,19 +48,16 @@ BT::NodeStatus busca::tick()
     str = forwarder.getintentfound();
     respuesta = forwarder.getresponse();
     lugar = forwarder.getobject();
-    ROS_INFO("[Robot]: detectado %s", str.c_str());
-    ROS_INFO("[Robot]: Lugar %s", lugar.c_str());
+    //ROS_INFO("[Robot]: detectado %s", str.c_str());
+    ROS_INFO("[Robot]: De camino a %s", lugar.c_str());
     if(!str.compare("Find my mates")){
       ros::spinOnce();
-      ROS_INFO("[Robot]: a por %s!", lugar.c_str());
       setOutput("pos", lugar );
       esperando=false;//TODO:temporal
     }
     return BT::NodeStatus::RUNNING;
   }
   if(hablando){//TODO: dialog flow intent
-
-    ROS_INFO("hablando");
     return BT::NodeStatus::RUNNING;
   }
   return BT::NodeStatus::SUCCESS;

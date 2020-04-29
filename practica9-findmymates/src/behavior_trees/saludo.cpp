@@ -20,14 +20,14 @@ saludo::saludo(const std::string& name): BT::ActionNodeBase(name, {})
 
 void saludo::running_callback(const std_msgs::Bool& running){
   if(active && !running.data){
-    ROS_INFO("he llegado al objetivo\n");
+    //ROS_INFO("he llegado al objetivo\n");
     navegando=false;
   }
 }
 
 void saludo::halt()
 {
-  ROS_INFO("saluda halt");
+  //ROS_INFO("saluda halt");
 }
 
 BT::NodeStatus saludo::tick()
@@ -40,12 +40,12 @@ BT::NodeStatus saludo::tick()
 
     pub_goal.publish(goal);
     ros::spinOnce();
-    ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
+    //ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
     esperando=true;
     return BT::NodeStatus::RUNNING;
   }
   if(esperando){
-    ROS_INFO("esperando saludo");
+    //ROS_INFO("[Robot]: esperando saludo");
     gb_dialog::ExampleDF forwarder;
     forwarder.listen();
     ros::spinOnce();
@@ -57,7 +57,7 @@ BT::NodeStatus saludo::tick()
     }
     return BT::NodeStatus::RUNNING;
   }
-  ROS_INFO("saludo terminado\n");
+  //ROS_INFO("saludo terminado\n");
   active=false;
   return BT::NodeStatus::SUCCESS;
 }

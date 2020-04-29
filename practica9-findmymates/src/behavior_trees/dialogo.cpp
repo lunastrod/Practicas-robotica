@@ -49,15 +49,17 @@ BT::NodeStatus dialogo::tick()
     if(!nombre_conseguido){
       sc.say("Hello. Whats your name?");
       sleepok(2, nh);
+      ROS_INFO("[Robot]: Hello. Whats your name?");
       forwarder.setintent("dialogo-nombre");
-      ROS_INFO("esperando un nombre");
+      //ROS_INFO("esperando un nombre");
 
       forwarder.listen();
       str = forwarder.getintentfound();
       respuesta = forwarder.getresponse();
       param_name = forwarder.getparamname();
 
-      ROS_INFO("[Robot]: detectado %s\n", str.c_str());
+      ROS_INFO("[Robot]: Nice to meet you,  %s\n", param_name.c_str());
+      sc.say("Nice to meet you,  %s\n", param_name.c_str());
       if(!str.compare("dialogo-nombre")){
         if(!param_name.compare("given-name")){
           msg_nombre = forwarder.getobject();
@@ -71,8 +73,8 @@ BT::NodeStatus dialogo::tick()
     }
     if(!color_conseguido){
       sc.say("I need to know the color of your shirt.");
-      sleepok(2, nh);
-      ROS_INFO("esperando un color de camiseta");
+      sleepok(1, nh);
+      //ROS_INFO("esperando un color de camiseta");
       forwarder.setintent("dialogo-color");
       forwarder.listen();
       str = forwarder.getintentfound();
@@ -82,7 +84,7 @@ BT::NodeStatus dialogo::tick()
         if(!param_name.compare("color")){
           msg_color = forwarder.getobject();
           setOutput("color", msg_color );
-          ROS_INFO("[Robot]: color %s\n", msg_color.c_str());
+          //ROS_INFO("[Robot]: color %s\n", msg_color.c_str());
           color_conseguido = true;
           esperando=false;//TODO:temporal
         }
@@ -92,7 +94,7 @@ BT::NodeStatus dialogo::tick()
   }
   if(hablando){//TODO: dialog flow intent
 
-    ROS_INFO("hablando");
+    //ROS_INFO("hablando");
     return BT::NodeStatus::RUNNING;
   }
 

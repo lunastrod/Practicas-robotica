@@ -29,15 +29,15 @@ navegacion::navegacion(const std::string& name, const BT::NodeConfiguration& con
 
 void navegacion::running_callback(const std_msgs::Bool& running){
   if(active && !running.data){
-    ROS_INFO("he llegado al objetivo\n");
+    //ROS_INFO("he llegado al objetivo\n");
     navegando=false;
   }
 }
 
 void navegacion::boxesCallBack(const darknet_ros_msgs::BoundingBoxes& msg){
-  ROS_INFO("traza de boxes");
+  //ROS_INFO("traza de boxes");
   if(!msg.bounding_boxes[0].Class.compare("person")){
-    ROS_INFO("traza de persona encontrada");
+    //ROS_INFO("traza de persona encontrada");
     girando=false;
   }
 }
@@ -59,7 +59,7 @@ BT::NodeStatus navegacion::tick()
                            pos.error() );
     }
     std::string lugar=pos.value();
-    std::cout << "current goal: " << lugar << std::endl;
+    //std::cout << "current goal: " << lugar << std::endl;
 
     if(lugar=="kitchen"){
       goal.x=kitchen[0];
@@ -78,7 +78,7 @@ BT::NodeStatus navegacion::tick()
     }
     pub_goal.publish(goal);
     ros::spinOnce();
-    ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
+    //ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
     return BT::NodeStatus::RUNNING;
   }
   if(!girando){

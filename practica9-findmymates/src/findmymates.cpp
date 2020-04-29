@@ -45,7 +45,7 @@
 bool fin = false;
 void callback(const std_msgs::Bool& fin){
   if(fin.data){
-    ROS_INFO("he terminado de ejecutar\n");
+    ROS_INFO("[Robot]: Good Bye!\n");
   }
 }
 
