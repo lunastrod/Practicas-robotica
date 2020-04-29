@@ -30,10 +30,10 @@ class saludo : public BT::ActionNodeBase
     geometry_msgs::Point goal;
     ros::Subscriber sub_running;
 
-    bool navegando=true;
-    bool active=false;
-    bool esperando=true;
-    bool hablando=false;
+    bool navegando=true;//1
+    bool active=false;//1-----3
+    bool esperando=false;//2
+    bool hablando=false;//3
 
 
 };

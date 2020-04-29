@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 
   BT::Tree tree = factory.createTreeFromFile(xml_file);
 
-  ros::Rate loop_rate(1);
+  ros::Rate loop_rate(20);
 
   ros::Subscriber sub_fin = n.subscribe("/find_my_mates/finished",1,&callback);
   while (ros::ok() && !fin)

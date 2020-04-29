@@ -41,22 +41,19 @@ BT::NodeStatus saludo::tick()
     pub_goal.publish(goal);
     ros::spinOnce();
     ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
-    return BT::NodeStatus::RUNNING;
-  }
-  else{
     esperando=true;
+    return BT::NodeStatus::RUNNING;
   }
   if(esperando){
     ROS_INFO("esperando saludo");
     gb_dialog::ExampleDF forwarder;
-    //forwarder.setintent("Default Welcome Intent");
     forwarder.listen();
     ros::spinOnce();
     std::string respuesta = forwarder.getresponse();
     std::string str = forwarder.getintentfound();
     if(!str.compare("Default Welcome Intent")){
       ROS_INFO("[Robot]: %s", respuesta.c_str());
-      esperando=false;//TODO:temporal
+      esperando=false;
     }
     return BT::NodeStatus::RUNNING;
   }
