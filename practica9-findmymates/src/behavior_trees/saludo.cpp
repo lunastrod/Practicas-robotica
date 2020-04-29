@@ -7,14 +7,22 @@
 #include "ejemploDF.h"
 #include "ros/ros.h"
 
-
+#include "constants.h"
 
 namespace behavior_trees
 {
 
 saludo::saludo(const std::string& name): BT::ActionNodeBase(name, {})
 {
+  pub_goal=n.advertise<geometry_msgs::Point>("/navigator/goals",1);
+  sub_running = n.subscribe("/navigator/isrunning",1,&saludo::running_callback, this);
+}
 
+void saludo::running_callback(const std_msgs::Bool& running){
+  if(active && !running.data){
+    ROS_INFO("he llegado al objetivo\n");
+    navegando=false;
+  }
 }
 
 void saludo::halt()
@@ -24,8 +32,20 @@ void saludo::halt()
 
 BT::NodeStatus saludo::tick()
 {
-  //return BT::NodeStatus::SUCCESS;//TODO:temp
+  active=true;
+  if(navegando){
+    goal.x=inicio[0];
+    goal.y=inicio[1];
+    goal.z=0;
 
+    pub_goal.publish(goal);
+    ros::spinOnce();
+    ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
+    return BT::NodeStatus::RUNNING;
+  }
+  else{
+    esperando=true;
+  }
   if(esperando){
     ROS_INFO("esperando saludo");
     gb_dialog::ExampleDF forwarder;
@@ -41,6 +61,7 @@ BT::NodeStatus saludo::tick()
     return BT::NodeStatus::RUNNING;
   }
   ROS_INFO("saludo terminado\n");
+  active=false;
   return BT::NodeStatus::SUCCESS;
 }
 
