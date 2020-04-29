@@ -46,8 +46,7 @@ BT::NodeStatus vuelve::tick()
   ros::spinOnce();
   ROS_INFO("%f,%f,%f", goal.x, goal.y, goal.z);
   return BT::NodeStatus::RUNNING;
-  //return BT::NodeStatus::RUNNING;
-  return BT::NodeStatus::SUCCESS;
+
 }
 
 }  // namespace behavior_trees
