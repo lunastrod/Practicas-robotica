@@ -34,6 +34,11 @@ BT::NodeStatus busca::tick()
   std::string str;
   std::string intnt_buscado = "Find my mates";
 
+  lugar="kitchen";
+  setOutput("pos", lugar );
+  return BT::NodeStatus::SUCCESS;//TODO:temp
+
+
   if(esperando){
     ROS_INFO("esperando una ubicacion");
     forwarder.setintent(intnt_buscado);

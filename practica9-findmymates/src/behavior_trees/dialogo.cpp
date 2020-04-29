@@ -44,6 +44,7 @@ BT::NodeStatus dialogo::tick()
   std::string str;
   sound_play::SoundClient sc;
   ros::NodeHandle nh;
+
   if(esperando){
     if(!nombre_conseguido){
       sc.say("Hello. Whats your name?");
