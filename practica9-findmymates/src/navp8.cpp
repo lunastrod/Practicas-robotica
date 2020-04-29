@@ -47,7 +47,7 @@ class Navigator
           else
             running.data=false;
             navigator_running_pub.publish(running);
-            ROS_INFO("[navigate_to_wp] Something bad happened!");
+            //ROS_INFO("[navigate_to_wp] Something bad happened!");
           goal_sent_ = false;
         }
       }
