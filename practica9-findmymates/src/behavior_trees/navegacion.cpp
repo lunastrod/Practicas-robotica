@@ -85,6 +85,8 @@ BT::NodeStatus navegacion::tick()
     motor.angular.z=0;
     pub_vel.publish(motor);
     ros::spinOnce();
+    navegando=true;
+    girando=false;
     active=false;
     return BT::NodeStatus::SUCCESS;
   }

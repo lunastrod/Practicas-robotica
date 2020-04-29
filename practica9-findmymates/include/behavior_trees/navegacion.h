@@ -39,7 +39,6 @@ class navegacion : public BT::ActionNodeBase
 
     bool navegando=true;
     bool girando=false;
-    //bool persona_encontrada=false;
     bool active=false;
 };
 
