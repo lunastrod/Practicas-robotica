@@ -20,6 +20,7 @@ namespace gb_dialog
       std::string getobject();
       std::string getresponse();
       std::string getparamname();
+      std::string gettext();
 
 
     private:
@@ -30,6 +31,7 @@ namespace gb_dialog
       //std::string intent_encontrado = "Carry my luggage";
       std::string objeto = "Null";
       std::string respuesta = "Null";
+      std::string reconocido = "Null";
     };
 }  // namespace gb_dialog
 #endif

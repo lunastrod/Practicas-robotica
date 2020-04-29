@@ -11,6 +11,8 @@
 #include "ros/ros.h"
 #include "sound_play/sound_play.h"
 
+
+
 namespace behavior_trees
 {
 
@@ -50,20 +52,29 @@ BT::NodeStatus informacion::tick()
   info = info + name.value();
   info = info + " and the shirt is ";
   info = info + color.value();
+  ROS_INFO("[Robot]: %s", info.c_str());
   sc.say(info);
+
+
+  sc.say("What should i do now?");
+  ROS_INFO("[Robot]: %s", info.c_str());
+
+
   gb_dialog::ExampleDF forwarder;
-  forwarder.setintent("Job is done");
+  //forwarder.setintent("todo");
   //forwarder.setintent("Default Welcome Intent");
   forwarder.listen();
   ros::spinOnce();
   std::string respuesta = forwarder.getresponse();
   std::string str = forwarder.getintentfound();
+  std::string text = forwarder.gettext();
 
-  if(!str.compare("Job is done")){
-    ROS_INFO("[Robot]: %s", respuesta.c_str());
+  if(!str.compare("todo") && !text.compare("finish")){
     fin.data = true;
     stage_pub.publish(fin);
-  }
+  } else if(str.compare("todo"))
+    return BT::NodeStatus::RUNNING;
+  ROS_INFO("[Robot]: %s", respuesta.c_str());
   return BT::NodeStatus::SUCCESS;
 }
 

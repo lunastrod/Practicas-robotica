@@ -22,6 +22,7 @@ string intent
 */
 
 
+
 namespace ph = std::placeholders;
 
 namespace gb_dialog
@@ -50,11 +51,12 @@ namespace gb_dialog
       //ROS_INFO("[ExampleDF] noIntentCB: intent [%s]", result.intent.c_str());
       intent_encontrado = result.intent.c_str();
       respuesta = result.fulfillment_text.c_str();
+      reconocido = result.query_text.c_str();
 
 
       //ROS_INFO("[ExampleDF] noIntentCB: response [%s]", respuesta);
-      ROS_INFO("%s %s %d",result.intent.c_str(), intent_buscado.c_str(), sizeof(result.parameters));
-      if(!result.intent.compare(intent_buscado) && (sizeof(result.parameters)/sizeof(result.parameters[0])>0)){
+      //ROS_INFO("%s %s %d",result.intent.c_str(), intent_buscado.c_str(), sizeof(result.parameters));
+      if(!result.intent.compare(intent_buscado)){
         objeto = result.parameters[0].value[0];
         param_name = result.parameters[0].param_name.c_str();
       }
@@ -98,6 +100,15 @@ namespace gb_dialog
       //respuesta = "Null";
       return result;
     }
+
+    std::string ExampleDF::gettext(){
+      ros::spinOnce();
+      std::string result = reconocido;
+      //ROS_INFO("[ExampleDF] getresponse [%s]", respuesta.c_str());
+      //respuesta = "Null";
+      return result;
+    }
+
 
     std::string ExampleDF::getparamname(){
       ros::spinOnce();
