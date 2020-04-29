@@ -1,18 +1,39 @@
 <?xml version="1.0"?>
 <root main_tree_to_execute="BehaviorTree">
-    <!-- ////////// name="{name}" color="{color}"
-getname="{name}" getcolor="{color}
-  -->
+    <!-- ////////// -->
     <BehaviorTree ID="BehaviorTree">
         <Sequence name="main">
             <Action ID="saludo"/>
-            <Sequence name="busqueda">
-                <Action ID="busca" pos="{position}"/>
-                <Action ID="navegacion" getpos="{position}"/>
-                <Action ID="dialogo" personname="{personname}" color="{color}"/>
-                <Action ID="vuelve" />
-                <Action ID="informacion" getpersonname="{personname}" getcolor="{color}"/>
-            </Sequence>
+            <RetryUntilSuccesful num_attempts="3">
+                <Sequence name="busqueda">
+                    <Action ID="busca" pos="{position}"/>
+                    <Action ID="navegacion" getpos="{position}"/>
+                    <Action ID="dialogo" color="{color}" personname="{personname}"/>
+                    <Action ID="vuelve"/>
+                    <Action ID="informacion" getcolor="{color}" getpersonname="{personname}"/>
+                </Sequence>
+            </RetryUntilSuccesful>
         </Sequence>
     </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="busca">
+            <inout_port name="pos"/>
+        </Action>
+        <Action ID="dialogo">
+            <inout_port name="color"/>
+            <inout_port name="personname"/>
+        </Action>
+        <Action ID="informacion">
+            <inout_port name="getcolor"/>
+            <inout_port name="getpersonname"/>
+        </Action>
+        <Action ID="navegacion">
+            <inout_port name="getpos"/>
+        </Action>
+        <Action ID="saludo"/>
+        <Action ID="vuelve"/>
+    </TreeNodesModel>
+    <!-- ////////// -->
 </root>
+

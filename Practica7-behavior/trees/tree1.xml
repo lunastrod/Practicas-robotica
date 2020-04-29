@@ -7,11 +7,4 @@
             <Action ID="turn"/>
         </Sequence>
     </BehaviorTree>
-    <!-- ////////// -->
-    <TreeNodesModel>
-        <Action ID="go"/>
-        <Action ID="turn"/>
-    </TreeNodesModel>
-    <!-- ////////// -->
 </root>
-

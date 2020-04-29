@@ -32,7 +32,8 @@ BT::NodeStatus go::tick()
   else
   {
     //stop moving
-    return BT::NodeStatus::SUCCESS;
+    counter_=0;
+    return BT::NodeStatus::FAILURE;
   }
 }
 

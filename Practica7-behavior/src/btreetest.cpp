@@ -26,10 +26,9 @@ int main(int argc, char **argv)
 
   int count = 0;
 
-  bool finish = false;
-  while (ros::ok() && !finish)
+  while (ros::ok())
   {
-    finish = tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
+    tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
 
     ros::spinOnce();
     loop_rate.sleep();

@@ -32,7 +32,8 @@ BT::NodeStatus turn::tick()
   else
   {
     //stop turning
-    return BT::NodeStatus::SUCCESS;
+    counter_=0;
+    return BT::NodeStatus::FAILURE;
   }
 }
 
