@@ -104,6 +104,10 @@ BT::NodeStatus dialogo::tick()
 
   ros::spinOnce();
   //ROS_INFO("lugar elegido: %s\n",msg_lugar.data.c_str());
+  nombre_conseguido = false;
+  color_conseguido = false;
+  esperando=true;
+  hablando=false;
   return BT::NodeStatus::SUCCESS;
 }
 

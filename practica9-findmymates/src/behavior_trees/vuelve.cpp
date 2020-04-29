@@ -36,6 +36,8 @@ BT::NodeStatus vuelve::tick()
   active=true;
   if(!navegando){
     active=false;
+    navegando=true;
+    active=false;
     return BT::NodeStatus::SUCCESS;
   }
   goal.x=inicio[0];

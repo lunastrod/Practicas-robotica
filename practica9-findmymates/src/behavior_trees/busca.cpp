@@ -60,6 +60,8 @@ BT::NodeStatus busca::tick()
   if(hablando){//TODO: dialog flow intent
     return BT::NodeStatus::RUNNING;
   }
+  esperando=true;
+  hablando=false;
   return BT::NodeStatus::SUCCESS;
 }
 

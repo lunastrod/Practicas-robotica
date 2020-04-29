@@ -59,6 +59,9 @@ BT::NodeStatus saludo::tick()
   }
   //ROS_INFO("saludo terminado\n");
   active=false;
+  navegando=true;//1
+  esperando=false;//2
+  hablando=false;//3
   return BT::NodeStatus::SUCCESS;
 }
 
