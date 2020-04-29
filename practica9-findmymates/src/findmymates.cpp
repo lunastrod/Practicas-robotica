@@ -42,11 +42,14 @@
         devuelve la informacion recogida al operador
   }
 */
-void sleepok(int t, ros::NodeHandle &nh)
-{
-  if (nh.ok())
-      sleep(t);
+bool fin = false;
+void callback(const std_msgs::Bool& fin){
+  if(fin.data){
+    ROS_INFO("he terminado de ejecutar\n");
+  }
 }
+
+
 int main(int argc, char **argv)
 {
 
@@ -70,7 +73,8 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(1);
 
-  while (ros::ok())
+  ros::Subscriber sub_fin = n.subscribe("/find_my_mates/finished",1,&callback);
+  while (ros::ok() && !fin)
   {
     tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
     //sleepok(2, n);

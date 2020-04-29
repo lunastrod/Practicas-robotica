@@ -32,17 +32,19 @@ BT::NodeStatus busca::tick()
   std::string respuesta;
   std::string lugar;
   std::string str;
-
+  std::string intnt_buscado = "Find my mates";
+/*
   lugar="kitchen";
   setOutput("pos", lugar );
   return BT::NodeStatus::SUCCESS;//TODO:temp
-
+*/
 
   if(esperando){
     ROS_INFO("esperando una ubicacion");
-
+    forwarder.setintent(intnt_buscado);
     forwarder.listen();
     ros::spinOnce();
+
     str = forwarder.getintentfound();
     respuesta = forwarder.getresponse();
     lugar = forwarder.getobject();
@@ -51,6 +53,7 @@ BT::NodeStatus busca::tick()
     if(!str.compare("Find my mates")){
       ros::spinOnce();
       ROS_INFO("[Robot]: a por %s!", lugar.c_str());
+      setOutput("pos", lugar );
       esperando=false;//TODO:temporal
     }
     return BT::NodeStatus::RUNNING;
@@ -60,12 +63,6 @@ BT::NodeStatus busca::tick()
     ROS_INFO("hablando");
     return BT::NodeStatus::RUNNING;
   }
-
-
-//  ROS_INFO("[Robot]: objeto %s", objeto.c_str());
-  setOutput("pos", lugar );
-  ROS_INFO("lugar elegido: %s\n",lugar.c_str());
-
   return BT::NodeStatus::SUCCESS;
 }
 

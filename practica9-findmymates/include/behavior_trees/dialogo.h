@@ -25,6 +25,8 @@ class dialogo : public BT::ActionNodeBase
     std::string msg_color;
     std::string msg_nombre;
 
+    bool nombre_conseguido = false;
+    bool color_conseguido = false;
     bool esperando=true;
     bool hablando=false;
 };

@@ -1,8 +1,4 @@
 <launch>
-<!--
-  <node name="busqueda"       pkg="practica8-dialogflow"      type="busqueda"     output="screen"/>
   <node name="nav"            pkg="practica8-dialogflow"      type="nav"          output="screen"/>
--->
   <node name="findmymates"   pkg="practica9-findmymates"      type="findmymates" output="screen"/>
-
 </launch>
