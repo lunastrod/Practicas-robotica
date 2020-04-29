@@ -5,3 +5,16 @@ navegación:
 busqueda:
   como se saca info de un pointcloud2?
   está bien?
+
+####
+Textos que dialog reconoce bien para probar esta práctica:
+1. Hello/Hi
+2. Search in @lugar
+3. My name is @nombre
+4. The color is @color
+5. keep going / finish
+
+colores: cualquier color parece que lo detecta bien
+nombres: estoy usando "Alex", "Fran", "David"
+Lugares: Los guardados en el código, kitchen, bedroom, living_room
+####
