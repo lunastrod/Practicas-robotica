@@ -49,7 +49,7 @@ BT::NodeStatus busca::tick()
     respuesta = forwarder.getresponse();
     lugar = forwarder.getobject();
     //ROS_INFO("[Robot]: detectado %s", str.c_str());
-    ROS_INFO("[Robot]: De camino a %s", lugar.c_str());
+    ROS_INFO("[Robot]: Going to the %s", lugar.c_str());
     if(!str.compare("Find my mates")){
       ros::spinOnce();
       setOutput("pos", lugar );

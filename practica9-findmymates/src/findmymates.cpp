@@ -42,11 +42,10 @@
         devuelve la informacion recogida al operador
   }
 */
-bool fin = false;
+bool main_fin = false;
 void callback(const std_msgs::Bool& fin){
-  if(fin.data){
-    ROS_INFO("[Robot]: Good Bye!\n");
-  }
+  main_fin = fin.data;
+  ROS_INFO("[Robot]: Good Bye!\n");
 }
 
 
@@ -74,7 +73,7 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(20);
 
   ros::Subscriber sub_fin = n.subscribe("/find_my_mates/finished",1,&callback);
-  while (ros::ok() && !fin)
+  while (ros::ok())// && !main_fin)
   {
     tree.root_node->executeTick() == BT::NodeStatus::SUCCESS;
     //sleepok(2, n);

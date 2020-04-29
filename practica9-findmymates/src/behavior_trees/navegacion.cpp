@@ -90,6 +90,7 @@ BT::NodeStatus navegacion::tick()
   }
   else{
     motor.angular.z=0.5;
+    sleep(1);
     pub_vel.publish(motor);
     ros::spinOnce();
     return BT::NodeStatus::RUNNING;

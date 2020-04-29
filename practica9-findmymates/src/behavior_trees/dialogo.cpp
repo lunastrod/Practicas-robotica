@@ -74,7 +74,7 @@ BT::NodeStatus dialogo::tick()
     if(!color_conseguido){
       sc.say("I need to know the color of your shirt.");
       sleepok(1, nh);
-      //ROS_INFO("esperando un color de camiseta");
+      ROS_INFO("[Robot]: I need to know the color of your shirt.");
       forwarder.setintent("dialogo-color");
       forwarder.listen();
       str = forwarder.getintentfound();

@@ -69,13 +69,23 @@ BT::NodeStatus informacion::tick()
   std::string str = forwarder.getintentfound();
   std::string text = forwarder.gettext();
 
-  if(!str.compare("todo") && !text.compare("finish")){
-    fin.data = true;
-    stage_pub.publish(fin);
-  } else if(str.compare("todo"))
+  if(!str.compare("todo")){
+    if(!text.compare("finish")){
+      fin.data = true;
+      stage_pub.publish(fin);
+      ROS_INFO("[Robot]: %s", respuesta.c_str());
+      return BT::NodeStatus::FAILURE;
+    } else {
+      ROS_INFO("[Robot]: else %s", respuesta.c_str());
+      return BT::NodeStatus::FAILURE;
+    }
+  }/*else{
+    ROS_INFO("[Robot]: isghdavilbdapuiohadg9u");
     return BT::NodeStatus::RUNNING;
-  ROS_INFO("[Robot]: %s", respuesta.c_str());
-  return BT::NodeStatus::SUCCESS;
+  }*/
+  /*ROS_INFO("[Robot]: %s", respuesta.c_str());
+  return BT::NodeStatus::SUCCESS;*/
+  return BT::NodeStatus::RUNNING;
 }
 
 BT::PortsList informacion::providedPorts()
